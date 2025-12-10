@@ -241,6 +241,352 @@
                             <li><input type="checkbox" onchange="updateProgress()"> Know when Kruskal vs Prim is better</li>
                             <li><input type="checkbox" onchange="updateProgress()"> Review problem sets ps4-ps5</li>
                         </ul>
+
+                        <div class="subtopic" style="margin-top: 40px;">
+                            <h3>Interactive MST Practice - Fill in the Blanks!</h3>
+                            <p style="color: #555; margin-bottom: 20px;">Click edges in the order they would be added to the MST. Test your understanding of both algorithms!</p>
+
+                            <!-- Prim's Algorithm Exercise -->
+                            <div class="trace-exercise">
+                                <h4>Exercise 1: Prim's Algorithm (Starting from vertex A)</h4>
+                                <p><strong>Instructions:</strong> Click edges in the order Prim's algorithm would add them to the MST. Start from vertex A.</p>
+
+                                <svg width="600" height="400" viewBox="0 0 600 400" style="background: #f8f9fa; border-radius: 8px; margin: 20px 0;">
+                                    <!-- Define edges with weights -->
+                                    <!-- Edge A-B (weight 4) -->
+                                    <line id="prim-edge-AB" x1="100" y1="100" x2="250" y2="100" stroke="#ccc" stroke-width="3" style="cursor: pointer;" onclick="selectPrimEdge('AB', 4, 1)"/>
+                                    <text x="175" y="90" fill="#0d47a1" font-weight="bold">4</text>
+
+                                    <!-- Edge A-C (weight 2) -->
+                                    <line id="prim-edge-AC" x1="100" y1="100" x2="100" y2="250" stroke="#ccc" stroke-width="3" style="cursor: pointer;" onclick="selectPrimEdge('AC', 2, 0)"/>
+                                    <text x="75" y="175" fill="#0d47a1" font-weight="bold">2</text>
+
+                                    <!-- Edge B-C (weight 5) -->
+                                    <line id="prim-edge-BC" x1="250" y1="100" x2="100" y2="250" stroke="#ccc" stroke-width="3" style="cursor: pointer;" onclick="selectPrimEdge('BC', 5, -1)"/>
+                                    <text x="150" y="190" fill="#0d47a1" font-weight="bold">5</text>
+
+                                    <!-- Edge B-D (weight 1) -->
+                                    <line id="prim-edge-BD" x1="250" y1="100" x2="400" y2="100" stroke="#ccc" stroke-width="3" style="cursor: pointer;" onclick="selectPrimEdge('BD', 1, 2)"/>
+                                    <text x="325" y="90" fill="#0d47a1" font-weight="bold">1</text>
+
+                                    <!-- Edge B-E (weight 7) -->
+                                    <line id="prim-edge-BE" x1="250" y1="100" x2="250" y2="250" stroke="#ccc" stroke-width="3" style="cursor: pointer;" onclick="selectPrimEdge('BE', 7, -1)"/>
+                                    <text x="260" y="175" fill="#0d47a1" font-weight="bold">7</text>
+
+                                    <!-- Edge C-E (weight 3) -->
+                                    <line id="prim-edge-CE" x1="100" y1="250" x2="250" y2="250" stroke="#ccc" stroke-width="3" style="cursor: pointer;" onclick="selectPrimEdge('CE', 3, 1)"/>
+                                    <text x="175" y="270" fill="#0d47a1" font-weight="bold">3</text>
+
+                                    <!-- Edge D-E (weight 6) -->
+                                    <line id="prim-edge-DE" x1="400" y1="100" x2="250" y2="250" stroke="#ccc" stroke-width="3" style="cursor: pointer;" onclick="selectPrimEdge('DE', 6, -1)"/>
+                                    <text x="310" y="190" fill="#0d47a1" font-weight="bold">6</text>
+
+                                    <!-- Edge D-F (weight 8) -->
+                                    <line id="prim-edge-DF" x1="400" y1="100" x2="500" y2="200" stroke="#ccc" stroke-width="3" style="cursor: pointer;" onclick="selectPrimEdge('DF', 8, 4)"/>
+                                    <text x="460" y="140" fill="#0d47a1" font-weight="bold">8</text>
+
+                                    <!-- Edge E-F (weight 9) -->
+                                    <line id="prim-edge-EF" x1="250" y1="250" x2="500" y2="200" stroke="#ccc" stroke-width="3" style="cursor: pointer;" onclick="selectPrimEdge('EF', 9, -1)"/>
+                                    <text x="370" y="240" fill="#0d47a1" font-weight="bold">9</text>
+
+                                    <!-- Vertices (drawn on top) -->
+                                    <circle cx="100" cy="100" r="25" fill="#42a5f5"/>
+                                    <text x="100" y="105" text-anchor="middle" fill="white" font-weight="bold" font-size="18">A</text>
+
+                                    <circle cx="250" cy="100" r="25" fill="#42a5f5"/>
+                                    <text x="250" y="105" text-anchor="middle" fill="white" font-weight="bold" font-size="18">B</text>
+
+                                    <circle cx="100" cy="250" r="25" fill="#42a5f5"/>
+                                    <text x="100" y="255" text-anchor="middle" fill="white" font-weight="bold" font-size="18">C</text>
+
+                                    <circle cx="400" cy="100" r="25" fill="#42a5f5"/>
+                                    <text x="400" y="105" text-anchor="middle" fill="white" font-weight="bold" font-size="18">D</text>
+
+                                    <circle cx="250" cy="250" r="25" fill="#42a5f5"/>
+                                    <text x="250" y="255" text-anchor="middle" fill="white" font-weight="bold" font-size="18">E</text>
+
+                                    <circle cx="500" cy="200" r="25" fill="#42a5f5"/>
+                                    <text x="500" y="205" text-anchor="middle" fill="white" font-weight="bold" font-size="18">F</text>
+                                </svg>
+
+                                <div id="prim-selection-order" style="margin: 20px 0; padding: 15px; background: #e3f2fd; border-radius: 8px;">
+                                    <strong>Your selections:</strong> <span id="prim-selections">None yet</span>
+                                </div>
+
+                                <button onclick="checkPrimAnswer()" style="background: #1565c0; color: white; border: none; padding: 12px 24px; border-radius: 4px; cursor: pointer; font-size: 16px; margin-right: 10px;">Check Answer</button>
+                                <button onclick="resetPrimExercise()" style="background: #666; color: white; border: none; padding: 12px 24px; border-radius: 4px; cursor: pointer; font-size: 16px;">Reset</button>
+
+                                <div id="prim-feedback" style="margin-top: 20px; padding: 15px; border-radius: 8px; display: none;"></div>
+
+                                <div class="answer-reveal" style="margin-top: 20px;">
+                                    <button onclick="toggleAnswer('prim-answer')" style="background: #0d47a1; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;">Show/Hide Solution</button>
+                                    <div id="prim-answer" class="answer-content">
+                                        <h4>Correct Order for Prim's Algorithm (from A):</h4>
+                                        <ol>
+                                            <li><strong>A-C (weight 2):</strong> Start from A, minimum edge from A is A-C</li>
+                                            <li><strong>C-E (weight 3):</strong> Tree is {A,C}. Min edge to new vertex is C-E</li>
+                                            <li><strong>A-B (weight 4):</strong> Tree is {A,C,E}. Min edge to new vertex is A-B</li>
+                                            <li><strong>B-D (weight 1):</strong> Tree is {A,B,C,E}. Min edge to new vertex is B-D</li>
+                                            <li><strong>D-F (weight 8):</strong> Tree is {A,B,C,D,E}. Only option to reach F is D-F</li>
+                                        </ol>
+                                        <p><strong>Total MST weight:</strong> 2 + 3 + 4 + 1 + 8 = <strong>18</strong></p>
+                                        <p><em>Note: Prim's grows the MST from a single vertex, always choosing the minimum-weight edge that connects the tree to a new vertex.</em></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Kruskal's Algorithm Exercise -->
+                            <div class="trace-exercise" style="margin-top: 40px;">
+                                <h4>Exercise 2: Kruskal's Algorithm (Same Graph)</h4>
+                                <p><strong>Instructions:</strong> Click edges in the order Kruskal's algorithm would add them. Remember: sort by weight, add if no cycle!</p>
+
+                                <svg width="600" height="400" viewBox="0 0 600 400" style="background: #f8f9fa; border-radius: 8px; margin: 20px 0;">
+                                    <!-- Same graph structure -->
+                                    <!-- Edge A-B (weight 4) -->
+                                    <line id="kruskal-edge-AB" x1="100" y1="100" x2="250" y2="100" stroke="#ccc" stroke-width="3" style="cursor: pointer;" onclick="selectKruskalEdge('AB', 4, 2)"/>
+                                    <text x="175" y="90" fill="#0d47a1" font-weight="bold">4</text>
+
+                                    <!-- Edge A-C (weight 2) -->
+                                    <line id="kruskal-edge-AC" x1="100" y1="100" x2="100" y2="250" stroke="#ccc" stroke-width="3" style="cursor: pointer;" onclick="selectKruskalEdge('AC', 2, 1)"/>
+                                    <text x="75" y="175" fill="#0d47a1" font-weight="bold">2</text>
+
+                                    <!-- Edge B-C (weight 5) -->
+                                    <line id="kruskal-edge-BC" x1="250" y1="100" x2="100" y2="250" stroke="#ccc" stroke-width="3" style="cursor: pointer;" onclick="selectKruskalEdge('BC', 5, -1)"/>
+                                    <text x="150" y="190" fill="#0d47a1" font-weight="bold">5</text>
+
+                                    <!-- Edge B-D (weight 1) -->
+                                    <line id="kruskal-edge-BD" x1="250" y1="100" x2="400" y2="100" stroke="#ccc" stroke-width="3" style="cursor: pointer;" onclick="selectKruskalEdge('BD', 1, 0)"/>
+                                    <text x="325" y="90" fill="#0d47a1" font-weight="bold">1</text>
+
+                                    <!-- Edge B-E (weight 7) -->
+                                    <line id="kruskal-edge-BE" x1="250" y1="100" x2="250" y2="250" stroke="#ccc" stroke-width="3" style="cursor: pointer;" onclick="selectKruskalEdge('BE', 7, -1)"/>
+                                    <text x="260" y="175" fill="#0d47a1" font-weight="bold">7</text>
+
+                                    <!-- Edge C-E (weight 3) -->
+                                    <line id="kruskal-edge-CE" x1="100" y1="250" x2="250" y2="250" stroke="#ccc" stroke-width="3" style="cursor: pointer;" onclick="selectKruskalEdge('CE', 3, 3)"/>
+                                    <text x="175" y="270" fill="#0d47a1" font-weight="bold">3</text>
+
+                                    <!-- Edge D-E (weight 6) -->
+                                    <line id="kruskal-edge-DE" x1="400" y1="100" x2="250" y2="250" stroke="#ccc" stroke-width="3" style="cursor: pointer;" onclick="selectKruskalEdge('DE', 6, -1)"/>
+                                    <text x="310" y="190" fill="#0d47a1" font-weight="bold">6</text>
+
+                                    <!-- Edge D-F (weight 8) -->
+                                    <line id="kruskal-edge-DF" x1="400" y1="100" x2="500" y2="200" stroke="#ccc" stroke-width="3" style="cursor: pointer;" onclick="selectKruskalEdge('DF', 8, 4)"/>
+                                    <text x="460" y="140" fill="#0d47a1" font-weight="bold">8</text>
+
+                                    <!-- Edge E-F (weight 9) -->
+                                    <line id="kruskal-edge-EF" x1="250" y1="250" x2="500" y2="200" stroke="#ccc" stroke-width="3" style="cursor: pointer;" onclick="selectKruskalEdge('EF', 9, -1)"/>
+                                    <text x="370" y="240" fill="#0d47a1" font-weight="bold">9</text>
+
+                                    <!-- Vertices -->
+                                    <circle cx="100" cy="100" r="25" fill="#4caf50"/>
+                                    <text x="100" y="105" text-anchor="middle" fill="white" font-weight="bold" font-size="18">A</text>
+
+                                    <circle cx="250" cy="100" r="25" fill="#4caf50"/>
+                                    <text x="250" y="105" text-anchor="middle" fill="white" font-weight="bold" font-size="18">B</text>
+
+                                    <circle cx="100" cy="250" r="25" fill="#4caf50"/>
+                                    <text x="100" y="255" text-anchor="middle" fill="white" font-weight="bold" font-size="18">C</text>
+
+                                    <circle cx="400" cy="100" r="25" fill="#4caf50"/>
+                                    <text x="400" y="105" text-anchor="middle" fill="white" font-weight="bold" font-size="18">D</text>
+
+                                    <circle cx="250" cy="250" r="25" fill="#4caf50"/>
+                                    <text x="250" y="255" text-anchor="middle" fill="white" font-weight="bold" font-size="18">E</text>
+
+                                    <circle cx="500" cy="200" r="25" fill="#4caf50"/>
+                                    <text x="500" y="205" text-anchor="middle" fill="white" font-weight="bold" font-size="18">F</text>
+                                </svg>
+
+                                <div id="kruskal-selection-order" style="margin: 20px 0; padding: 15px; background: #e8f5e9; border-radius: 8px;">
+                                    <strong>Your selections:</strong> <span id="kruskal-selections">None yet</span>
+                                </div>
+
+                                <button onclick="checkKruskalAnswer()" style="background: #2e7d32; color: white; border: none; padding: 12px 24px; border-radius: 4px; cursor: pointer; font-size: 16px; margin-right: 10px;">Check Answer</button>
+                                <button onclick="resetKruskalExercise()" style="background: #666; color: white; border: none; padding: 12px 24px; border-radius: 4px; cursor: pointer; font-size: 16px;">Reset</button>
+
+                                <div id="kruskal-feedback" style="margin-top: 20px; padding: 15px; border-radius: 8px; display: none;"></div>
+
+                                <div class="answer-reveal" style="margin-top: 20px;">
+                                    <button onclick="toggleAnswer('kruskal-answer')" style="background: #1b5e20; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;">Show/Hide Solution</button>
+                                    <div id="kruskal-answer" class="answer-content">
+                                        <h4>Correct Order for Kruskal's Algorithm:</h4>
+                                        <p><strong>Step 1:</strong> Sort all edges by weight:</p>
+                                        <p style="margin-left: 20px;">B-D(1), A-C(2), C-E(3), A-B(4), B-C(5), D-E(6), B-E(7), D-F(8), E-F(9)</p>
+                                        <p><strong>Step 2:</strong> Add edges in order, skipping those that create cycles:</p>
+                                        <ol>
+                                            <li><strong>B-D (weight 1):</strong> Add (no cycle possible yet)</li>
+                                            <li><strong>A-C (weight 2):</strong> Add (connects new components)</li>
+                                            <li><strong>A-B (weight 4):</strong> Add (connects {A,C} and {B,D})</li>
+                                            <li><strong>C-E (weight 3):</strong> Add (E is new vertex)</li>
+                                            <li><strong>D-F (weight 8):</strong> Add (F is new vertex, now have 5 edges = V-1)</li>
+                                        </ol>
+                                        <p><strong>Skipped edges:</strong> B-C(5), D-E(6), B-E(7), E-F(9) - all would create cycles</p>
+                                        <p><strong>Total MST weight:</strong> 1 + 2 + 4 + 3 + 8 = <strong>18</strong></p>
+                                        <p><em>Note: Kruskal's processes edges by weight globally, using Union-Find to detect cycles.</em></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Comparison Note -->
+                            <div class="practice-tip" style="margin-top: 30px;">
+                                <h4>Key Observation:</h4>
+                                <p>Both algorithms produce the same MST (total weight 18) but add edges in <strong>different orders</strong>:</p>
+                                <ul>
+                                    <li><strong>Prim's:</strong> Grows from vertex A: A-C, C-E, A-B, B-D, D-F</li>
+                                    <li><strong>Kruskal's:</strong> Sorts by weight globally: B-D, A-C, A-B, C-E, D-F</li>
+                                </ul>
+                                <p>Both are correct! The MST is the same, but the construction process differs.</p>
+                            </div>
+                        </div>
+
+                        <script>
+                            // Prim's algorithm exercise logic
+                            let primSelections = [];
+                            const primCorrectOrder = ['AC', 'CE', 'AB', 'BD', 'DF'];
+
+                            function selectPrimEdge(edge, weight, correctIndex) {
+                                if (primSelections.includes(edge)) {
+                                    alert('You already selected this edge!');
+                                    return;
+                                }
+
+                                primSelections.push(edge);
+                                document.getElementById('prim-edge-' + edge).setAttribute('stroke', '#ff6b6b');
+                                document.getElementById('prim-edge-' + edge).setAttribute('stroke-width', '5');
+
+                                updatePrimDisplay();
+                            }
+
+                            function updatePrimDisplay() {
+                                const display = primSelections.map((edge, idx) => `${idx + 1}. ${edge}`).join(', ');
+                                document.getElementById('prim-selections').textContent = display || 'None yet';
+                            }
+
+                            function checkPrimAnswer() {
+                                const feedback = document.getElementById('prim-feedback');
+                                feedback.style.display = 'block';
+
+                                if (primSelections.length !== 5) {
+                                    feedback.style.background = '#fff3cd';
+                                    feedback.style.color = '#856404';
+                                    feedback.innerHTML = '<strong>Not complete!</strong> You need to select exactly 5 edges for the MST (V-1 edges for 6 vertices).';
+                                    return;
+                                }
+
+                                let allCorrect = true;
+                                let feedbackHTML = '<strong>Results:</strong><ul>';
+
+                                for (let i = 0; i < primSelections.length; i++) {
+                                    const isCorrect = primSelections[i] === primCorrectOrder[i];
+                                    allCorrect = allCorrect && isCorrect;
+                                    feedbackHTML += `<li>Step ${i + 1}: ${primSelections[i]} - ${isCorrect ? '✓ Correct!' : '✗ Should be ' + primCorrectOrder[i]}</li>`;
+                                }
+
+                                feedbackHTML += '</ul>';
+
+                                if (allCorrect) {
+                                    feedback.style.background = '#d4edda';
+                                    feedback.style.color = '#155724';
+                                    feedbackHTML = '<strong>Perfect! 🎉</strong> You correctly traced Prim\'s algorithm!' + feedbackHTML;
+                                } else {
+                                    feedback.style.background = '#f8d7da';
+                                    feedback.style.color = '#721c24';
+                                    feedbackHTML = '<strong>Not quite right.</strong> Review the steps below:' + feedbackHTML;
+                                }
+
+                                feedback.innerHTML = feedbackHTML;
+                            }
+
+                            function resetPrimExercise() {
+                                primSelections = [];
+                                updatePrimDisplay();
+                                document.getElementById('prim-feedback').style.display = 'none';
+
+                                // Reset edge colors
+                                const edges = ['AB', 'AC', 'BC', 'BD', 'BE', 'CE', 'DE', 'DF', 'EF'];
+                                edges.forEach(edge => {
+                                    const el = document.getElementById('prim-edge-' + edge);
+                                    if (el) {
+                                        el.setAttribute('stroke', '#ccc');
+                                        el.setAttribute('stroke-width', '3');
+                                    }
+                                });
+                            }
+
+                            // Kruskal's algorithm exercise logic
+                            let kruskalSelections = [];
+                            const kruskalCorrectOrder = ['BD', 'AC', 'AB', 'CE', 'DF'];
+
+                            function selectKruskalEdge(edge, weight, correctIndex) {
+                                if (kruskalSelections.includes(edge)) {
+                                    alert('You already selected this edge!');
+                                    return;
+                                }
+
+                                kruskalSelections.push(edge);
+                                document.getElementById('kruskal-edge-' + edge).setAttribute('stroke', '#ff6b6b');
+                                document.getElementById('kruskal-edge-' + edge).setAttribute('stroke-width', '5');
+
+                                updateKruskalDisplay();
+                            }
+
+                            function updateKruskalDisplay() {
+                                const display = kruskalSelections.map((edge, idx) => `${idx + 1}. ${edge}`).join(', ');
+                                document.getElementById('kruskal-selections').textContent = display || 'None yet';
+                            }
+
+                            function checkKruskalAnswer() {
+                                const feedback = document.getElementById('kruskal-feedback');
+                                feedback.style.display = 'block';
+
+                                if (kruskalSelections.length !== 5) {
+                                    feedback.style.background = '#fff3cd';
+                                    feedback.style.color = '#856404';
+                                    feedback.innerHTML = '<strong>Not complete!</strong> You need to select exactly 5 edges for the MST (V-1 edges for 6 vertices).';
+                                    return;
+                                }
+
+                                let allCorrect = true;
+                                let feedbackHTML = '<strong>Results:</strong><ul>';
+
+                                for (let i = 0; i < kruskalSelections.length; i++) {
+                                    const isCorrect = kruskalSelections[i] === kruskalCorrectOrder[i];
+                                    allCorrect = allCorrect && isCorrect;
+                                    feedbackHTML += `<li>Step ${i + 1}: ${kruskalSelections[i]} - ${isCorrect ? '✓ Correct!' : '✗ Should be ' + kruskalCorrectOrder[i]}</li>`;
+                                }
+
+                                feedbackHTML += '</ul>';
+
+                                if (allCorrect) {
+                                    feedback.style.background = '#d4edda';
+                                    feedback.style.color = '#155724';
+                                    feedbackHTML = '<strong>Excellent! 🎉</strong> You correctly traced Kruskal\'s algorithm!' + feedbackHTML;
+                                } else {
+                                    feedback.style.background = '#f8d7da';
+                                    feedback.style.color = '#721c24';
+                                    feedbackHTML = '<strong>Not quite right.</strong> Review the steps below:' + feedbackHTML;
+                                }
+
+                                feedback.innerHTML = feedbackHTML;
+                            }
+
+                            function resetKruskalExercise() {
+                                kruskalSelections = [];
+                                updateKruskalDisplay();
+                                document.getElementById('kruskal-feedback').style.display = 'none';
+
+                                // Reset edge colors
+                                const edges = ['AB', 'AC', 'BC', 'BD', 'BE', 'CE', 'DE', 'DF', 'EF'];
+                                edges.forEach(edge => {
+                                    const el = document.getElementById('kruskal-edge-' + edge);
+                                    if (el) {
+                                        el.setAttribute('stroke', '#ccc');
+                                        el.setAttribute('stroke-width', '3');
+                                    }
+                                });
+                            }
+                        </script>
 </div>
 
     <!-- Footer -->
