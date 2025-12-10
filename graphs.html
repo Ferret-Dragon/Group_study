@@ -386,6 +386,397 @@
                             <li><input type="checkbox" onchange="updateProgress()"> Can trace Dijkstra's algorithm</li>
                             <li><input type="checkbox" onchange="updateProgress()"> Review problem sets ps1-ps3</li>
                         </ul>
+
+                        <div class="subtopic" style="margin-top: 40px;">
+                            <h3>Interactive BFS/DFS Practice - Fill in the Order!</h3>
+                            <p style="color: #555; margin-bottom: 20px;">Based on ps1: Click vertices in the order they would be visited. Test your understanding!</p>
+
+                            <!-- BFS Exercise -->
+                            <div class="trace-exercise">
+                                <h4>Exercise 1: Breadth-First Search (Starting from A)</h4>
+                                <p><strong>Instructions:</strong> Click vertices in the order BFS would visit them starting from node A. When multiple nodes can be enqueued, choose alphabetically.</p>
+
+                                <svg width="650" height="400" viewBox="0 0 650 400" style="background: #f8f9fa; border-radius: 8px; margin: 20px 0;">
+                                    <!-- Edges (drawn first, under nodes) -->
+                                    <!-- A to B -->
+                                    <line x1="100" y1="200" x2="200" y2="100" stroke="#ccc" stroke-width="2"/>
+                                    <!-- A to H -->
+                                    <line x1="100" y1="200" x2="200" y2="200" stroke="#ccc" stroke-width="2"/>
+                                    <!-- A to F -->
+                                    <line x1="100" y1="200" x2="200" y2="300" stroke="#ccc" stroke-width="2"/>
+                                    <!-- B to D -->
+                                    <line x1="200" y1="100" x2="400" y2="100" stroke="#ccc" stroke-width="2"/>
+                                    <!-- H to C -->
+                                    <line x1="200" y1="200" x2="350" y2="200" stroke="#ccc" stroke-width="2"/>
+                                    <!-- H to E -->
+                                    <line x1="200" y1="200" x2="300" y2="300" stroke="#ccc" stroke-width="2"/>
+                                    <!-- C to D -->
+                                    <line x1="350" y1="200" x2="400" y2="100" stroke="#ccc" stroke-width="2"/>
+                                    <!-- C to G -->
+                                    <line x1="350" y1="200" x2="500" y2="200" stroke="#ccc" stroke-width="2"/>
+                                    <!-- D to G -->
+                                    <line x1="400" y1="100" x2="500" y2="200" stroke="#ccc" stroke-width="2"/>
+                                    <!-- F to E -->
+                                    <line x1="200" y1="300" x2="300" y2="300" stroke="#ccc" stroke-width="2"/>
+
+                                    <!-- Arrow markers for directed edges -->
+                                    <defs>
+                                        <marker id="arrowhead-bfs" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                            <polygon points="0 0, 10 3, 0 6" fill="#666" />
+                                        </marker>
+                                    </defs>
+
+                                    <!-- Add arrowheads to lines -->
+                                    <line x1="120" y1="190" x2="180" y2="110" stroke="#666" stroke-width="1.5" marker-end="url(#arrowhead-bfs)"/>
+                                    <line x1="125" y1="200" x2="175" y2="200" stroke="#666" stroke-width="1.5" marker-end="url(#arrowhead-bfs)"/>
+                                    <line x1="120" y1="210" x2="180" y2="290" stroke="#666" stroke-width="1.5" marker-end="url(#arrowhead-bfs)"/>
+                                    <line x1="220" y1="100" x2="375" y2="100" stroke="#666" stroke-width="1.5" marker-end="url(#arrowhead-bfs)"/>
+                                    <line x1="225" y1="200" x2="325" y2="200" stroke="#666" stroke-width="1.5" marker-end="url(#arrowhead-bfs)"/>
+                                    <line x1="215" y1="215" x2="285" y2="285" stroke="#666" stroke-width="1.5" marker-end="url(#arrowhead-bfs)"/>
+                                    <line x1="365" y1="185" x2="395" y2="115" stroke="#666" stroke-width="1.5" marker-end="url(#arrowhead-bfs)"/>
+                                    <line x1="375" y1="200" x2="475" y2="200" stroke="#666" stroke-width="1.5" marker-end="url(#arrowhead-bfs)"/>
+                                    <line x1="415" y1="115" x2="485" y2="185" stroke="#666" stroke-width="1.5" marker-end="url(#arrowhead-bfs)"/>
+                                    <line x1="220" y1="300" x2="275" y2="300" stroke="#666" stroke-width="1.5" marker-end="url(#arrowhead-bfs)"/>
+
+                                    <!-- Nodes (clickable) -->
+                                    <circle id="bfs-node-A" cx="100" cy="200" r="30" fill="#42a5f5" stroke="#0d47a1" stroke-width="3" style="cursor: pointer;" onclick="selectBFSNode('A', 0)"/>
+                                    <text x="100" y="205" text-anchor="middle" fill="white" font-weight="bold" font-size="20">A</text>
+
+                                    <circle id="bfs-node-B" cx="200" cy="100" r="30" fill="#e0e0e0" stroke="#666" stroke-width="3" style="cursor: pointer;" onclick="selectBFSNode('B', 1)"/>
+                                    <text x="200" y="105" text-anchor="middle" fill="#333" font-weight="bold" font-size="20">B</text>
+
+                                    <circle id="bfs-node-C" cx="350" cy="200" r="30" fill="#e0e0e0" stroke="#666" stroke-width="3" style="cursor: pointer;" onclick="selectBFSNode('C', 6)"/>
+                                    <text x="350" y="205" text-anchor="middle" fill="#333" font-weight="bold" font-size="20">C</text>
+
+                                    <circle id="bfs-node-D" cx="400" cy="100" r="30" fill="#e0e0e0" stroke="#666" stroke-width="3" style="cursor: pointer;" onclick="selectBFSNode('D', 4)"/>
+                                    <text x="400" y="105" text-anchor="middle" fill="#333" font-weight="bold" font-size="20">D</text>
+
+                                    <circle id="bfs-node-E" cx="300" cy="300" r="30" fill="#e0e0e0" stroke="#666" stroke-width="3" style="cursor: pointer;" onclick="selectBFSNode('E', 5)"/>
+                                    <text x="300" y="305" text-anchor="middle" fill="#333" font-weight="bold" font-size="20">E</text>
+
+                                    <circle id="bfs-node-F" cx="200" cy="300" r="30" fill="#e0e0e0" stroke="#666" stroke-width="3" style="cursor: pointer;" onclick="selectBFSNode('F', 2)"/>
+                                    <text x="200" y="305" text-anchor="middle" fill="#333" font-weight="bold" font-size="20">F</text>
+
+                                    <circle id="bfs-node-G" cx="500" cy="200" r="30" fill="#e0e0e0" stroke="#666" stroke-width="3" style="cursor: pointer;" onclick="selectBFSNode('G', 7)"/>
+                                    <text x="500" y="205" text-anchor="middle" fill="#333" font-weight="bold" font-size="20">G</text>
+
+                                    <circle id="bfs-node-H" cx="200" cy="200" r="30" fill="#e0e0e0" stroke="#666" stroke-width="3" style="cursor: pointer;" onclick="selectBFSNode('H', 3)"/>
+                                    <text x="200" y="205" text-anchor="middle" fill="#333" font-weight="bold" font-size="20">H</text>
+                                </svg>
+
+                                <div id="bfs-selection-order" style="margin: 20px 0; padding: 15px; background: #e3f2fd; border-radius: 8px;">
+                                    <strong>Your BFS order:</strong> <span id="bfs-selections">Click on A to start...</span>
+                                </div>
+
+                                <button onclick="checkBFSAnswer()" style="background: #1565c0; color: white; border: none; padding: 12px 24px; border-radius: 4px; cursor: pointer; font-size: 16px; margin-right: 10px;">Check Answer</button>
+                                <button onclick="resetBFSExercise()" style="background: #666; color: white; border: none; padding: 12px 24px; border-radius: 4px; cursor: pointer; font-size: 16px;">Reset</button>
+
+                                <div id="bfs-feedback" style="margin-top: 20px; padding: 15px; border-radius: 8px; display: none;"></div>
+
+                                <div class="answer-reveal" style="margin-top: 20px;">
+                                    <button onclick="toggleAnswer('bfs-ps1-answer')" style="background: #0d47a1; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;">Show/Hide Solution</button>
+                                    <div id="bfs-ps1-answer" class="answer-content">
+                                        <h4>Correct BFS Order from A:</h4>
+                                        <p><strong>A → B → F → H → D → E → C → G</strong></p>
+                                        <h5>Step-by-Step Explanation:</h5>
+                                        <ol>
+                                            <li><strong>Start at A:</strong> Enqueue A, mark as visited</li>
+                                            <li><strong>Process A:</strong> Neighbors are B, F, H (alphabetically: B, F, H). Enqueue all three.</li>
+                                            <li><strong>Queue: [B, F, H]</strong></li>
+                                            <li><strong>Process B:</strong> Dequeue B. Neighbor is D. Enqueue D.</li>
+                                            <li><strong>Queue: [F, H, D]</strong></li>
+                                            <li><strong>Process F:</strong> Dequeue F. Neighbor is E. Enqueue E.</li>
+                                            <li><strong>Queue: [H, D, E]</strong></li>
+                                            <li><strong>Process H:</strong> Dequeue H. Neighbors are C, E (E already visited). Enqueue C.</li>
+                                            <li><strong>Queue: [D, E, C]</strong></li>
+                                            <li><strong>Process D:</strong> Dequeue D. Neighbor is G. Enqueue G.</li>
+                                            <li><strong>Queue: [E, C, G]</strong></li>
+                                            <li><strong>Process E, C, G:</strong> No new unvisited neighbors.</li>
+                                        </ol>
+                                        <p><em>Remember: When multiple nodes are at the same level, enqueue alphabetically!</em></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- DFS Exercise -->
+                            <div class="trace-exercise" style="margin-top: 40px;">
+                                <h4>Exercise 2: Depth-First Search (Starting from A)</h4>
+                                <p><strong>Instructions:</strong> Click vertices in the order DFS would visit them starting from node A. When multiple nodes can be explored, choose alphabetically.</p>
+
+                                <svg width="650" height="400" viewBox="0 0 650 400" style="background: #f8f9fa; border-radius: 8px; margin: 20px 0;">
+                                    <!-- Same graph structure as BFS -->
+                                    <!-- Edges -->
+                                    <line x1="100" y1="200" x2="200" y2="100" stroke="#ccc" stroke-width="2"/>
+                                    <line x1="100" y1="200" x2="200" y2="200" stroke="#ccc" stroke-width="2"/>
+                                    <line x1="100" y1="200" x2="200" y2="300" stroke="#ccc" stroke-width="2"/>
+                                    <line x1="200" y1="100" x2="400" y2="100" stroke="#ccc" stroke-width="2"/>
+                                    <line x1="200" y1="200" x2="350" y2="200" stroke="#ccc" stroke-width="2"/>
+                                    <line x1="200" y1="200" x2="300" y2="300" stroke="#ccc" stroke-width="2"/>
+                                    <line x1="350" y1="200" x2="400" y2="100" stroke="#ccc" stroke-width="2"/>
+                                    <line x1="350" y1="200" x2="500" y2="200" stroke="#ccc" stroke-width="2"/>
+                                    <line x1="400" y1="100" x2="500" y2="200" stroke="#ccc" stroke-width="2"/>
+                                    <line x1="200" y1="300" x2="300" y2="300" stroke="#ccc" stroke-width="2"/>
+
+                                    <!-- Arrow markers -->
+                                    <defs>
+                                        <marker id="arrowhead-dfs" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                            <polygon points="0 0, 10 3, 0 6" fill="#666" />
+                                        </marker>
+                                    </defs>
+
+                                    <line x1="120" y1="190" x2="180" y2="110" stroke="#666" stroke-width="1.5" marker-end="url(#arrowhead-dfs)"/>
+                                    <line x1="125" y1="200" x2="175" y2="200" stroke="#666" stroke-width="1.5" marker-end="url(#arrowhead-dfs)"/>
+                                    <line x1="120" y1="210" x2="180" y2="290" stroke="#666" stroke-width="1.5" marker-end="url(#arrowhead-dfs)"/>
+                                    <line x1="220" y1="100" x2="375" y2="100" stroke="#666" stroke-width="1.5" marker-end="url(#arrowhead-dfs)"/>
+                                    <line x1="225" y1="200" x2="325" y2="200" stroke="#666" stroke-width="1.5" marker-end="url(#arrowhead-dfs)"/>
+                                    <line x1="215" y1="215" x2="285" y2="285" stroke="#666" stroke-width="1.5" marker-end="url(#arrowhead-dfs)"/>
+                                    <line x1="365" y1="185" x2="395" y2="115" stroke="#666" stroke-width="1.5" marker-end="url(#arrowhead-dfs)"/>
+                                    <line x1="375" y1="200" x2="475" y2="200" stroke="#666" stroke-width="1.5" marker-end="url(#arrowhead-dfs)"/>
+                                    <line x1="415" y1="115" x2="485" y2="185" stroke="#666" stroke-width="1.5" marker-end="url(#arrowhead-dfs)"/>
+                                    <line x1="220" y1="300" x2="275" y2="300" stroke="#666" stroke-width="1.5" marker-end="url(#arrowhead-dfs)"/>
+
+                                    <!-- Nodes -->
+                                    <circle id="dfs-node-A" cx="100" cy="200" r="30" fill="#4caf50" stroke="#2e7d32" stroke-width="3" style="cursor: pointer;" onclick="selectDFSNode('A', 0)"/>
+                                    <text x="100" y="205" text-anchor="middle" fill="white" font-weight="bold" font-size="20">A</text>
+
+                                    <circle id="dfs-node-B" cx="200" cy="100" r="30" fill="#e0e0e0" stroke="#666" stroke-width="3" style="cursor: pointer;" onclick="selectDFSNode('B', 1)"/>
+                                    <text x="200" y="105" text-anchor="middle" fill="#333" font-weight="bold" font-size="20">B</text>
+
+                                    <circle id="dfs-node-C" cx="350" cy="200" r="30" fill="#e0e0e0" stroke="#666" stroke-width="3" style="cursor: pointer;" onclick="selectDFSNode('C', 7)"/>
+                                    <text x="350" y="205" text-anchor="middle" fill="#333" font-weight="bold" font-size="20">C</text>
+
+                                    <circle id="dfs-node-D" cx="400" cy="100" r="30" fill="#e0e0e0" stroke="#666" stroke-width="3" style="cursor: pointer;" onclick="selectDFSNode('D', 2)"/>
+                                    <text x="400" y="105" text-anchor="middle" fill="#333" font-weight="bold" font-size="20">D</text>
+
+                                    <circle id="dfs-node-E" cx="300" cy="300" r="30" fill="#e0e0e0" stroke="#666" stroke-width="3" style="cursor: pointer;" onclick="selectDFSNode('E', 5)"/>
+                                    <text x="300" y="305" text-anchor="middle" fill="#333" font-weight="bold" font-size="20">E</text>
+
+                                    <circle id="dfs-node-F" cx="200" cy="300" r="30" fill="#e0e0e0" stroke="#666" stroke-width="3" style="cursor: pointer;" onclick="selectDFSNode('F', 4)"/>
+                                    <text x="200" y="305" text-anchor="middle" fill="#333" font-weight="bold" font-size="20">F</text>
+
+                                    <circle id="dfs-node-G" cx="500" cy="200" r="30" fill="#e0e0e0" stroke="#666" stroke-width="3" style="cursor: pointer;" onclick="selectDFSNode('G', 3)"/>
+                                    <text x="500" y="205" text-anchor="middle" fill="#333" font-weight="bold" font-size="20">G</text>
+
+                                    <circle id="dfs-node-H" cx="200" cy="200" r="30" fill="#e0e0e0" stroke="#666" stroke-width="3" style="cursor: pointer;" onclick="selectDFSNode('H', 6)"/>
+                                    <text x="200" y="205" text-anchor="middle" fill="#333" font-weight="bold" font-size="20">H</text>
+                                </svg>
+
+                                <div id="dfs-selection-order" style="margin: 20px 0; padding: 15px; background: #e8f5e9; border-radius: 8px;">
+                                    <strong>Your DFS order:</strong> <span id="dfs-selections">Click on A to start...</span>
+                                </div>
+
+                                <button onclick="checkDFSAnswer()" style="background: #2e7d32; color: white; border: none; padding: 12px 24px; border-radius: 4px; cursor: pointer; font-size: 16px; margin-right: 10px;">Check Answer</button>
+                                <button onclick="resetDFSExercise()" style="background: #666; color: white; border: none; padding: 12px 24px; border-radius: 4px; cursor: pointer; font-size: 16px;">Reset</button>
+
+                                <div id="dfs-feedback" style="margin-top: 20px; padding: 15px; border-radius: 8px; display: none;"></div>
+
+                                <div class="answer-reveal" style="margin-top: 20px;">
+                                    <button onclick="toggleAnswer('dfs-ps1-answer')" style="background: #1b5e20; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;">Show/Hide Solution</button>
+                                    <div id="dfs-ps1-answer" class="answer-content">
+                                        <h4>Correct DFS Order from A:</h4>
+                                        <p><strong>A → B → D → G → F → E → H → C</strong></p>
+                                        <h5>Step-by-Step Explanation:</h5>
+                                        <ol>
+                                            <li><strong>Start at A:</strong> Mark A as visited. Neighbors: B, F, H (alphabetically)</li>
+                                            <li><strong>Visit B (first alphabetically):</strong> From A → B. Neighbor: D</li>
+                                            <li><strong>Visit D:</strong> From B → D. Neighbor: G</li>
+                                            <li><strong>Visit G:</strong> From D → G. No unvisited neighbors, backtrack to D, then B, then A</li>
+                                            <li><strong>Visit F (next alphabetically from A):</strong> From A → F. Neighbor: E</li>
+                                            <li><strong>Visit E:</strong> From F → E. No unvisited neighbors, backtrack to F, then A</li>
+                                            <li><strong>Visit H (last from A):</strong> From A → H. Neighbors: C, E (E already visited)</li>
+                                            <li><strong>Visit C:</strong> From H → C. Neighbors already visited (D, G)</li>
+                                        </ol>
+                                        <p><strong>Stack trace:</strong> A → [B,F,H] → B → [D] → D → [G] → G → backtrack → F → [E] → E → backtrack → H → [C] → C → done</p>
+                                        <p><em>DFS explores as deep as possible before backtracking!</em></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Comparison Note -->
+                            <div class="practice-tip" style="margin-top: 30px;">
+                                <h4>Key Differences:</h4>
+                                <ul>
+                                    <li><strong>BFS Order:</strong> A → B → F → H → D → E → C → G (explores level-by-level)</li>
+                                    <li><strong>DFS Order:</strong> A → B → D → G → F → E → H → C (explores depth-first)</li>
+                                </ul>
+                                <p><strong>BFS uses a Queue</strong> (FIFO - processes closest nodes first), while <strong>DFS uses a Stack/Recursion</strong> (LIFO - goes as deep as possible first).</p>
+                                <p>Both visit all reachable nodes, but in very different orders!</p>
+                            </div>
+                        </div>
+
+                        <script>
+                            // BFS algorithm exercise logic
+                            let bfsSelections = [];
+                            const bfsCorrectOrder = ['A', 'B', 'F', 'H', 'D', 'E', 'C', 'G'];
+                            let bfsStarted = false;
+
+                            function selectBFSNode(node, correctIndex) {
+                                if (bfsSelections.includes(node)) {
+                                    alert('You already visited this node!');
+                                    return;
+                                }
+
+                                if (!bfsStarted && node !== 'A') {
+                                    alert('You must start at node A!');
+                                    return;
+                                }
+
+                                bfsSelections.push(node);
+                                bfsStarted = true;
+
+                                // Color the node based on order
+                                const colors = ['#42a5f5', '#64b5f6', '#90caf9', '#bbdefb', '#e3f2fd', '#fff3e0', '#ffe0b2', '#ffcc80'];
+                                document.getElementById('bfs-node-' + node).setAttribute('fill', colors[bfsSelections.length - 1]);
+
+                                updateBFSDisplay();
+                            }
+
+                            function updateBFSDisplay() {
+                                const display = bfsSelections.join(' → ');
+                                document.getElementById('bfs-selections').textContent = display || 'Click on A to start...';
+                            }
+
+                            function checkBFSAnswer() {
+                                const feedback = document.getElementById('bfs-feedback');
+                                feedback.style.display = 'block';
+
+                                if (bfsSelections.length !== 8) {
+                                    feedback.style.background = '#fff3cd';
+                                    feedback.style.color = '#856404';
+                                    feedback.innerHTML = '<strong>Not complete!</strong> You need to visit all 8 vertices.';
+                                    return;
+                                }
+
+                                let allCorrect = true;
+                                let feedbackHTML = '<strong>Results:</strong><ul>';
+
+                                for (let i = 0; i < bfsSelections.length; i++) {
+                                    const isCorrect = bfsSelections[i] === bfsCorrectOrder[i];
+                                    allCorrect = allCorrect && isCorrect;
+                                    feedbackHTML += `<li>Position ${i + 1}: ${bfsSelections[i]} - ${isCorrect ? '✓ Correct!' : '✗ Should be ' + bfsCorrectOrder[i]}</li>`;
+                                }
+
+                                feedbackHTML += '</ul>';
+
+                                if (allCorrect) {
+                                    feedback.style.background = '#d4edda';
+                                    feedback.style.color = '#155724';
+                                    feedbackHTML = '<strong>Perfect! 🎉</strong> You correctly traced BFS!' + feedbackHTML;
+                                } else {
+                                    feedback.style.background = '#f8d7da';
+                                    feedback.style.color = '#721c24';
+                                    feedbackHTML = '<strong>Not quite right.</strong> Review the steps below:' + feedbackHTML;
+                                }
+
+                                feedback.innerHTML = feedbackHTML;
+                            }
+
+                            function resetBFSExercise() {
+                                bfsSelections = [];
+                                bfsStarted = false;
+                                updateBFSDisplay();
+                                document.getElementById('bfs-feedback').style.display = 'none';
+
+                                // Reset node colors
+                                const nodes = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+                                nodes.forEach(node => {
+                                    const el = document.getElementById('bfs-node-' + node);
+                                    if (el) {
+                                        if (node === 'A') {
+                                            el.setAttribute('fill', '#42a5f5');
+                                        } else {
+                                            el.setAttribute('fill', '#e0e0e0');
+                                        }
+                                    }
+                                });
+                            }
+
+                            // DFS algorithm exercise logic
+                            let dfsSelections = [];
+                            const dfsCorrectOrder = ['A', 'B', 'D', 'G', 'F', 'E', 'H', 'C'];
+                            let dfsStarted = false;
+
+                            function selectDFSNode(node, correctIndex) {
+                                if (dfsSelections.includes(node)) {
+                                    alert('You already visited this node!');
+                                    return;
+                                }
+
+                                if (!dfsStarted && node !== 'A') {
+                                    alert('You must start at node A!');
+                                    return;
+                                }
+
+                                dfsSelections.push(node);
+                                dfsStarted = true;
+
+                                // Color the node
+                                const colors = ['#4caf50', '#66bb6a', '#81c784', '#a5d6a7', '#c8e6c9', '#dcedc8', '#f1f8e9', '#f9fbe7'];
+                                document.getElementById('dfs-node-' + node).setAttribute('fill', colors[dfsSelections.length - 1]);
+
+                                updateDFSDisplay();
+                            }
+
+                            function updateDFSDisplay() {
+                                const display = dfsSelections.join(' → ');
+                                document.getElementById('dfs-selections').textContent = display || 'Click on A to start...';
+                            }
+
+                            function checkDFSAnswer() {
+                                const feedback = document.getElementById('dfs-feedback');
+                                feedback.style.display = 'block';
+
+                                if (dfsSelections.length !== 8) {
+                                    feedback.style.background = '#fff3cd';
+                                    feedback.style.color = '#856404';
+                                    feedback.innerHTML = '<strong>Not complete!</strong> You need to visit all 8 vertices.';
+                                    return;
+                                }
+
+                                let allCorrect = true;
+                                let feedbackHTML = '<strong>Results:</strong><ul>';
+
+                                for (let i = 0; i < dfsSelections.length; i++) {
+                                    const isCorrect = dfsSelections[i] === dfsCorrectOrder[i];
+                                    allCorrect = allCorrect && isCorrect;
+                                    feedbackHTML += `<li>Position ${i + 1}: ${dfsSelections[i]} - ${isCorrect ? '✓ Correct!' : '✗ Should be ' + dfsCorrectOrder[i]}</li>`;
+                                }
+
+                                feedbackHTML += '</ul>';
+
+                                if (allCorrect) {
+                                    feedback.style.background = '#d4edda';
+                                    feedback.style.color = '#155724';
+                                    feedbackHTML = '<strong>Excellent! 🎉</strong> You correctly traced DFS!' + feedbackHTML;
+                                } else {
+                                    feedback.style.background = '#f8d7da';
+                                    feedback.style.color = '#721c24';
+                                    feedbackHTML = '<strong>Not quite right.</strong> Review the steps below:' + feedbackHTML;
+                                }
+
+                                feedback.innerHTML = feedbackHTML;
+                            }
+
+                            function resetDFSExercise() {
+                                dfsSelections = [];
+                                dfsStarted = false;
+                                updateDFSDisplay();
+                                document.getElementById('dfs-feedback').style.display = 'none';
+
+                                // Reset node colors
+                                const nodes = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+                                nodes.forEach(node => {
+                                    const el = document.getElementById('dfs-node-' + node);
+                                    if (el) {
+                                        if (node === 'A') {
+                                            el.setAttribute('fill', '#4caf50');
+                                        } else {
+                                            el.setAttribute('fill', '#e0e0e0');
+                                        }
+                                    }
+                                });
+                            }
+                        </script>
 </div>
     </div>
 
