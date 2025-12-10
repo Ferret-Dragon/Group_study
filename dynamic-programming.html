@@ -35,11 +35,136 @@
     </header>
 
     <div class="container">
-        <div class="content-section">
-            <h2>🔢 Dynamic Programming Overview</h2>
-            <p>This page is ready for content. Please provide instructions on what activities to include!</p>
-        </div>
-    </div>
+<div class="subtopic">
+                            <h3>Dynamic Programming Principles</h3>
+                            <div class="key-concepts">
+                                <h4>Key Concepts:</h4>
+                                <ul>
+                                    <li><strong>When to use DP:</strong> Optimal substructure + overlapping subproblems</li>
+                                    <li><strong>Optimal Substructure:</strong> Optimal solution contains optimal solutions to subproblems</li>
+                                    <li><strong>Overlapping Subproblems:</strong> Same subproblems computed multiple times</li>
+                                    <li><strong>Memoization:</strong> Top-down with caching (recursive)</li>
+                                    <li><strong>Tabulation:</strong> Bottom-up with table (iterative)</li>
+                                    <li><strong>Steps:</strong> (1) Define subproblems, (2) Relate subproblems (recurrence), (3) Compute bottom-up or memoize top-down</li>
+                                </ul>
+                            </div>
+                            <div class="video-recommendations">
+                                <h4>Video Recommendations:</h4>
+                                <a href="https://www.youtube.com/watch?v=oBt53YbR9Kk" target="_blank" class="video-link">🎥 MIT OCW - Dynamic Programming Overview (48 min - comprehensive)</a>
+                                <a href="https://www.youtube.com/watch?v=OQ5jsbhAv_M" target="_blank" class="video-link">🎥 CS Dojo - DP Intro (11 min)</a>
+                            </div>
+                            <div class="warning-box">
+                                <h4>DP vs Greedy vs Divide & Conquer:</h4>
+                                <ul>
+                                    <li><strong>Greedy:</strong> Makes one choice, never reconsiders (fast, doesn't always work)</li>
+                                    <li><strong>D&C:</strong> Independent subproblems, no overlap</li>
+                                    <li><strong>DP:</strong> Overlapping subproblems, tries all choices, saves results</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="subtopic">
+                            <h3>Classic DP Problems (Examples to Study)</h3>
+                            <div class="key-concepts">
+                                <h4>Common Patterns:</h4>
+                                <ul>
+                                    <li><strong>Rod Cutting:</strong> Max revenue by cutting rod into pieces</li>
+                                    <li><strong>Matrix Chain Multiplication:</strong> Optimal parenthesization for min scalar multiplications</li>
+                                    <li><strong>Longest Common Subsequence (LCS):</strong> Longest subsequence common to two sequences</li>
+                                    <li><strong>Optimal Binary Search Trees:</strong> BST with min expected search cost</li>
+                                    <li><strong>0/1 Knapsack:</strong> Max value with weight constraint (items can't be split)</li>
+                                </ul>
+                            </div>
+                            <div class="practice-tip">
+                                <h4>Study Approach:</h4>
+                                <p>For each problem: (1) Understand the problem, (2) Identify subproblem structure, (3) Write recurrence relation, (4) Understand base cases, (5) Trace through small example.</p>
+                            </div>
+                        </div>
+
+                        <div class="subtopic">
+                            <h3>Rod Cutting Example</h3>
+                            <div class="key-concepts">
+                                <h4>Problem:</h4>
+                                <p>Given rod of length n and prices p[i] for lengths i=1..n, find maximum revenue by cutting rod.</p>
+                                <h4>Recurrence:</h4>
+                                <div class="formula">
+                                    r[n] = max(p[i] + r[n-i]) for i = 1 to n
+                                    <br>r[0] = 0 (base case)
+                                </div>
+                                <ul>
+                                    <li><strong>Subproblems:</strong> r[i] = max revenue for rod of length i</li>
+                                    <li><strong>Time:</strong> O(n²) with DP, exponential without</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="subtopic">
+                            <h3>Matrix Chain Multiplication</h3>
+                            <div class="key-concepts">
+                                <h4>Problem:</h4>
+                                <p>Given chain of matrices, find optimal parenthesization to minimize scalar multiplications.</p>
+                                <h4>Key Points:</h4>
+                                <ul>
+                                    <li><strong>Not computing product!</strong> Just finding optimal order</li>
+                                    <li><strong>Subproblems:</strong> m[i,j] = min cost to multiply matrices i through j</li>
+                                    <li><strong>Recurrence:</strong> m[i,j] = min{m[i,k] + m[k+1,j] + p[i-1]·p[k]·p[j]} for k=i to j-1</li>
+                                    <li><strong>Time:</strong> O(n³)</li>
+                                </ul>
+                            </div>
+                            <div class="video-recommendations">
+                                <h4>Video Recommendations:</h4>
+                                <a href="https://www.youtube.com/watch?v=prx1psByp7U" target="_blank" class="video-link">🎥 Abdul Bari - Matrix Chain Multiplication (29 min)</a>
+                            </div>
+                        </div>
+
+                        <div class="subtopic">
+                            <h3>Longest Common Subsequence (LCS)</h3>
+                            <div class="key-concepts">
+                                <h4>Problem:</h4>
+                                <p>Find longest subsequence common to two sequences (not necessarily contiguous).</p>
+                                <h4>Recurrence:</h4>
+                                <div class="formula">
+                                    If X[i] == Y[j]: LCS[i,j] = LCS[i-1,j-1] + 1
+                                    <br>Else: LCS[i,j] = max(LCS[i-1,j], LCS[i,j-1])
+                                </div>
+                                <ul>
+                                    <li><strong>Table:</strong> 2D array, size (m+1) × (n+1)</li>
+                                    <li><strong>Time:</strong> O(mn)</li>
+                                    <li><strong>Space:</strong> O(mn), can be optimized to O(min(m,n))</li>
+                                </ul>
+                            </div>
+                            <div class="video-recommendations">
+                                <h4>Video Recommendations:</h4>
+                                <a href="https://www.youtube.com/watch?v=ASoaQq66foQ" target="_blank" class="video-link">🎥 Back to Back SWE - LCS (15 min)</a>
+                            </div>
+                        </div>
+
+                        <div class="practice-tip">
+                            <h4>DP Problem-Solving Template:</h4>
+                            <ol>
+                                <li><strong>Define subproblems:</strong> What does DP[i] or DP[i][j] represent?</li>
+                                <li><strong>Find recurrence:</strong> How to compute DP[i] from smaller subproblems?</li>
+                                <li><strong>Base cases:</strong> What are the initial/boundary values?</li>
+                                <li><strong>Computation order:</strong> Bottom-up or top-down? What order to fill table?</li>
+                                <li><strong>Reconstruct solution:</strong> How to trace back to get actual solution (not just optimal value)?</li>
+                            </ol>
+                        </div>
+
+                        <div class="resources-section">
+                            <h3>Additional DP Resources:</h3>
+                            <p>Check your problem sets (ps6-ps7) for specific DP problems covered in your course. Practice is key for DP!</p>
+                        </div>
+
+                        <ul class="checklist">
+                            <li><input type="checkbox" onchange="updateProgress()"> Understand optimal substructure vs overlapping subproblems</li>
+                            <li><input type="checkbox" onchange="updateProgress()"> Know difference between memoization and tabulation</li>
+                            <li><input type="checkbox" onchange="updateProgress()"> Can solve rod cutting problem</li>
+                            <li><input type="checkbox" onchange="updateProgress()"> Understand matrix chain multiplication</li>
+                            <li><input type="checkbox" onchange="updateProgress()"> Can solve LCS problem</li>
+                            <li><input type="checkbox" onchange="updateProgress()"> Practice writing recurrence relations</li>
+                            <li><input type="checkbox" onchange="updateProgress()"> Review problem sets ps6-ps7</li>
+                        </ul>
+</div>
 
     <!-- Footer -->
     <footer>

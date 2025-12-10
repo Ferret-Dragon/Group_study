@@ -35,10 +35,358 @@
     </header>
 
     <div class="container">
-        <div class="content-section">
-            <h2>📊 Graph Algorithms Overview</h2>
-            <p>This page is ready for content. Please provide instructions on what activities to include!</p>
-        </div>
+        <div class="container">
+<div class="subtopic">
+                            <h3>Graph Representations</h3>
+                            <div class="key-concepts">
+                                <h4>Key Concepts:</h4>
+                                <ul>
+                                    <li><strong>Adjacency Matrix:</strong> 2D array, O(1) edge lookup, O(V²) space</li>
+                                    <li><strong>Adjacency List:</strong> Array of lists, O(V+E) space, better for sparse graphs</li>
+                                    <li><strong>When to use which:</strong> Matrix for dense graphs, lists for sparse</li>
+                                </ul>
+                            </div>
+                            <div class="practice-tip">
+                                <h4>Practice Tip:</h4>
+                                <p>Draw a simple graph and convert it between both representations. This is a common exam question!</p>
+                            </div>
+                        </div>
+
+                        <div class="subtopic">
+                            <h3>Breadth-First Search (BFS)</h3>
+                            <div class="key-concepts">
+                                <h4>Key Concepts:</h4>
+                                <ul>
+                                    <li><strong>Uses Queue (FIFO)</strong> - explores level by level</li>
+                                    <li><strong>Time Complexity:</strong> O(V + E) with adjacency list</li>
+                                    <li><strong>Space Complexity:</strong> O(V) for queue and visited array</li>
+                                    <li><strong>Applications:</strong> Shortest path in unweighted graphs, level-order traversal</li>
+                                    <li><strong>Output:</strong> BFS tree, distances from source</li>
+                                </ul>
+                            </div>
+                            <div class="video-recommendations">
+                                <h4>Video Recommendations:</h4>
+                                <a href="https://www.youtube.com/watch?v=oDqjPvD54Ss" target="_blank" class="video-link">🎥 Abdul Bari - BFS Graph Traversal (17 min)</a>
+                                <a href="https://www.youtube.com/watch?v=hettiSrJjM4" target="_blank" class="video-link">🎥 William Fiset - BFS Shortest Path (13 min)</a>
+                            </div>
+                            <div class="practice-tip">
+                                <h4>Walkthrough:</h4>
+                                <ol>
+                                    <li>Initialize: Mark source as visited, enqueue source</li>
+                                    <li>While queue not empty: dequeue vertex u</li>
+                                    <li>For each neighbor v of u: if not visited, mark visited, enqueue v, set distance[v] = distance[u] + 1</li>
+                                    <li>Result: All reachable vertices visited, shortest paths computed</li>
+                                </ol>
+                            </div>
+
+                            <div class="visual-section">
+                                <h4>📊 Visual Example: BFS Traversal</h4>
+                                <div class="graph-container">
+                                    <svg width="600" height="300" viewBox="0 0 600 300">
+                                        <!-- Graph edges -->
+                                        <line x1="100" y1="50" x2="200" y2="100" stroke="#90caf9" stroke-width="2"/>
+                                        <line x1="100" y1="50" x2="200" y2="150" stroke="#90caf9" stroke-width="2"/>
+                                        <line x1="200" y1="100" x2="350" y2="75" stroke="#90caf9" stroke-width="2"/>
+                                        <line x1="200" y1="100" x2="350" y2="125" stroke="#90caf9" stroke-width="2"/>
+                                        <line x1="200" y1="150" x2="350" y2="175" stroke="#90caf9" stroke-width="2"/>
+                                        <line x1="200" y1="150" x2="350" y2="225" stroke="#90caf9" stroke-width="2"/>
+                                        <line x1="350" y1="125" x2="500" y2="150" stroke="#90caf9" stroke-width="2"/>
+
+                                        <!-- Nodes -->
+                                        <circle cx="100" cy="50" r="25" fill="#42a5f5" stroke="#0d47a1" stroke-width="2"/>
+                                        <text x="100" y="55" text-anchor="middle" fill="white" font-weight="bold">A</text>
+                                        <text x="100" y="95" text-anchor="middle" fill="#0d47a1" font-size="12">Level 0</text>
+
+                                        <circle cx="200" cy="100" r="25" fill="#64b5f6" stroke="#0d47a1" stroke-width="2"/>
+                                        <text x="200" y="105" text-anchor="middle" fill="white" font-weight="bold">B</text>
+                                        <text x="200" y="140" text-anchor="middle" fill="#0d47a1" font-size="12">Level 1</text>
+
+                                        <circle cx="200" cy="150" r="25" fill="#64b5f6" stroke="#0d47a1" stroke-width="2"/>
+                                        <text x="200" y="155" text-anchor="middle" fill="white" font-weight="bold">C</text>
+                                        <text x="200" y="190" text-anchor="middle" fill="#0d47a1" font-size="12">Level 1</text>
+
+                                        <circle cx="350" cy="75" r="25" fill="#90caf9" stroke="#0d47a1" stroke-width="2"/>
+                                        <text x="350" y="80" text-anchor="middle" fill="white" font-weight="bold">D</text>
+
+                                        <circle cx="350" cy="125" r="25" fill="#90caf9" stroke="#0d47a1" stroke-width="2"/>
+                                        <text x="350" y="130" text-anchor="middle" fill="white" font-weight="bold">E</text>
+
+                                        <circle cx="350" cy="175" r="25" fill="#90caf9" stroke="#0d47a1" stroke-width="2"/>
+                                        <text x="350" y="180" text-anchor="middle" fill="white" font-weight="bold">F</text>
+
+                                        <circle cx="350" cy="225" r="25" fill="#90caf9" stroke="#0d47a1" stroke-width="2"/>
+                                        <text x="350" y="230" text-anchor="middle" fill="white" font-weight="bold">G</text>
+
+                                        <circle cx="500" cy="150" r="25" fill="#bbdefb" stroke="#0d47a1" stroke-width="2"/>
+                                        <text x="500" y="155" text-anchor="middle" fill="white" font-weight="bold">H</text>
+
+                                        <text x="380" y="25" text-anchor="start" fill="#0d47a1" font-size="12">Level 2: D, E, F, G</text>
+                                        <text x="520" y="150" text-anchor="start" fill="#0d47a1" font-size="12">Level 3: H</text>
+                                    </svg>
+                                </div>
+                                <div class="graph-legend">
+                                    <div class="legend-item">
+                                        <div class="legend-color" style="background: #42a5f5;"></div>
+                                        <span>Starting node (Level 0)</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <div class="legend-color" style="background: #64b5f6;"></div>
+                                        <span>Level 1</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <div class="legend-color" style="background: #90caf9;"></div>
+                                        <span>Level 2</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <div class="legend-color" style="background: #bbdefb;"></div>
+                                        <span>Level 3</span>
+                                    </div>
+                                </div>
+                                <p><strong>BFS Order from A:</strong> A → B → C → D → E → F → G → H</p>
+                                <p><strong>Queue progression:</strong> [A] → [B,C] → [C,D,E] → [D,E,F,G] → [E,F,G] → [F,G,H] → [G,H] → [H] → []</p>
+                            </div>
+
+                            <div class="trace-exercise">
+                                <h4>✏️ Trace Exercise: Practice BFS</h4>
+                                <p><strong>Try this yourself:</strong> Given the graph above, what would be the BFS traversal starting from node C?</p>
+                                <button class="show-answer-btn" onclick="toggleAnswer('bfs-trace-1')">Show Answer</button>
+                                <div class="hidden-answer" id="bfs-trace-1">
+                                    <p><strong>Answer:</strong> C → B → A → F → G → D → E → H</p>
+                                    <p><strong>Explanation:</strong></p>
+                                    <ul>
+                                        <li>Level 0: C (start)</li>
+                                        <li>Level 1: B, F, G (neighbors of C)</li>
+                                        <li>Level 2: A (neighbor of B), D, E (neighbors of B and F)</li>
+                                        <li>Level 3: H (neighbor of E)</li>
+                                    </ul>
+                                    <p><strong>Queue:</strong> [C] → [B,F,G] → [F,G,A] → [G,A,D,E] → [A,D,E] → [D,E] → [E,H] → [H] → []</p>
+                                </div>
+                            </div>
+
+                            <div class="quiz-box">
+                                <h4>🧠 Quick Quiz: Test Your BFS Understanding</h4>
+                                <div class="quiz-question">
+                                    <p><strong>Q1:</strong> What data structure does BFS use?</p>
+                                    <div class="quiz-options">
+                                        <div class="quiz-option" onclick="checkAnswer(this, false, 'bfs-q1')">A) Stack</div>
+                                        <div class="quiz-option" onclick="checkAnswer(this, true, 'bfs-q1')">B) Queue</div>
+                                        <div class="quiz-option" onclick="checkAnswer(this, false, 'bfs-q1')">C) Priority Queue</div>
+                                        <div class="quiz-option" onclick="checkAnswer(this, false, 'bfs-q1')">D) Hash Table</div>
+                                    </div>
+                                    <div class="quiz-explanation" id="bfs-q1">
+                                        <strong>Correct!</strong> BFS uses a Queue (FIFO - First In First Out) to process vertices level by level. This is the key difference from DFS which uses a stack or recursion.
+                                    </div>
+                                </div>
+                                <div class="quiz-question">
+                                    <p><strong>Q2:</strong> In an unweighted graph, BFS finds:</p>
+                                    <div class="quiz-options">
+                                        <div class="quiz-option" onclick="checkAnswer(this, false, 'bfs-q2')">A) The longest path</div>
+                                        <div class="quiz-option" onclick="checkAnswer(this, true, 'bfs-q2')">B) The shortest path</div>
+                                        <div class="quiz-option" onclick="checkAnswer(this, false, 'bfs-q2')">C) All possible paths</div>
+                                        <div class="quiz-option" onclick="checkAnswer(this, false, 'bfs-q2')">D) The minimum spanning tree</div>
+                                    </div>
+                                    <div class="quiz-explanation" id="bfs-q2">
+                                        <strong>Correct!</strong> BFS guarantees the shortest path in unweighted graphs because it explores nodes level by level, reaching closer nodes first.
+                                    </div>
+                                </div>
+                                <div class="quiz-question">
+                                    <p><strong>Q3:</strong> What is the space complexity of BFS?</p>
+                                    <div class="quiz-options">
+                                        <div class="quiz-option" onclick="checkAnswer(this, false, 'bfs-q3')">A) O(1)</div>
+                                        <div class="quiz-option" onclick="checkAnswer(this, false, 'bfs-q3')">B) O(E)</div>
+                                        <div class="quiz-option" onclick="checkAnswer(this, true, 'bfs-q3')">C) O(V)</div>
+                                        <div class="quiz-option" onclick="checkAnswer(this, false, 'bfs-q3')">D) O(V²)</div>
+                                    </div>
+                                    <div class="quiz-explanation" id="bfs-q3">
+                                        <strong>Correct!</strong> Space complexity is O(V) for the queue and visited array. In the worst case, all vertices might be in the queue at once.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="self-check">
+                                <h4>🎯 Self-Check: Can You Explain?</h4>
+                                <p>Try explaining these in your own words (cover the answer first!):</p>
+                                <ol>
+                                    <li><strong>Why does BFS use a queue instead of a stack?</strong>
+                                        <button class="show-answer-btn" onclick="toggleAnswer('self-check-1')">Show Answer</button>
+                                        <div class="hidden-answer" id="self-check-1">
+                                            A queue ensures FIFO (First-In-First-Out) ordering, which means we process vertices in the order we discover them. This guarantees we explore all vertices at distance d before exploring vertices at distance d+1, which is why BFS finds shortest paths.
+                                        </div>
+                                    </li>
+                                    <li><strong>When would you choose BFS over DFS?</strong>
+                                        <button class="show-answer-btn" onclick="toggleAnswer('self-check-2')">Show Answer</button>
+                                        <div class="hidden-answer" id="self-check-2">
+                                            Choose BFS when: (1) You need shortest paths in unweighted graphs, (2) You want to explore nearby nodes first, (3) The solution is likely near the start node. Choose DFS when: (1) You want to explore all paths, (2) Need topological sorting, (3) Detecting cycles, (4) Memory is limited (DFS uses less space in most cases).
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div class="subtopic">
+                            <h3>Depth-First Search (DFS)</h3>
+                            <div class="key-concepts">
+                                <h4>Key Concepts:</h4>
+                                <ul>
+                                    <li><strong>Uses Stack (LIFO)</strong> or recursion - explores as deep as possible first</li>
+                                    <li><strong>Time Complexity:</strong> O(V + E)</li>
+                                    <li><strong>Space Complexity:</strong> O(V) for recursion stack</li>
+                                    <li><strong>Timestamps:</strong> Discovery time d[v] and finish time f[v]</li>
+                                    <li><strong>Applications:</strong> Cycle detection, topological sort, SCC, path finding</li>
+                                    <li><strong>Edge Classification:</strong> Tree, Back, Forward, Cross edges</li>
+                                </ul>
+                            </div>
+                            <div class="video-recommendations">
+                                <h4>Video Recommendations:</h4>
+                                <a href="https://www.youtube.com/watch?v=7fujbpJ0LB4" target="_blank" class="video-link">🎥 Abdul Bari - DFS Graph Traversal (17 min)</a>
+                                <a href="https://www.youtube.com/watch?v=PMMc4VsIacU" target="_blank" class="video-link">🎥 MIT OpenCourseWare - DFS and Topological Sort (50 min - if time)</a>
+                            </div>
+                            <div class="warning-box">
+                                <h4>Common Pitfall:</h4>
+                                <p>Remember: DFS on an undirected graph only has tree and back edges. Forward and cross edges only appear in directed graphs!</p>
+                            </div>
+                        </div>
+
+                        <div class="subtopic">
+                            <h3>Topological Sort</h3>
+                            <div class="key-concepts">
+                                <h4>Key Concepts:</h4>
+                                <ul>
+                                    <li><strong>Only for DAGs</strong> (Directed Acyclic Graphs)</li>
+                                    <li><strong>Linear ordering:</strong> If edge u→v exists, u appears before v</li>
+                                    <li><strong>Algorithm:</strong> DFS-based - add vertices in reverse finish time order</li>
+                                    <li><strong>Time Complexity:</strong> O(V + E)</li>
+                                    <li><strong>Cycle Detection:</strong> If back edge found, graph has cycle (no topological sort possible)</li>
+                                </ul>
+                            </div>
+                            <div class="video-recommendations">
+                                <h4>Video Recommendations:</h4>
+                                <a href="https://www.youtube.com/watch?v=cIBFEhD77b4" target="_blank" class="video-link">🎥 William Fiset - Topological Sort (15 min)</a>
+                            </div>
+                            <div class="practice-tip">
+                                <h4>Quick Algorithm:</h4>
+                                <ol>
+                                    <li>Run DFS on entire graph</li>
+                                    <li>When vertex finishes (all descendants explored), push to stack</li>
+                                    <li>Pop stack to get topological order</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div class="subtopic">
+                            <h3>Strongly Connected Components (SCC)</h3>
+                            <div class="key-concepts">
+                                <h4>Key Concepts:</h4>
+                                <ul>
+                                    <li><strong>SCC:</strong> Maximal set of vertices where every vertex is reachable from every other</li>
+                                    <li><strong>Kosaraju's Algorithm:</strong> Most common approach</li>
+                                    <li><strong>Time Complexity:</strong> O(V + E) - two DFS passes</li>
+                                    <li><strong>Steps:</strong> (1) DFS on G to compute finish times, (2) DFS on G^T (transpose) in decreasing finish time order</li>
+                                </ul>
+                            </div>
+                            <div class="video-recommendations">
+                                <h4>Video Recommendations:</h4>
+                                <a href="https://www.youtube.com/watch?v=RpgcYiky7uw" target="_blank" class="video-link">🎥 Tushar Roy - Strongly Connected Components (16 min)</a>
+                            </div>
+                            <div class="practice-tip">
+                                <h4>Walkthrough:</h4>
+                                <ol>
+                                    <li>Run DFS on original graph G, record finish times</li>
+                                    <li>Compute transpose G^T (reverse all edges)</li>
+                                    <li>Run DFS on G^T in decreasing finish time order</li>
+                                    <li>Each DFS tree in step 3 is one SCC</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div class="subtopic">
+                            <h3>Dijkstra's Algorithm (Single-Source Shortest Path)</h3>
+                            <div class="key-concepts">
+                                <h4>Key Concepts:</h4>
+                                <ul>
+                                    <li><strong>Requirement:</strong> Non-negative edge weights only!</li>
+                                    <li><strong>Greedy approach:</strong> Always pick minimum distance unvisited vertex</li>
+                                    <li><strong>Time Complexity:</strong> O((V+E) log V) with min-heap, O(V²) with array</li>
+                                    <li><strong>Output:</strong> Shortest paths from source to all vertices</li>
+                                    <li><strong>Relaxation:</strong> If d[v] > d[u] + w(u,v), update d[v]</li>
+                                </ul>
+                            </div>
+                            <div class="video-recommendations">
+                                <h4>Video Recommendations:</h4>
+                                <a href="https://www.youtube.com/watch?v=XB4MIexjvY0" target="_blank" class="video-link">🎥 Abdul Bari - Dijkstra's Algorithm (15 min)</a>
+                                <a href="https://www.youtube.com/watch?v=pSqmAO-m7Lk" target="_blank" class="video-link">🎥 William Fiset - Dijkstra's Shortest Path (12 min)</a>
+                            </div>
+                            <div class="warning-box">
+                                <h4>Critical to Remember:</h4>
+                                <p>Dijkstra's FAILS with negative weights! Use Bellman-Ford for negative weights (though this might not be on your exam based on syllabus).</p>
+                            </div>
+                            <div class="practice-tip">
+                                <h4>Algorithm Steps:</h4>
+                                <ol>
+                                    <li>Initialize: d[source] = 0, d[all others] = ∞, min-heap with all vertices</li>
+                                    <li>While heap not empty: extract min vertex u</li>
+                                    <li>For each neighbor v of u: relax edge (u,v)</li>
+                                    <li>Update heap if distance improved</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div class="quick-reference">
+                            <h3>Graph Algorithms Quick Reference</h3>
+                            <table class="complexity-table">
+                                <thead>
+                                    <tr>
+                                        <th>Algorithm</th>
+                                        <th>Time Complexity</th>
+                                        <th>Space</th>
+                                        <th>Key Use</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>BFS</td>
+                                        <td>O(V + E)</td>
+                                        <td>O(V)</td>
+                                        <td>Shortest path (unweighted)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>DFS</td>
+                                        <td>O(V + E)</td>
+                                        <td>O(V)</td>
+                                        <td>Cycle detection, topological sort</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Topological Sort</td>
+                                        <td>O(V + E)</td>
+                                        <td>O(V)</td>
+                                        <td>Task scheduling (DAGs only)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>SCC (Kosaraju)</td>
+                                        <td>O(V + E)</td>
+                                        <td>O(V)</td>
+                                        <td>Find strongly connected components</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Dijkstra</td>
+                                        <td>O((V+E) log V)</td>
+                                        <td>O(V)</td>
+                                        <td>Shortest path (non-negative weights)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <ul class="checklist">
+                            <li><input type="checkbox" onchange="updateProgress()"> Understand graph representations</li>
+                            <li><input type="checkbox" onchange="updateProgress()"> Can trace BFS step-by-step</li>
+                            <li><input type="checkbox" onchange="updateProgress()"> Can trace DFS and identify edge types</li>
+                            <li><input type="checkbox" onchange="updateProgress()"> Understand topological sort algorithm</li>
+                            <li><input type="checkbox" onchange="updateProgress()"> Can execute Kosaraju's SCC algorithm</li>
+                            <li><input type="checkbox" onchange="updateProgress()"> Can trace Dijkstra's algorithm</li>
+                            <li><input type="checkbox" onchange="updateProgress()"> Review problem sets ps1-ps3</li>
+                        </ul>
+</div>
     </div>
 
     <!-- Footer -->

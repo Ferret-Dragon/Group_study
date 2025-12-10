@@ -35,11 +35,150 @@
     </header>
 
     <div class="container">
-        <div class="content-section">
-            <h2>🌊 Maximum Flow Overview</h2>
-            <p>This page is ready for content. Please provide instructions on what activities to include!</p>
-        </div>
-    </div>
+<div class="subtopic">
+                            <h3>Flow Networks</h3>
+                            <div class="key-concepts">
+                                <h4>Key Concepts:</h4>
+                                <ul>
+                                    <li><strong>Flow Network:</strong> Directed graph with source s, sink t, and edge capacities c(u,v)</li>
+                                    <li><strong>Flow Properties:</strong>
+                                        <ul>
+                                            <li>Capacity constraint: 0 ≤ f(u,v) ≤ c(u,v)</li>
+                                            <li>Flow conservation: Flow in = Flow out (except s and t)</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>Max Flow:</strong> Maximum flow from s to t</li>
+                                    <li><strong>Cut:</strong> Partition of vertices into S and T where s∈S, t∈T</li>
+                                    <li><strong>Min-Cut:</strong> Cut with minimum capacity</li>
+                                </ul>
+                            </div>
+                            <div class="formula">
+                                Max-Flow Min-Cut Theorem: Maximum flow value = Minimum cut capacity
+                            </div>
+                        </div>
+
+                        <div class="subtopic">
+                            <h3>Ford-Fulkerson Method</h3>
+                            <div class="key-concepts">
+                                <h4>Key Concepts:</h4>
+                                <ul>
+                                    <li><strong>Method (not specific algorithm):</strong> Framework using augmenting paths</li>
+                                    <li><strong>Augmenting Path:</strong> Path from s to t in residual graph with available capacity</li>
+                                    <li><strong>Residual Graph:</strong> Shows remaining capacity after current flow</li>
+                                    <li><strong>Residual Capacity:</strong> c_f(u,v) = c(u,v) - f(u,v) + f(v,u)</li>
+                                    <li><strong>Time Complexity:</strong> O(E·|f*|) where |f*| is max flow (depends on path-finding method)</li>
+                                </ul>
+                            </div>
+                            <div class="video-recommendations">
+                                <h4>Video Recommendations:</h4>
+                                <a href="https://www.youtube.com/watch?v=Tl90tNtKvxs" target="_blank" class="video-link">🎥 MIT OCW - Max Flow (47 min)</a>
+                                <a href="https://www.youtube.com/watch?v=LdOnanfc5TM" target="_blank" class="video-link">🎥 William Fiset - Ford-Fulkerson (10 min)</a>
+                                <a href="https://www.youtube.com/watch?v=GiN3jRdgxU4" target="_blank" class="video-link">🎥 Reducible - Max Flow (16 min - great visualization)</a>
+                            </div>
+                            <div class="practice-tip">
+                                <h4>Algorithm:</h4>
+                                <ol>
+                                    <li>Initialize: f(u,v) = 0 for all edges</li>
+                                    <li>While there exists augmenting path p in residual graph G_f:
+                                        <ul>
+                                            <li>Find bottleneck capacity c_f(p) = min capacity along p</li>
+                                            <li>Augment flow along p by c_f(p)</li>
+                                            <li>Update residual graph</li>
+                                        </ul>
+                                    </li>
+                                    <li>Return total flow</li>
+                                </ol>
+                            </div>
+                            <div class="warning-box">
+                                <h4>Important Note:</h4>
+                                <p>Ford-Fulkerson might not terminate with irrational capacities! Use Edmonds-Karp (BFS for paths) for polynomial time: O(VE²).</p>
+                            </div>
+                        </div>
+
+                        <div class="subtopic">
+                            <h3>Edmonds-Karp Algorithm</h3>
+                            <div class="key-concepts">
+                                <h4>Key Points:</h4>
+                                <ul>
+                                    <li><strong>Specific implementation:</strong> Ford-Fulkerson with BFS for finding augmenting paths</li>
+                                    <li><strong>Time Complexity:</strong> O(VE²) - polynomial!</li>
+                                    <li><strong>Why BFS?:</strong> Finds shortest augmenting path (fewest edges), guarantees termination</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="subtopic">
+                            <h3>Maximum Bipartite Matching</h3>
+                            <div class="key-concepts">
+                                <h4>Key Concepts:</h4>
+                                <ul>
+                                    <li><strong>Bipartite Graph:</strong> Vertices split into two sets, edges only between sets</li>
+                                    <li><strong>Matching:</strong> Set of edges with no shared vertices</li>
+                                    <li><strong>Maximum Matching:</strong> Matching with maximum number of edges</li>
+                                    <li><strong>Reduction to Max Flow:</strong>
+                                        <ul>
+                                            <li>Add source s connected to all left vertices (capacity 1)</li>
+                                            <li>Add sink t connected from all right vertices (capacity 1)</li>
+                                            <li>All bipartite edges have capacity 1</li>
+                                            <li>Max flow = Maximum matching size</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="video-recommendations">
+                                <h4>Video Recommendations:</h4>
+                                <a href="https://www.youtube.com/watch?v=GhjwOiJ4SqU" target="_blank" class="video-link">🎥 William Fiset - Bipartite Graph Matching (12 min)</a>
+                            </div>
+                            <div class="practice-tip">
+                                <h4>Example Application:</h4>
+                                <p>Job assignment: n workers, m jobs, edges show which workers can do which jobs. Max matching = maximum number of jobs that can be assigned.</p>
+                            </div>
+                        </div>
+
+                        <div class="quick-reference">
+                            <h3>Max Flow Quick Reference</h3>
+                            <table class="complexity-table">
+                                <thead>
+                                    <tr>
+                                        <th>Concept</th>
+                                        <th>Definition</th>
+                                        <th>Complexity</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Ford-Fulkerson</td>
+                                        <td>Method using augmenting paths</td>
+                                        <td>O(E·|f*|)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Edmonds-Karp</td>
+                                        <td>Ford-Fulkerson with BFS</td>
+                                        <td>O(VE²)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Max-Flow Min-Cut</td>
+                                        <td>Max flow value = Min cut capacity</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Bipartite Matching</td>
+                                        <td>Reduce to max flow problem</td>
+                                        <td>O(VE²)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <ul class="checklist">
+                            <li><input type="checkbox" onchange="updateProgress()"> Understand flow network properties</li>
+                            <li><input type="checkbox" onchange="updateProgress()"> Know what residual graph represents</li>
+                            <li><input type="checkbox" onchange="updateProgress()"> Can trace Ford-Fulkerson algorithm</li>
+                            <li><input type="checkbox" onchange="updateProgress()"> Understand Max-Flow Min-Cut theorem</li>
+                            <li><input type="checkbox" onchange="updateProgress()"> Know how to reduce bipartite matching to max flow</li>
+                            <li><input type="checkbox" onchange="updateProgress()"> Review problem set ps8</li>
+                        </ul>
+</div>
 
     <!-- Footer -->
     <footer>

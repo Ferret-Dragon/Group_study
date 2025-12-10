@@ -35,11 +35,180 @@
     </header>
 
     <div class="container">
-        <div class="content-section">
-            <h2>📋 Final Review Overview</h2>
-            <p>This page is ready for content. Please provide instructions on what activities to include!</p>
-        </div>
-    </div>
+<div class="practice-tip">
+                            <h4>Focus on Your Problem Sets!</h4>
+                            <p>Your problem sets (ps1-sol.pdf through ps8-sol.pdf) are in the Assignment_answer_sols folder. These are gold!</p>
+                            <ol>
+                                <li><strong>Rework Problems:</strong> Try solving without looking at solutions first</li>
+                                <li><strong>Understand Solutions:</strong> Don't just read - understand WHY each step works</li>
+                                <li><strong>Identify Patterns:</strong> Notice which techniques apply to which problem types</li>
+                                <li><strong>Tricky Problems:</strong> Problems you got wrong initially are likely to appear in similar form</li>
+                            </ol>
+                        </div>
+
+                        <div class="subtopic">
+                            <h3>Problem Set Focus Areas</h3>
+                            <ul>
+                                <li><strong>ps1-ps3:</strong> Likely focus on graphs, BFS/DFS, topological sort, SCCs</li>
+                                <li><strong>ps3-ps4:</strong> Dijkstra's, divide & conquer, recurrence relations</li>
+                                <li><strong>ps4-ps5:</strong> Master theorem, greedy algorithms, activity selection</li>
+                                <li><strong>ps5-ps6:</strong> MST (Kruskal & Prim), Huffman coding</li>
+                                <li><strong>ps6-ps7:</strong> Dynamic programming problems</li>
+                                <li><strong>ps8:</strong> Maximum flow, bipartite matching</li>
+                            </ul>
+                        </div>
+
+                        <div class="warning-box">
+                            <h4>Common Exam Mistakes to Avoid:</h4>
+                            <ul>
+                                <li>Confusing BFS and DFS applications</li>
+                                <li>Applying Master Theorem when it doesn't apply</li>
+                                <li>Using Dijkstra's with negative weights</li>
+                                <li>Forgetting to check if graph is a DAG for topological sort</li>
+                                <li>Mixing up Kruskal's and Prim's approaches</li>
+                                <li>Not understanding WHEN to use greedy vs DP</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FINAL MORNING REVIEW -->
+                <div class="topic-section" id="final-review">
+                    <h2 onclick="toggleSection('final-review')">
+                        <span class="toggle-icon">▼</span>
+                        7. Final Morning Review
+                    </h2>
+                    <div class="topic-content">
+                        <div class="study-tips">
+                            <h3>Last Hour Before Exam:</h3>
+                            <ul>
+                                <li>Review all complexity tables below</li>
+                                <li>Skim through algorithm pseudocode</li>
+                                <li>Quick mental walk-through of each algorithm</li>
+                                <li>Review any problem set problems you struggled with</li>
+                                <li>Stay calm - you've got this!</li>
+                            </ul>
+                        </div>
+
+                        <div class="quick-reference">
+                            <h3>Master Complexity Reference</h3>
+                            <table class="complexity-table">
+                                <thead>
+                                    <tr>
+                                        <th>Algorithm/Structure</th>
+                                        <th>Time Complexity</th>
+                                        <th>Space</th>
+                                        <th>Notes</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>BFS</td>
+                                        <td>O(V + E)</td>
+                                        <td>O(V)</td>
+                                        <td>Queue, level-by-level</td>
+                                    </tr>
+                                    <tr>
+                                        <td>DFS</td>
+                                        <td>O(V + E)</td>
+                                        <td>O(V)</td>
+                                        <td>Stack/recursion, depth-first</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Topological Sort</td>
+                                        <td>O(V + E)</td>
+                                        <td>O(V)</td>
+                                        <td>DFS-based, DAGs only</td>
+                                    </tr>
+                                    <tr>
+                                        <td>SCC (Kosaraju)</td>
+                                        <td>O(V + E)</td>
+                                        <td>O(V)</td>
+                                        <td>Two DFS passes</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Dijkstra's</td>
+                                        <td>O((V+E) log V)</td>
+                                        <td>O(V)</td>
+                                        <td>Non-negative weights only</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Strassen's</td>
+                                        <td>O(n^2.81)</td>
+                                        <td>O(n²)</td>
+                                        <td>7 multiplications</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Activity Selection</td>
+                                        <td>O(n log n)</td>
+                                        <td>O(1)</td>
+                                        <td>Sort by finish time</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Huffman Coding</td>
+                                        <td>O(n log n)</td>
+                                        <td>O(n)</td>
+                                        <td>Min-heap based</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Kruskal's MST</td>
+                                        <td>O(E log E)</td>
+                                        <td>O(V)</td>
+                                        <td>Sort edges, Union-Find</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Prim's MST</td>
+                                        <td>O((V+E) log V)</td>
+                                        <td>O(V)</td>
+                                        <td>Grow from vertex, min-heap</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Matrix Chain Mult.</td>
+                                        <td>O(n³)</td>
+                                        <td>O(n²)</td>
+                                        <td>DP, optimal parenthesization</td>
+                                    </tr>
+                                    <tr>
+                                        <td>LCS</td>
+                                        <td>O(mn)</td>
+                                        <td>O(mn)</td>
+                                        <td>DP, 2D table</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ford-Fulkerson</td>
+                                        <td>O(E·|f*|)</td>
+                                        <td>O(V+E)</td>
+                                        <td>Augmenting paths</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Edmonds-Karp</td>
+                                        <td>O(VE²)</td>
+                                        <td>O(V+E)</td>
+                                        <td>BFS for paths</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="quick-reference">
+                            <h3>Key Theorems & Properties</h3>
+                            <ul>
+                                <li><strong>Master Theorem:</strong> T(n) = aT(n/b) + f(n) - compare f(n) with n^(log_b a)</li>
+                                <li><strong>Greedy Choice Property:</strong> Optimal solution contains greedy choice</li>
+                                <li><strong>Optimal Substructure:</strong> Required for both DP and greedy</li>
+                                <li><strong>Max-Flow Min-Cut:</strong> Maximum flow = Minimum cut capacity</li>
+                                <li><strong>MST Properties:</strong> V-1 edges, unique if weights distinct, light edge crossing cut is safe</li>
+                                <li><strong>Cut Property:</strong> For any cut, minimum weight edge crossing it is in some MST</li>
+                            </ul>
+                        </div>
+
+                        <div class="resources-section">
+                            <h3>If You Have Extra Time:</h3>
+                            <a href="https://www.youtube.com/watch?v=JPyuH4qXLZ0" target="_blank" class="video-link">🎥 Abdul Bari's Algorithm Playlist (Full Course Review)</a>
+                            <a href="https://visualgo.net/" target="_blank" class="video-link">🔗 VisuAlgo - Algorithm Visualizations</a>
+                            <a href="https://www.bigocheatsheet.com/" target="_blank" class="video-link">🔗 Big-O Cheat Sheet</a>
+                        </div>
+</div>
 
     <!-- Footer -->
     <footer>

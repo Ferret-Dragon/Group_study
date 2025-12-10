@@ -35,11 +35,255 @@
     </header>
 
     <div class="container">
-        <div class="content-section">
-            <h2>🔄 Divide & Conquer Overview</h2>
-            <p>This page is ready for content. Please provide instructions on what activities to include!</p>
-        </div>
-    </div>
+<div class="subtopic">
+                            <h3>Matrix Multiplication</h3>
+                            <div class="key-concepts">
+                                <h4>Key Concepts:</h4>
+                                <ul>
+                                    <li><strong>Standard Algorithm:</strong> O(n³) time - three nested loops</li>
+                                    <li><strong>Divide & Conquer:</strong> Split matrices into submatrices</li>
+                                    <li><strong>Naive D&C:</strong> Still O(n³) - T(n) = 8T(n/2) + O(n²)</li>
+                                    <li><strong>Key Idea:</strong> Reduce number of recursive multiplications</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="subtopic">
+                            <h3>Strassen's Algorithm</h3>
+                            <div class="key-concepts">
+                                <h4>Key Concepts:</h4>
+                                <ul>
+                                    <li><strong>Innovation:</strong> Reduces 8 multiplications to 7 using clever additions</li>
+                                    <li><strong>Time Complexity:</strong> O(n^2.81) - better than O(n³)</li>
+                                    <li><strong>Recurrence:</strong> T(n) = 7T(n/2) + O(n²)</li>
+                                    <li><strong>Trade-off:</strong> More additions/subtractions, but fewer multiplications</li>
+                                </ul>
+                            </div>
+                            <div class="video-recommendations">
+                                <h4>Video Recommendations:</h4>
+                                <a href="https://www.youtube.com/watch?v=0oJyNmEbS4w" target="_blank" class="video-link">🎥 Abdul Bari - Strassen's Matrix Multiplication (20 min)</a>
+                            </div>
+                            <div class="practice-tip">
+                                <h4>Focus:</h4>
+                                <p>Know WHY Strassen is faster (7 vs 8 multiplications) and how to apply Master Theorem to analyze it. You likely won't need to memorize the exact 7 formulas.</p>
+                            </div>
+                        </div>
+
+                        <div class="subtopic">
+                            <h3>Solving Recurrences - Substitution Method</h3>
+                            <div class="key-concepts">
+                                <h4>Key Concepts:</h4>
+                                <ul>
+                                    <li><strong>Process:</strong> (1) Guess the solution, (2) Prove by induction</li>
+                                    <li><strong>Guess Strategies:</strong> Use recursion tree or Master Theorem as guide</li>
+                                    <li><strong>Induction:</strong> Assume true for smaller values, prove for n</li>
+                                    <li><strong>Common Pattern:</strong> Prove T(n) ≤ c·f(n) for some constant c</li>
+                                </ul>
+                            </div>
+                            <div class="video-recommendations">
+                                <h4>Video Recommendations:</h4>
+                                <a href="https://www.youtube.com/watch?v=1K9ebQJosN8" target="_blank" class="video-link">🎥 MIT OCW - Substitution Method (20 min segment)</a>
+                            </div>
+                        </div>
+
+                        <div class="subtopic">
+                            <h3>Recursion Tree Method</h3>
+                            <div class="key-concepts">
+                                <h4>Key Concepts:</h4>
+                                <ul>
+                                    <li><strong>Visual approach:</strong> Draw tree showing recursive calls</li>
+                                    <li><strong>Each level:</strong> Shows work done at that recursion depth</li>
+                                    <li><strong>Sum all levels:</strong> Get total work = solution</li>
+                                    <li><strong>Steps:</strong> (1) Draw tree, (2) Calculate work per level, (3) Sum geometric series</li>
+                                </ul>
+                            </div>
+                            <div class="practice-tip">
+                                <h4>Example: T(n) = 2T(n/2) + n</h4>
+                                <ol>
+                                    <li>Root: n work, 2 children of size n/2</li>
+                                    <li>Level 1: 2·(n/2) = n work total</li>
+                                    <li>Level 2: 4·(n/4) = n work total</li>
+                                    <li>Height: log n levels, each with n work</li>
+                                    <li>Total: n·log n = O(n log n)</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div class="subtopic">
+                            <h3>Master Theorem (Most Important!)</h3>
+                            <div class="key-concepts">
+                                <h4>For recurrences: T(n) = aT(n/b) + f(n)</h4>
+                                <ul>
+                                    <li><strong>Compare f(n) with n^(log_b a):</strong></li>
+                                    <li><strong>Case 1:</strong> If f(n) = O(n^(log_b a - ε)) for ε > 0, then T(n) = Θ(n^(log_b a))</li>
+                                    <li><strong>Case 2:</strong> If f(n) = Θ(n^(log_b a)), then T(n) = Θ(n^(log_b a) log n)</li>
+                                    <li><strong>Case 3:</strong> If f(n) = Ω(n^(log_b a + ε)) for ε > 0, AND regularity condition holds, then T(n) = Θ(f(n))</li>
+                                </ul>
+                            </div>
+                            <div class="formula">
+                                Critical value: n^(log_b a)
+                                <br>For T(n) = aT(n/b) + f(n), calculate log_b(a) first!
+                            </div>
+                            <div class="video-recommendations">
+                                <h4>Video Recommendations:</h4>
+                                <a href="https://www.youtube.com/watch?v=OynWkEj0S-s" target="_blank" class="video-link">🎥 Abdul Bari - Master Theorem (23 min)</a>
+                                <a href="https://www.youtube.com/watch?v=2H0GKdrIowU" target="_blank" class="video-link">🎥 Back to Back SWE - Master Theorem Explained (12 min)</a>
+                            </div>
+                            <div class="practice-tip">
+                                <h4>Quick Examples:</h4>
+                                <ul>
+                                    <li><strong>T(n) = 2T(n/2) + n:</strong> a=2, b=2, f(n)=n. log₂2 = 1, n¹=n. Case 2! → O(n log n)</li>
+                                    <li><strong>T(n) = 4T(n/2) + n:</strong> a=4, b=2, f(n)=n. log₂4 = 2, n² > n. Case 1! → O(n²)</li>
+                                    <li><strong>T(n) = 2T(n/2) + n²:</strong> a=2, b=2, f(n)=n². log₂2 = 1, n² > n¹. Case 3! → O(n²)</li>
+                                    <li><strong>T(n) = 7T(n/2) + n²:</strong> a=7, b=2, f(n)=n². log₂7 ≈ 2.81, n^2.81 > n². Case 1! → O(n^2.81)</li>
+                                </ul>
+                            </div>
+                            <div class="warning-box">
+                                <h4>Master Theorem Limitations:</h4>
+                                <p>Doesn't apply to: T(n) = 2T(n/2) + n log n (gap isn't polynomial), or when a < 1, or b ≤ 1.</p>
+                            </div>
+
+                            <div class="visual-section">
+                                <h4>📊 Complexity Growth Visualization</h4>
+                                <div class="graph-container">
+                                    <svg width="700" height="400" viewBox="0 0 700 400">
+                                        <!-- Axes -->
+                                        <line x1="50" y1="350" x2="650" y2="350" stroke="#333" stroke-width="2"/>
+                                        <line x1="50" y1="350" x2="50" y2="30" stroke="#333" stroke-width="2"/>
+                                        <text x="350" y="385" text-anchor="middle">Input Size (n)</text>
+                                        <text x="20" y="200" text-anchor="middle" transform="rotate(-90 20 200)">Operations</text>
+
+                                        <!-- O(log n) curve -->
+                                        <path d="M 50 350 Q 200 250, 650 150" stroke="#4caf50" stroke-width="3" fill="none"/>
+                                        <text x="660" y="155" fill="#4caf50" font-weight="bold">O(log n)</text>
+
+                                        <!-- O(n) curve -->
+                                        <path d="M 50 350 L 650 80" stroke="#2196f3" stroke-width="3" fill="none"/>
+                                        <text x="660" y="85" fill="#2196f3" font-weight="bold">O(n)</text>
+
+                                        <!-- O(n log n) curve -->
+                                        <path d="M 50 350 Q 300 150, 650 50" stroke="#ff9800" stroke-width="3" fill="none"/>
+                                        <text x="660" y="55" fill="#ff9800" font-weight="bold">O(n log n)</text>
+
+                                        <!-- O(n²) curve -->
+                                        <path d="M 50 350 Q 200 200, 400 50 Q 500 30, 650 30" stroke="#f44336" stroke-width="3" fill="none"/>
+                                        <text x="500" y="25" fill="#f44336" font-weight="bold">O(n²)</text>
+
+                                        <!-- O(2ⁿ) curve -->
+                                        <path d="M 50 350 L 150 340 Q 200 250, 250 100 Q 280 40, 300 35" stroke="#9c27b0" stroke-width="3" fill="none"/>
+                                        <text x="310" y="40" fill="#9c27b0" font-weight="bold">O(2ⁿ)</text>
+
+                                        <!-- Grid lines -->
+                                        <line x1="50" y1="280" x2="650" y2="280" stroke="#ddd" stroke-width="1" stroke-dasharray="5,5"/>
+                                        <line x1="50" y1="210" x2="650" y2="210" stroke="#ddd" stroke-width="1" stroke-dasharray="5,5"/>
+                                        <line x1="50" y1="140" x2="650" y2="140" stroke="#ddd" stroke-width="1" stroke-dasharray="5,5"/>
+                                        <line x1="50" y1="70" x2="650" y2="70" stroke="#ddd" stroke-width="1" stroke-dasharray="5,5"/>
+                                    </svg>
+                                </div>
+                                <p><strong>Key insight:</strong> Notice how quickly O(n²) and O(2ⁿ) grow compared to O(n log n). This is why divide & conquer algorithms like merge sort (O(n log n)) are much better than bubble sort (O(n²)) for large inputs!</p>
+                            </div>
+
+                            <div class="quiz-box">
+                                <h4>🧠 Master Theorem Practice Quiz</h4>
+                                <div class="quiz-question">
+                                    <p><strong>Q1:</strong> For T(n) = 3T(n/4) + n, what is n^(log_b a)?</p>
+                                    <div class="quiz-options">
+                                        <div class="quiz-option" onclick="checkAnswer(this, false, 'master-q1')">A) n</div>
+                                        <div class="quiz-option" onclick="checkAnswer(this, true, 'master-q1')">B) n^0.79 (approximately)</div>
+                                        <div class="quiz-option" onclick="checkAnswer(this, false, 'master-q1')">C) n²</div>
+                                        <div class="quiz-option" onclick="checkAnswer(this, false, 'master-q1')">D) n^3</div>
+                                    </div>
+                                    <div class="quiz-explanation" id="master-q1">
+                                        <strong>Correct!</strong> a=3, b=4, so log₄3 ≈ 0.79. Therefore n^(log_b a) = n^0.79
+                                    </div>
+                                </div>
+                                <div class="quiz-question">
+                                    <p><strong>Q2:</strong> For T(n) = 3T(n/4) + n, which case applies?</p>
+                                    <div class="quiz-options">
+                                        <div class="quiz-option" onclick="checkAnswer(this, false, 'master-q2')">A) Case 1</div>
+                                        <div class="quiz-option" onclick="checkAnswer(this, false, 'master-q2')">B) Case 2</div>
+                                        <div class="quiz-option" onclick="checkAnswer(this, true, 'master-q2')">C) Case 3</div>
+                                        <div class="quiz-option" onclick="checkAnswer(this, false, 'master-q2')">D) Master Theorem doesn't apply</div>
+                                    </div>
+                                    <div class="quiz-explanation" id="master-q2">
+                                        <strong>Correct!</strong> f(n) = n and n^(log₄3) ≈ n^0.79. Since n > n^0.79 polynomially (n = n^1), this is Case 3, so T(n) = Θ(n).
+                                    </div>
+                                </div>
+                                <div class="quiz-question">
+                                    <p><strong>Q3:</strong> For T(n) = 8T(n/2) + n², what is the solution?</p>
+                                    <div class="quiz-options">
+                                        <div class="quiz-option" onclick="checkAnswer(this, false, 'master-q3')">A) Θ(n²)</div>
+                                        <div class="quiz-option" onclick="checkAnswer(this, false, 'master-q3')">B) Θ(n² log n)</div>
+                                        <div class="quiz-option" onclick="checkAnswer(this, true, 'master-q3')">C) Θ(n³)</div>
+                                        <div class="quiz-option" onclick="checkAnswer(this, false, 'master-q3')">D) Θ(n^4)</div>
+                                    </div>
+                                    <div class="quiz-explanation" id="master-q3">
+                                        <strong>Correct!</strong> a=8, b=2, log₂8 = 3, so n^(log_b a) = n³. f(n) = n² < n³, so Case 1 applies → T(n) = Θ(n³).
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="trace-exercise">
+                                <h4>✏️ Interactive Practice: Solve These Step-by-Step</h4>
+                                <div class="trace-step">
+                                    <div class="trace-step-header">Problem 1: T(n) = 9T(n/3) + n</div>
+                                    <p>Step 1: Identify a, b, f(n)</p>
+                                    <button class="show-answer-btn" onclick="toggleAnswer('master-trace-1a')">Show Step 1</button>
+                                    <div class="hidden-answer" id="master-trace-1a">
+                                        a = 9, b = 3, f(n) = n
+                                    </div>
+                                    <p>Step 2: Calculate n^(log_b a)</p>
+                                    <button class="show-answer-btn" onclick="toggleAnswer('master-trace-1b')">Show Step 2</button>
+                                    <div class="hidden-answer" id="master-trace-1b">
+                                        log₃9 = 2, so n^(log_b a) = n²
+                                    </div>
+                                    <p>Step 3: Compare f(n) with n^(log_b a)</p>
+                                    <button class="show-answer-btn" onclick="toggleAnswer('master-trace-1c')">Show Step 3</button>
+                                    <div class="hidden-answer" id="master-trace-1c">
+                                        f(n) = n, n^(log_b a) = n². Since n < n² polynomially, this is Case 1.
+                                    </div>
+                                    <p>Step 4: Apply the case and get final answer</p>
+                                    <button class="show-answer-btn" onclick="toggleAnswer('master-trace-1d')">Show Final Answer</button>
+                                    <div class="hidden-answer" id="master-trace-1d">
+                                        <strong>Case 1 applies → T(n) = Θ(n²)</strong>
+                                    </div>
+                                </div>
+
+                                <div class="trace-step">
+                                    <div class="trace-step-header">Problem 2: T(n) = 2T(n/4) + √n</div>
+                                    <p>Try this one yourself! Click to reveal each step.</p>
+                                    <button class="show-answer-btn" onclick="toggleAnswer('master-trace-2')">Show Complete Solution</button>
+                                    <div class="hidden-answer" id="master-trace-2">
+                                        <p>a = 2, b = 4, f(n) = √n = n^0.5</p>
+                                        <p>log₄2 = 0.5, so n^(log_b a) = n^0.5</p>
+                                        <p>f(n) = n^0.5 equals n^(log_b a) = n^0.5</p>
+                                        <p><strong>Case 2 applies → T(n) = Θ(n^0.5 log n) = Θ(√n log n)</strong></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="quick-reference">
+                            <h3>Master Theorem Cheat Sheet</h3>
+                            <div class="formula">
+                                T(n) = aT(n/b) + f(n)
+                                <br><br>
+                                Step 1: Calculate n^(log_b a)
+                                <br>Step 2: Compare f(n) to n^(log_b a)
+                                <br>Step 3: Apply appropriate case
+                            </div>
+                        </div>
+
+                        <ul class="checklist">
+                            <li><input type="checkbox" onchange="updateProgress()"> Understand standard vs D&C matrix multiplication</li>
+                            <li><input type="checkbox" onchange="updateProgress()"> Know why Strassen is O(n^2.81)</li>
+                            <li><input type="checkbox" onchange="updateProgress()"> Can solve recurrences using substitution</li>
+                            <li><input type="checkbox" onchange="updateProgress()"> Can draw and analyze recursion trees</li>
+                            <li><input type="checkbox" onchange="updateProgress()"> Master Master Theorem - all 3 cases!</li>
+                            <li><input type="checkbox" onchange="updateProgress()"> Practice 5+ Master Theorem examples</li>
+                            <li><input type="checkbox" onchange="updateProgress()"> Review problem set ps3-ps4</li>
+                        </ul>
+</div>
 
     <!-- Footer -->
     <footer>

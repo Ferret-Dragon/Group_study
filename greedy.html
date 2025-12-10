@@ -35,11 +35,213 @@
     </header>
 
     <div class="container">
-        <div class="content-section">
-            <h2>💚 Greedy Algorithms Overview</h2>
-            <p>This page is ready for content. Please provide instructions on what activities to include!</p>
-        </div>
-    </div>
+<div class="subtopic">
+                            <h3>Greedy Strategy Overview</h3>
+                            <div class="key-concepts">
+                                <h4>Key Concepts:</h4>
+                                <ul>
+                                    <li><strong>Greedy Choice Property:</strong> Optimal solution contains greedy choice</li>
+                                    <li><strong>Optimal Substructure:</strong> Optimal solution contains optimal solutions to subproblems</li>
+                                    <li><strong>Proof Pattern:</strong> Show greedy choice is safe (exchange argument), then prove optimal substructure</li>
+                                    <li><strong>vs Dynamic Programming:</strong> Greedy makes one choice and never reconsiders, DP tries all choices</li>
+                                </ul>
+                            </div>
+                            <div class="warning-box">
+                                <h4>When Greedy Fails:</h4>
+                                <p>Greedy doesn't always work! Example: Making change with arbitrary coin denominations, or finding shortest path in graphs with negative weights.</p>
+                            </div>
+                        </div>
+
+                        <div class="subtopic">
+                            <h3>Activity Selection Problem</h3>
+                            <div class="key-concepts">
+                                <h4>Key Concepts:</h4>
+                                <ul>
+                                    <li><strong>Problem:</strong> Select maximum number of non-overlapping activities</li>
+                                    <li><strong>Greedy Choice:</strong> Always pick activity with earliest finish time</li>
+                                    <li><strong>Time Complexity:</strong> O(n log n) for sorting + O(n) for selection</li>
+                                    <li><strong>Why it works:</strong> Early finish leaves most room for remaining activities</li>
+                                </ul>
+                            </div>
+                            <div class="practice-tip">
+                                <h4>Algorithm:</h4>
+                                <ol>
+                                    <li>Sort activities by finish time</li>
+                                    <li>Select first activity</li>
+                                    <li>For each remaining activity: if start ≥ last finish, select it</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div class="subtopic">
+                            <h3>Huffman Codes</h3>
+                            <div class="key-concepts">
+                                <h4>Key Concepts:</h4>
+                                <ul>
+                                    <li><strong>Purpose:</strong> Optimal prefix-free binary encoding</li>
+                                    <li><strong>Greedy Choice:</strong> Merge two lowest-frequency nodes repeatedly</li>
+                                    <li><strong>Time Complexity:</strong> O(n log n) with min-heap</li>
+                                    <li><strong>Result:</strong> Variable-length codes, frequent chars get shorter codes</li>
+                                    <li><strong>Optimality:</strong> Produces minimum average code length</li>
+                                </ul>
+                            </div>
+                            <div class="video-recommendations">
+                                <h4>Video Recommendations:</h4>
+                                <a href="https://www.youtube.com/watch?v=co4_ahEDCho" target="_blank" class="video-link">🎥 Abdul Bari - Huffman Coding (23 min)</a>
+                                <a href="https://www.youtube.com/watch?v=JsTptu56GM8" target="_blank" class="video-link">🎥 Tom Scott - Huffman Codes (9 min - quick overview)</a>
+                            </div>
+                            <div class="practice-tip">
+                                <h4>Algorithm Steps:</h4>
+                                <ol>
+                                    <li>Create leaf node for each character with its frequency</li>
+                                    <li>Build min-heap with all nodes</li>
+                                    <li>While heap has > 1 node:
+                                        <ul>
+                                            <li>Extract two minimum nodes</li>
+                                            <li>Create new internal node with frequency = sum of two nodes</li>
+                                            <li>Make extracted nodes children, insert new node into heap</li>
+                                        </ul>
+                                    </li>
+                                    <li>Remaining node is root of Huffman tree</li>
+                                    <li>Assign codes: left=0, right=1 (or vice versa)</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div class="subtopic">
+                            <h3>Minimum Spanning Trees (MST)</h3>
+                            <div class="key-concepts">
+                                <h4>Key Concepts:</h4>
+                                <ul>
+                                    <li><strong>MST:</strong> Connects all vertices with minimum total edge weight, no cycles</li>
+                                    <li><strong>Properties:</strong> Tree with V-1 edges, unique if edge weights are distinct</li>
+                                    <li><strong>Generic MST:</strong> Grow tree by adding safe edges (edges that maintain MST property)</li>
+                                    <li><strong>Cut Property:</strong> Light edge crossing cut is safe to add</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="subtopic">
+                            <h3>Kruskal's Algorithm</h3>
+                            <div class="key-concepts">
+                                <h4>Key Concepts:</h4>
+                                <ul>
+                                    <li><strong>Strategy:</strong> Edge-based - sort edges, add if doesn't create cycle</li>
+                                    <li><strong>Data Structure:</strong> Union-Find (Disjoint Set) for cycle detection</li>
+                                    <li><strong>Time Complexity:</strong> O(E log E) or O(E log V) - dominated by sorting</li>
+                                    <li><strong>Greedy Choice:</strong> Always add minimum weight edge that doesn't form cycle</li>
+                                </ul>
+                            </div>
+                            <div class="video-recommendations">
+                                <h4>Video Recommendations:</h4>
+                                <a href="https://www.youtube.com/watch?v=4ZlRH0eK-qQ" target="_blank" class="video-link">🎥 Abdul Bari - Kruskal's Algorithm (12 min)</a>
+                            </div>
+                            <div class="practice-tip">
+                                <h4>Algorithm:</h4>
+                                <ol>
+                                    <li>Sort all edges by weight (ascending)</li>
+                                    <li>Initialize: Each vertex in its own set (Union-Find)</li>
+                                    <li>For each edge (u,v) in sorted order:
+                                        <ul>
+                                            <li>If u and v in different sets: add edge to MST, union sets</li>
+                                            <li>Else: skip (would create cycle)</li>
+                                        </ul>
+                                    </li>
+                                    <li>Stop when MST has V-1 edges</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div class="subtopic">
+                            <h3>Prim's Algorithm</h3>
+                            <div class="key-concepts">
+                                <h4>Key Concepts:</h4>
+                                <ul>
+                                    <li><strong>Strategy:</strong> Vertex-based - grow tree from single vertex</li>
+                                    <li><strong>Data Structure:</strong> Min-heap (priority queue) for selecting minimum weight edge</li>
+                                    <li><strong>Time Complexity:</strong> O((V+E) log V) with binary heap, O(E + V log V) with Fibonacci heap</li>
+                                    <li><strong>Greedy Choice:</strong> Add minimum weight edge connecting tree to non-tree vertex</li>
+                                    <li><strong>Similar to:</strong> Dijkstra's algorithm (both use priority queue, grow from source)</li>
+                                </ul>
+                            </div>
+                            <div class="video-recommendations">
+                                <h4>Video Recommendations:</h4>
+                                <a href="https://www.youtube.com/watch?v=oP2-8ysT3QQ" target="_blank" class="video-link">🎥 Abdul Bari - Prim's Algorithm (14 min)</a>
+                                <a href="https://www.youtube.com/watch?v=cplfcGZmX7I" target="_blank" class="video-link">🎥 William Fiset - Prim's MST (13 min)</a>
+                            </div>
+                            <div class="practice-tip">
+                                <h4>Algorithm:</h4>
+                                <ol>
+                                    <li>Start with arbitrary vertex, add to MST</li>
+                                    <li>Initialize: key[v] = ∞ for all vertices, key[start] = 0</li>
+                                    <li>While MST doesn't include all vertices:
+                                        <ul>
+                                            <li>Extract min key vertex u from heap (not yet in MST)</li>
+                                            <li>Add u to MST</li>
+                                            <li>For each neighbor v of u: if v not in MST and weight(u,v) < key[v], update key[v]</li>
+                                        </ul>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div class="quick-reference">
+                            <h3>Greedy Algorithms Comparison</h3>
+                            <table class="complexity-table">
+                                <thead>
+                                    <tr>
+                                        <th>Algorithm</th>
+                                        <th>Problem</th>
+                                        <th>Greedy Choice</th>
+                                        <th>Time Complexity</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Activity Selection</td>
+                                        <td>Max non-overlapping activities</td>
+                                        <td>Earliest finish time</td>
+                                        <td>O(n log n)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Huffman</td>
+                                        <td>Optimal prefix codes</td>
+                                        <td>Merge two min frequencies</td>
+                                        <td>O(n log n)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Kruskal's MST</td>
+                                        <td>Minimum spanning tree</td>
+                                        <td>Min weight edge (no cycle)</td>
+                                        <td>O(E log E)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Prim's MST</td>
+                                        <td>Minimum spanning tree</td>
+                                        <td>Min edge to new vertex</td>
+                                        <td>O((V+E) log V)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Dijkstra's</td>
+                                        <td>Shortest paths</td>
+                                        <td>Min distance unvisited vertex</td>
+                                        <td>O((V+E) log V)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <ul class="checklist">
+                            <li><input type="checkbox" onchange="updateProgress()"> Understand greedy choice property</li>
+                            <li><input type="checkbox" onchange="updateProgress()"> Can solve activity selection</li>
+                            <li><input type="checkbox" onchange="updateProgress()"> Can build Huffman tree and assign codes</li>
+                            <li><input type="checkbox" onchange="updateProgress()"> Understand MST properties</li>
+                            <li><input type="checkbox" onchange="updateProgress()"> Can trace Kruskal's algorithm</li>
+                            <li><input type="checkbox" onchange="updateProgress()"> Can trace Prim's algorithm</li>
+                            <li><input type="checkbox" onchange="updateProgress()"> Know when Kruskal vs Prim is better</li>
+                            <li><input type="checkbox" onchange="updateProgress()"> Review problem sets ps4-ps5</li>
+                        </ul>
+</div>
 
     <!-- Footer -->
     <footer>
