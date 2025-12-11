@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algorithm Formulas & Reference - DSA Study Platform</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .algorithm-card {
+            background: white;
+            border: 2px solid #0d47a1;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .algorithm-header {
+            background: linear-gradient(135deg, #1565c0 0%, #0d47a1 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+        .formula-section {
+            margin: 15px 0;
+            padding: 15px;
+            background: #f5f5f5;
+            border-left: 4px solid #42a5f5;
+            border-radius: 4px;
+        }
+        .formula-section h4 {
+            margin-top: 0;
+            color: #0d47a1;
+        }
+        .formula {
+            font-family: 'Courier New', monospace;
+            background: #e3f2fd;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+        .complexity-badge {
+            display: inline-block;
+            background: #4caf50;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin: 5px;
+        }
+        .when-to-use {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .variable-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+        }
+        .variable-table th,
+        .variable-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        .variable-table th {
+            background: #1565c0;
+            color: white;
+        }
+        .variable-table tr:nth-child(even) {
+            background: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="home.html" class="nav-brand">DSA Study Platform</a>
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item"><a href="home.html" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="graphs.html" class="nav-link">Graphs</a></li>
+                <li class="nav-item"><a href="divide-conquer.html" class="nav-link">Divide & Conquer</a></li>
+                <li class="nav-item"><a href="greedy.html" class="nav-link">Greedy</a></li>
+                <li class="nav-item"><a href="dynamic-programming.html" class="nav-link">Dynamic Programming</a></li>
+                <li class="nav-item"><a href="max-flow.html" class="nav-link">Max Flow</a></li>
+                <li class="nav-item"><a href="formulas.html" class="nav-link active">Formulas</a></li>
+                <li class="nav-item"><a href="review.html" class="nav-link">Final Review</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header>
+        <h1>Complete Algorithm Reference</h1>
+        <p class="subtitle">All Formulas, Complexities, and Decision Rules in One Place</p>
+    </header>
+
+    <div class="container">
+        <!-- Table of Contents -->
+        <div class="subtopic">
+            <h3>Quick Navigation</h3>
+            <ul style="columns: 2;">
+                <li><a href="#graphs">Graph Algorithms</a></li>
+                <li><a href="#divide-conquer">Divide & Conquer</a></li>
+                <li><a href="#greedy">Greedy Algorithms</a></li>
+                <li><a href="#dynamic-programming">Dynamic Programming</a></li>
+                <li><a href="#max-flow">Maximum Flow</a></li>
+            </ul>
+        </div>
+
+        <!-- GRAPH ALGORITHMS -->
+        <div class="subtopic" id="graphs">
+            <h2>Graph Algorithms</h2>
+
+            <!-- BFS -->
+            <div class="algorithm-card">
+                <div class="algorithm-header">
+                    <h3>Breadth-First Search (BFS)</h3>
+                </div>
+
+                <div class="complexity-badge">Time: O(V + E)</div>
+                <div class="complexity-badge" style="background: #2196f3;">Space: O(V)</div>
+
+                <div class="when-to-use">
+                    <h4>When to Use BFS:</h4>
+                    <ul>
+                        <li>Finding shortest path in unweighted graphs</li>
+                        <li>Level-order traversal</li>
+                        <li>Testing bipartiteness</li>
+                        <li>When solution is likely near the start node</li>
+                    </ul>
+                </div>
+
+                <div class="formula-section">
+                    <h4>Algorithm Steps:</h4>
+                    <ol>
+                        <li>Initialize: visited[s] = true, enqueue(s)</li>
+                        <li>While queue not empty: u = dequeue()</li>
+                        <li>For each neighbor v of u: if not visited[v], mark visited, enqueue(v)</li>
+                    </ol>
+                </div>
+
+                <div class="formula-section">
+                    <h4>Variables:</h4>
+                    <table class="variable-table">
+                        <tr>
+                            <th>Variable</th>
+                            <th>Meaning</th>
+                        </tr>
+                        <tr>
+                            <td>V</td>
+                            <td>Number of vertices</td>
+                        </tr>
+                        <tr>
+                            <td>E</td>
+                            <td>Number of edges</td>
+                        </tr>
+                        <tr>
+                            <td>visited[v]</td>
+                            <td>Boolean array tracking visited vertices</td>
+                        </tr>
+                        <tr>
+                            <td>d[v]</td>
+                            <td>Distance from source to vertex v</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="formula-section">
+                    <h4>Distance Formula:</h4>
+                    <div class="formula">
+                        d[v] = d[u] + 1 where u is parent of v in BFS tree
+                    </div>
+                </div>
+            </div>
+
+            <!-- DFS -->
+            <div class="algorithm-card">
+                <div class="algorithm-header">
+                    <h3>Depth-First Search (DFS)</h3>
+                </div>
+
+                <div class="complexity-badge">Time: O(V + E)</div>
+                <div class="complexity-badge" style="background: #2196f3;">Space: O(V)</div>
+
+                <div class="when-to-use">
+                    <h4>When to Use DFS:</h4>
+                    <ul>
+                        <li>Topological sorting (DAGs)</li>
+                        <li>Finding strongly connected components</li>
+                        <li>Cycle detection</li>
+                        <li>Path finding (all paths, not shortest)</li>
+                        <li>When memory is limited (better than BFS)</li>
+                    </ul>
+                </div>
+
+                <div class="formula-section">
+                    <h4>Timestamps:</h4>
+                    <div class="formula">
+                        d[v] = discovery time (when first visited)
+                        f[v] = finish time (when all descendants explored)
+                    </div>
+                </div>
+
+                <div class="formula-section">
+                    <h4>Edge Classification (Directed Graphs):</h4>
+                    <ul>
+                        <li><strong>Tree Edge:</strong> (u,v) where v discovered via u</li>
+                        <li><strong>Back Edge:</strong> (u,v) where v is ancestor of u → indicates cycle</li>
+                        <li><strong>Forward Edge:</strong> (u,v) where v is descendant but not via tree edge</li>
+                        <li><strong>Cross Edge:</strong> All other edges</li>
+                    </ul>
+                </div>
+
+                <div class="formula-section">
+                    <h4>Parenthesis Theorem:</h4>
+                    <div class="formula">
+                        For any two vertices u and v, exactly one holds:
+                        1. [d[u], f[u]] and [d[v], f[v]] are disjoint → neither ancestor of other
+                        2. [d[u], f[u]] contains [d[v], f[v]] → v is descendant of u
+                        3. [d[v], f[v]] contains [d[u], f[u]] → u is descendant of v
+                    </div>
+                </div>
+            </div>
+
+            <!-- Topological Sort -->
+            <div class="algorithm-card">
+                <div class="algorithm-header">
+                    <h3>Topological Sort</h3>
+                </div>
+
+                <div class="complexity-badge">Time: O(V + E)</div>
+                <div class="complexity-badge" style="background: #2196f3;">Space: O(V)</div>
+
+                <div class="when-to-use">
+                    <h4>When to Use:</h4>
+                    <ul>
+                        <li>Scheduling tasks with dependencies</li>
+                        <li>Course prerequisite ordering</li>
+                        <li><strong>ONLY works on DAGs (Directed Acyclic Graphs)</strong></li>
+                    </ul>
+                </div>
+
+                <div class="formula-section">
+                    <h4>Algorithm:</h4>
+                    <ol>
+                        <li>Run DFS on entire graph</li>
+                        <li>When vertex finishes (f[v] computed), push to stack</li>
+                        <li>Pop stack to get topological order</li>
+                    </ol>
+                </div>
+
+                <div class="formula-section">
+                    <h4>Correctness Property:</h4>
+                    <div class="formula">
+                        For any edge (u,v), f[u] > f[v] (u finishes after v)
+                        Therefore, u appears before v in topological order
+                    </div>
+                </div>
+            </div>
+
+            <!-- Strongly Connected Components -->
+            <div class="algorithm-card">
+                <div class="algorithm-header">
+                    <h3>Strongly Connected Components (Kosaraju's Algorithm)</h3>
+                </div>
+
+                <div class="complexity-badge">Time: O(V + E)</div>
+                <div class="complexity-badge" style="background: #2196f3;">Space: O(V)</div>
+
+                <div class="formula-section">
+                    <h4>Algorithm Steps:</h4>
+                    <ol>
+                        <li>Run DFS on G, compute finish times f[v] for all vertices</li>
+                        <li>Compute G^T (transpose of G - reverse all edges)</li>
+                        <li>Run DFS on G^T in decreasing order of f[v]</li>
+                        <li>Each DFS tree in step 3 is one SCC</li>
+                    </ol>
+                </div>
+
+                <div class="formula-section">
+                    <h4>Why It Works:</h4>
+                    <p>If C and C' are SCCs with edge from C to C', then max finish time in C > max finish time in C'. Processing in decreasing finish time ensures we don't cross SCC boundaries.</p>
+                </div>
+            </div>
+
+            <!-- Dijkstra's Algorithm -->
+            <div class="algorithm-card">
+                <div class="algorithm-header">
+                    <h3>Dijkstra's Algorithm (Single-Source Shortest Path)</h3>
+                </div>
+
+                <div class="complexity-badge">Time: O((V+E) log V)</div>
+                <div class="complexity-badge" style="background: #2196f3;">Space: O(V)</div>
+
+                <div class="when-to-use">
+                    <h4>When to Use:</h4>
+                    <ul>
+                        <li>Finding shortest paths from single source</li>
+                        <li><strong>ONLY with non-negative edge weights</strong></li>
+                        <li>GPS navigation, network routing</li>
+                    </ul>
+                </div>
+
+                <div class="formula-section">
+                    <h4>Relaxation Formula:</h4>
+                    <div class="formula">
+                        if d[v] > d[u] + w(u,v):
+                            d[v] = d[u] + w(u,v)
+                            π[v] = u  // predecessor
+                    </div>
+                </div>
+
+                <div class="formula-section">
+                    <h4>Variables:</h4>
+                    <table class="variable-table">
+                        <tr>
+                            <th>Variable</th>
+                            <th>Meaning</th>
+                        </tr>
+                        <tr>
+                            <td>d[v]</td>
+                            <td>Current shortest distance estimate from source to v</td>
+                        </tr>
+                        <tr>
+                            <td>π[v]</td>
+                            <td>Predecessor of v in shortest path</td>
+                        </tr>
+                        <tr>
+                            <td>w(u,v)</td>
+                            <td>Weight of edge from u to v</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="formula-section">
+                    <h4>Algorithm Steps:</h4>
+                    <ol>
+                        <li>Initialize: d[s] = 0, d[v] = ∞ for all v ≠ s</li>
+                        <li>Insert all vertices into min-heap with key d[v]</li>
+                        <li>While heap not empty: u = extractMin()</li>
+                        <li>For each neighbor v of u: relax edge (u,v)</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- DIVIDE AND CONQUER -->
+        <div class="subtopic" id="divide-conquer">
+            <h2>Divide and Conquer</h2>
+
+            <!-- Master Theorem -->
+            <div class="algorithm-card">
+                <div class="algorithm-header">
+                    <h3>Master Theorem</h3>
+                </div>
+
+                <div class="formula-section">
+                    <h4>General Recurrence Form:</h4>
+                    <div class="formula">
+                        T(n) = aT(n/b) + f(n)
+
+                        where:
+                        - a ≥ 1 (number of subproblems)
+                        - b > 1 (factor by which problem size decreases)
+                        - f(n) = cost of divide and combine steps
+                    </div>
+                </div>
+
+                <div class="formula-section">
+                    <h4>Three Cases:</h4>
+                    <p>Compare f(n) with n^(log_b a)</p>
+
+                    <div class="formula">
+                        <strong>Case 1:</strong> f(n) = O(n^(log_b a - ε)) for some ε > 0
+                        → T(n) = Θ(n^(log_b a))
+                        [f(n) grows polynomially slower]
+
+                        <strong>Case 2:</strong> f(n) = Θ(n^(log_b a) · log^k n) for k ≥ 0
+                        → T(n) = Θ(n^(log_b a) · log^(k+1) n)
+                        [f(n) grows at same rate]
+
+                        <strong>Case 3:</strong> f(n) = Ω(n^(log_b a + ε)) for some ε > 0
+                        AND af(n/b) ≤ cf(n) for c < 1 (regularity condition)
+                        → T(n) = Θ(f(n))
+                        [f(n) grows polynomially faster]
+                    </div>
+                </div>
+
+                <div class="formula-section">
+                    <h4>Common Examples:</h4>
+                    <table class="variable-table">
+                        <tr>
+                            <th>Recurrence</th>
+                            <th>a</th>
+                            <th>b</th>
+                            <th>f(n)</th>
+                            <th>n^(log_b a)</th>
+                            <th>Case</th>
+                            <th>Solution</th>
+                        </tr>
+                        <tr>
+                            <td>T(n) = 2T(n/2) + n</td>
+                            <td>2</td>
+                            <td>2</td>
+                            <td>n</td>
+                            <td>n</td>
+                            <td>2</td>
+                            <td>Θ(n log n)</td>
+                        </tr>
+                        <tr>
+                            <td>T(n) = 4T(n/2) + n</td>
+                            <td>4</td>
+                            <td>2</td>
+                            <td>n</td>
+                            <td>n²</td>
+                            <td>1</td>
+                            <td>Θ(n²)</td>
+                        </tr>
+                        <tr>
+                            <td>T(n) = T(n/2) + 1</td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>Θ(log n)</td>
+                        </tr>
+                        <tr>
+                            <td>T(n) = 7T(n/2) + n²</td>
+                            <td>7</td>
+                            <td>2</td>
+                            <td>n²</td>
+                            <td>n^(log_2 7) ≈ n^2.81</td>
+                            <td>1</td>
+                            <td>Θ(n^2.81)</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="formula-section">
+                    <h4>When Master Theorem Doesn't Apply:</h4>
+                    <ul>
+                        <li>When a < 1 or b ≤ 1</li>
+                        <li>When subproblem sizes are not equal (e.g., T(n) = T(n/3) + T(2n/3) + n)</li>
+                        <li>When f(n) is not polynomially smaller/larger (e.g., f(n) = n^(log_b a) / log n)</li>
+                        <li>When regularity condition fails in Case 3</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Strassen's Algorithm -->
+            <div class="algorithm-card">
+                <div class="algorithm-header">
+                    <h3>Strassen's Matrix Multiplication</h3>
+                </div>
+
+                <div class="complexity-badge">Time: O(n^2.81)</div>
+                <div class="complexity-badge" style="background: #2196f3;">Space: O(n²)</div>
+
+                <div class="formula-section">
+                    <h4>Divide Step:</h4>
+                    <p>Partition n×n matrices A, B into four n/2 × n/2 submatrices:</p>
+                    <div class="formula">
+                        A = [A11  A12]    B = [B11  B12]
+                            [A21  A22]        [B21  B22]
+                    </div>
+                </div>
+
+                <div class="formula-section">
+                    <h4>Conquer Step:</h4>
+                    <p>Compute 7 products (instead of 8 in naive approach):</p>
+                    <div class="formula">
+                        P1 = A11(B12 - B22)
+                        P2 = (A11 + A12)B22
+                        P3 = (A21 + A22)B11
+                        P4 = A22(B21 - B11)
+                        P5 = (A11 + A22)(B11 + B22)
+                        P6 = (A12 - A22)(B21 + B22)
+                        P7 = (A11 - A21)(B11 + B12)
+                    </div>
+                </div>
+
+                <div class="formula-section">
+                    <h4>Combine Step:</h4>
+                    <div class="formula">
+                        C11 = P5 + P4 - P2 + P6
+                        C12 = P1 + P2
+                        C21 = P3 + P4
+                        C22 = P5 + P1 - P3 - P7
+                    </div>
+                </div>
+
+                <div class="formula-section">
+                    <h4>Recurrence Relation:</h4>
+                    <div class="formula">
+                        T(n) = 7T(n/2) + Θ(n²)
+
+                        Using Master Theorem (Case 1):
+                        a = 7, b = 2, f(n) = n²
+                        n^(log_b a) = n^(log_2 7) ≈ n^2.81
+
+                        Since f(n) = O(n^(2.81 - ε)), we have T(n) = Θ(n^2.81)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- GREEDY ALGORITHMS -->
+        <div class="subtopic" id="greedy">
+            <h2>Greedy Algorithms</h2>
+
+            <!-- Activity Selection -->
+            <div class="algorithm-card">
+                <div class="algorithm-header">
+                    <h3>Activity Selection</h3>
+                </div>
+
+                <div class="complexity-badge">Time: O(n log n)</div>
+                <div class="complexity-badge" style="background: #2196f3;">Space: O(1)</div>
+
+                <div class="formula-section">
+                    <h4>Greedy Choice:</h4>
+                    <div class="formula">
+                        Always select activity with earliest finish time
+                    </div>
+                </div>
+
+                <div class="formula-section">
+                    <h4>Algorithm:</h4>
+                    <ol>
+                        <li>Sort activities by finish time: f[1] ≤ f[2] ≤ ... ≤ f[n]</li>
+                        <li>A = {a[1]} // select first activity</li>
+                        <li>k = 1 // last selected activity</li>
+                        <li>For i = 2 to n:
+                            <ul>
+                                <li>If s[i] ≥ f[k]: // start time ≥ last finish time</li>
+                                <li>&nbsp;&nbsp;A = A ∪ {a[i]}</li>
+                                <li>&nbsp;&nbsp;k = i</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="formula-section">
+                    <h4>Variables:</h4>
+                    <table class="variable-table">
+                        <tr>
+                            <th>Variable</th>
+                            <th>Meaning</th>
+                        </tr>
+                        <tr>
+                            <td>s[i]</td>
+                            <td>Start time of activity i</td>
+                        </tr>
+                        <tr>
+                            <td>f[i]</td>
+                            <td>Finish time of activity i</td>
+                        </tr>
+                        <tr>
+                            <td>A</td>
+                            <td>Set of selected activities</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Huffman Coding -->
+            <div class="algorithm-card">
+                <div class="algorithm-header">
+                    <h3>Huffman Coding</h3>
+                </div>
+
+                <div class="complexity-badge">Time: O(n log n)</div>
+                <div class="complexity-badge" style="background: #2196f3;">Space: O(n)</div>
+
+                <div class="formula-section">
+                    <h4>Greedy Choice:</h4>
+                    <div class="formula">
+                        Repeatedly merge two nodes with lowest frequencies
+                    </div>
+                </div>
+
+                <div class="formula-section">
+                    <h4>Algorithm:</h4>
+                    <ol>
+                        <li>Create leaf node for each character with frequency f[i]</li>
+                        <li>Build min-heap Q with all nodes</li>
+                        <li>While |Q| > 1:
+                            <ul>
+                                <li>x = extractMin(Q)</li>
+                                <li>y = extractMin(Q)</li>
+                                <li>Create new node z with frequency f[z] = f[x] + f[y]</li>
+                                <li>Make x and y children of z</li>
+                                <li>Insert z into Q</li>
+                            </ul>
+                        </li>
+                        <li>Root of tree is last node in Q</li>
+                    </ol>
+                </div>
+
+                <div class="formula-section">
+                    <h4>Cost Formula:</h4>
+                    <div class="formula">
+                        Cost(T) = Σ f[c] · depth[c]
+
+                        where:
+                        - f[c] = frequency of character c
+                        - depth[c] = depth of c in Huffman tree = code length
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kruskal's MST -->
+            <div class="algorithm-card">
+                <div class="algorithm-header">
+                    <h3>Kruskal's Algorithm (MST)</h3>
+                </div>
+
+                <div class="complexity-badge">Time: O(E log E)</div>
+                <div class="complexity-badge" style="background: #2196f3;">Space: O(V)</div>
+
+                <div class="formula-section">
+                    <h4>Greedy Choice:</h4>
+                    <div class="formula">
+                        Add minimum weight edge that doesn't create a cycle
+                    </div>
+                </div>
+
+                <div class="formula-section">
+                    <h4>Algorithm:</h4>
+                    <ol>
+                        <li>Sort all edges by weight: w(e[1]) ≤ w(e[2]) ≤ ... ≤ w(e[m])</li>
+                        <li>Initialize: Each vertex in its own set (Union-Find)</li>
+                        <li>A = ∅ // MST edges</li>
+                        <li>For each edge (u,v) in sorted order:
+                            <ul>
+                                <li>If Find(u) ≠ Find(v): // not in same component</li>
+                                <li>&nbsp;&nbsp;A = A ∪ {(u,v)}</li>
+                                <li>&nbsp;&nbsp;Union(u, v)</li>
+                            </ul>
+                        </li>
+                        <li>Return A when |A| = V-1</li>
+                    </ol>
+                </div>
+
+                <div class="formula-section">
+                    <h4>MST Properties:</h4>
+                    <ul>
+                        <li>Has exactly V-1 edges</li>
+                        <li>Connects all vertices</li>
+                        <li>Has no cycles</li>
+                        <li>Total weight = Σ w(e) for e ∈ MST is minimum</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Prim's MST -->
+            <div class="algorithm-card">
+                <div class="algorithm-header">
+                    <h3>Prim's Algorithm (MST)</h3>
+                </div>
+
+                <div class="complexity-badge">Time: O((V+E) log V)</div>
+                <div class="complexity-badge" style="background: #2196f3;">Space: O(V)</div>
+
+                <div class="formula-section">
+                    <h4>Greedy Choice:</h4>
+                    <div class="formula">
+                        Add minimum weight edge connecting tree to non-tree vertex
+                    </div>
+                </div>
+
+                <div class="formula-section">
+                    <h4>Algorithm:</h4>
+                    <ol>
+                        <li>Initialize: key[v] = ∞ for all v, key[s] = 0 for start vertex s</li>
+                        <li>Insert all vertices into min-heap Q with key values</li>
+                        <li>A = ∅ // MST edges</li>
+                        <li>While Q not empty:
+                            <ul>
+                                <li>u = extractMin(Q)</li>
+                                <li>For each neighbor v of u:
+                                    <ul>
+                                        <li>If v ∈ Q and w(u,v) < key[v]:</li>
+                                        <li>&nbsp;&nbsp;key[v] = w(u,v)</li>
+                                        <li>&nbsp;&nbsp;π[v] = u // predecessor</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="formula-section">
+                    <h4>Variables:</h4>
+                    <table class="variable-table">
+                        <tr>
+                            <th>Variable</th>
+                            <th>Meaning</th>
+                        </tr>
+                        <tr>
+                            <td>key[v]</td>
+                            <td>Minimum weight edge connecting v to tree</td>
+                        </tr>
+                        <tr>
+                            <td>π[v]</td>
+                            <td>Parent of v in MST</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- DYNAMIC PROGRAMMING -->
+        <div class="subtopic" id="dynamic-programming">
+            <h2>Dynamic Programming</h2>
+
+            <div class="algorithm-card">
+                <div class="algorithm-header">
+                    <h3>Dynamic Programming Principles</h3>
+                </div>
+
+                <div class="formula-section">
+                    <h4>When to Use DP:</h4>
+                    <ul>
+                        <li><strong>Optimal Substructure:</strong> Optimal solution contains optimal solutions to subproblems</li>
+                        <li><strong>Overlapping Subproblems:</strong> Same subproblems solved multiple times</li>
+                    </ul>
+                </div>
+
+                <div class="formula-section">
+                    <h4>Top-Down vs Bottom-Up:</h4>
+                    <table class="variable-table">
+                        <tr>
+                            <th>Approach</th>
+                            <th>Method</th>
+                            <th>Implementation</th>
+                            <th>Pros</th>
+                            <th>Cons</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Top-Down (Memoization)</strong></td>
+                            <td>Recursive</td>
+                            <td>Solve recursively, cache results in table</td>
+                            <td>Easy to write, only computes needed subproblems</td>
+                            <td>Recursion overhead, stack space</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bottom-Up (Tabulation)</strong></td>
+                            <td>Iterative</td>
+                            <td>Fill table iteratively from base cases up</td>
+                            <td>No recursion overhead, better cache locality</td>
+                            <td>May compute unnecessary subproblems</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="formula-section">
+                    <h4>General DP Steps:</h4>
+                    <ol>
+                        <li><strong>Define subproblems:</strong> What does DP[i] or DP[i][j] represent?</li>
+                        <li><strong>Write recurrence relation:</strong> How to compute DP[i] from smaller subproblems?</li>
+                        <li><strong>Identify base cases:</strong> What are initial/boundary values?</li>
+                        <li><strong>Determine computation order:</strong> Which order ensures dependencies met?</li>
+                        <li><strong>Compute final answer:</strong> Which table entry contains solution?</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Rod Cutting -->
+            <div class="algorithm-card">
+                <div class="algorithm-header">
+                    <h3>Rod Cutting</h3>
+                </div>
+
+                <div class="complexity-badge">Time: O(n²)</div>
+                <div class="complexity-badge" style="background: #2196f3;">Space: O(n)</div>
+
+                <div class="formula-section">
+                    <h4>Problem:</h4>
+                    <p>Given rod of length n and prices p[i] for lengths i=1..n, find maximum revenue by cutting rod.</p>
+                </div>
+
+                <div class="formula-section">
+                    <h4>Recurrence Relation:</h4>
+                    <div class="formula">
+                        r[n] = max(p[i] + r[n-i]) for i = 1 to n
+
+                        Base case: r[0] = 0
+                    </div>
+                </div>
+
+                <div class="formula-section">
+                    <h4>Variables:</h4>
+                    <table class="variable-table">
+                        <tr>
+                            <th>Variable</th>
+                            <th>Meaning</th>
+                        </tr>
+                        <tr>
+                            <td>r[i]</td>
+                            <td>Maximum revenue obtainable from rod of length i</td>
+                        </tr>
+                        <tr>
+                            <td>p[i]</td>
+                            <td>Price for rod of length i</td>
+                        </tr>
+                        <tr>
+                            <td>n</td>
+                            <td>Total length of rod</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="formula-section">
+                    <h4>Bottom-Up Algorithm:</h4>
+                    <div class="formula">
+                        r[0] = 0
+                        for j = 1 to n:
+                            q = -∞
+                            for i = 1 to j:
+                                q = max(q, p[i] + r[j-i])
+                            r[j] = q
+                        return r[n]
+                    </div>
+                </div>
+            </div>
+
+            <!-- Matrix Chain Multiplication -->
+            <div class="algorithm-card">
+                <div class="algorithm-header">
+                    <h3>Matrix Chain Multiplication</h3>
+                </div>
+
+                <div class="complexity-badge">Time: O(n³)</div>
+                <div class="complexity-badge" style="background: #2196f3;">Space: O(n²)</div>
+
+                <div class="formula-section">
+                    <h4>Problem:</h4>
+                    <p>Given chain of n matrices A[1]...A[n], find optimal parenthesization minimizing scalar multiplications.</p>
+                </div>
+
+                <div class="formula-section">
+                    <h4>Recurrence Relation:</h4>
+                    <div class="formula">
+                        m[i,j] = min{m[i,k] + m[k+1,j] + p[i-1]·p[k]·p[j]} for k = i to j-1
+
+                        Base case: m[i,i] = 0 (single matrix, no multiplication)
+                    </div>
+                </div>
+
+                <div class="formula-section">
+                    <h4>Variables:</h4>
+                    <table class="variable-table">
+                        <tr>
+                            <th>Variable</th>
+                            <th>Meaning</th>
+                        </tr>
+                        <tr>
+                            <td>m[i,j]</td>
+                            <td>Minimum scalar multiplications to compute A[i..j]</td>
+                        </tr>
+                        <tr>
+                            <td>p[i]</td>
+                            <td>Dimension array where A[i] is p[i-1] × p[i]</td>
+                        </tr>
+                        <tr>
+                            <td>s[i,j]</td>
+                            <td>Index k where optimal split occurs</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="formula-section">
+                    <h4>Cost to Multiply Two Matrices:</h4>
+                    <div class="formula">
+                        Cost(A[p×q] × B[q×r]) = p·q·r scalar multiplications
+                    </div>
+                </div>
+
+                <div class="formula-section">
+                    <h4>Computation Order:</h4>
+                    <p>Fill table by increasing chain length:</p>
+                    <div class="formula">
+                        for len = 2 to n:          // chain length
+                            for i = 1 to n-len+1:  // start position
+                                j = i + len - 1     // end position
+                                m[i,j] = ∞
+                                for k = i to j-1:   // split position
+                                    cost = m[i,k] + m[k+1,j] + p[i-1]·p[k]·p[j]
+                                    if cost < m[i,j]:
+                                        m[i,j] = cost
+                                        s[i,j] = k
+                    </div>
+                </div>
+            </div>
+
+            <!-- Longest Common Subsequence -->
+            <div class="algorithm-card">
+                <div class="algorithm-header">
+                    <h3>Longest Common Subsequence (LCS)</h3>
+                </div>
+
+                <div class="complexity-badge">Time: O(mn)</div>
+                <div class="complexity-badge" style="background: #2196f3;">Space: O(mn)</div>
+
+                <div class="formula-section">
+                    <h4>Problem:</h4>
+                    <p>Find longest subsequence common to two sequences X[1..m] and Y[1..n].</p>
+                </div>
+
+                <div class="formula-section">
+                    <h4>Recurrence Relation:</h4>
+                    <div class="formula">
+                        LCS[i,j] = {
+                            0                           if i = 0 or j = 0
+                            LCS[i-1,j-1] + 1           if X[i] = Y[j]
+                            max(LCS[i-1,j], LCS[i,j-1]) if X[i] ≠ Y[j]
+                        }
+                    </div>
+                </div>
+
+                <div class="formula-section">
+                    <h4>Variables:</h4>
+                    <table class="variable-table">
+                        <tr>
+                            <th>Variable</th>
+                            <th>Meaning</th>
+                        </tr>
+                        <tr>
+                            <td>LCS[i,j]</td>
+                            <td>Length of LCS of X[1..i] and Y[1..j]</td>
+                        </tr>
+                        <tr>
+                            <td>m</td>
+                            <td>Length of sequence X</td>
+                        </tr>
+                        <tr>
+                            <td>n</td>
+                            <td>Length of sequence Y</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="formula-section">
+                    <h4>Table Filling Order:</h4>
+                    <div class="formula">
+                        for i = 0 to m:
+                            LCS[i,0] = 0  // base case
+                        for j = 0 to n:
+                            LCS[0,j] = 0  // base case
+                        for i = 1 to m:
+                            for j = 1 to n:
+                                if X[i] = Y[j]:
+                                    LCS[i,j] = LCS[i-1,j-1] + 1
+                                else:
+                                    LCS[i,j] = max(LCS[i-1,j], LCS[i,j-1])
+                    </div>
+                </div>
+
+                <div class="formula-section">
+                    <h4>Reconstructing the LCS:</h4>
+                    <p>Trace back through table from LCS[m,n]:</p>
+                    <ul>
+                        <li>If X[i] = Y[j]: include X[i], move to [i-1,j-1]</li>
+                        <li>Else: move to max(LCS[i-1,j], LCS[i,j-1])</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- MAXIMUM FLOW -->
+        <div class="subtopic" id="max-flow">
+            <h2>Maximum Flow</h2>
+
+            <!-- Ford-Fulkerson -->
+            <div class="algorithm-card">
+                <div class="algorithm-header">
+                    <h3>Ford-Fulkerson Method</h3>
+                </div>
+
+                <div class="complexity-badge">Time: O(E·|f*|)</div>
+                <div class="complexity-badge" style="background: #2196f3;">Space: O(V+E)</div>
+
+                <div class="formula-section">
+                    <h4>Flow Properties:</h4>
+                    <div class="formula">
+                        1. Capacity constraint: 0 ≤ f(u,v) ≤ c(u,v) for all edges
+                        2. Flow conservation: Σ f(v,u) = Σ f(u,v) for all u ≠ s,t
+                           (flow in = flow out)
+                    </div>
+                </div>
+
+                <div class="formula-section">
+                    <h4>Residual Capacity:</h4>
+                    <div class="formula">
+                        c_f(u,v) = {
+                            c(u,v) - f(u,v)  if (u,v) ∈ E (forward edge)
+                            f(v,u)           if (v,u) ∈ E (backward edge)
+                            0                otherwise
+                        }
+                    </div>
+                </div>
+
+                <div class="formula-section">
+                    <h4>Algorithm:</h4>
+                    <ol>
+                        <li>Initialize: f(u,v) = 0 for all edges</li>
+                        <li>While there exists augmenting path p from s to t in G_f:
+                            <ul>
+                                <li>c_f(p) = min{c_f(u,v) : (u,v) is on p} // bottleneck</li>
+                                <li>For each edge (u,v) on p:
+                                    <ul>
+                                        <li>If forward edge: f(u,v) += c_f(p)</li>
+                                        <li>If backward edge: f(v,u) -= c_f(p)</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>Return Σ f(s,v) over all v</li>
+                    </ol>
+                </div>
+
+                <div class="formula-section">
+                    <h4>Variables:</h4>
+                    <table class="variable-table">
+                        <tr>
+                            <th>Variable</th>
+                            <th>Meaning</th>
+                        </tr>
+                        <tr>
+                            <td>f(u,v)</td>
+                            <td>Flow on edge from u to v</td>
+                        </tr>
+                        <tr>
+                            <td>c(u,v)</td>
+                            <td>Capacity of edge from u to v</td>
+                        </tr>
+                        <tr>
+                            <td>G_f</td>
+                            <td>Residual graph showing remaining capacity</td>
+                        </tr>
+                        <tr>
+                            <td>c_f(u,v)</td>
+                            <td>Residual capacity of edge (u,v)</td>
+                        </tr>
+                        <tr>
+                            <td>|f*|</td>
+                            <td>Maximum flow value</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Edmonds-Karp -->
+            <div class="algorithm-card">
+                <div class="algorithm-header">
+                    <h3>Edmonds-Karp Algorithm</h3>
+                </div>
+
+                <div class="complexity-badge">Time: O(VE²)</div>
+                <div class="complexity-badge" style="background: #2196f3;">Space: O(V+E)</div>
+
+                <div class="formula-section">
+                    <h4>Key Difference from Ford-Fulkerson:</h4>
+                    <p>Use BFS to find shortest augmenting path (in terms of number of edges) in residual graph.</p>
+                </div>
+
+                <div class="formula-section">
+                    <h4>Why BFS?</h4>
+                    <ul>
+                        <li>Guarantees polynomial time complexity</li>
+                        <li>Always finds shortest augmenting path</li>
+                        <li>Distances from source to vertices are non-decreasing</li>
+                        <li>At most O(VE) iterations</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Max-Flow Min-Cut Theorem -->
+            <div class="algorithm-card">
+                <div class="algorithm-header">
+                    <h3>Max-Flow Min-Cut Theorem</h3>
+                </div>
+
+                <div class="formula-section">
+                    <h4>Theorem Statement:</h4>
+                    <div class="formula">
+                        Maximum flow value = Minimum cut capacity
+                    </div>
+                </div>
+
+                <div class="formula-section">
+                    <h4>Cut Definitions:</h4>
+                    <div class="formula">
+                        Cut (S,T): Partition of vertices where s ∈ S and t ∈ T
+
+                        Capacity of cut: c(S,T) = Σ c(u,v) for all u ∈ S, v ∈ T
+
+                        Flow across cut: f(S,T) = Σ f(u,v) - Σ f(v,u)
+                                                 u∈S,v∈T     u∈S,v∈T
+                    </div>
+                </div>
+
+                <div class="formula-section">
+                    <h4>Three Equivalent Conditions:</h4>
+                    <ol>
+                        <li>f is a maximum flow</li>
+                        <li>Residual graph G_f contains no augmenting path</li>
+                        <li>|f| = c(S,T) for some cut (S,T)</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Bipartite Matching -->
+            <div class="algorithm-card">
+                <div class="algorithm-header">
+                    <h3>Maximum Bipartite Matching</h3>
+                </div>
+
+                <div class="complexity-badge">Time: O(VE²)</div>
+                <div class="complexity-badge" style="background: #2196f3;">Space: O(V+E)</div>
+
+                <div class="formula-section">
+                    <h4>Reduction to Max Flow:</h4>
+                    <ol>
+                        <li>Given bipartite graph G = (L ∪ R, E)</li>
+                        <li>Create flow network:
+                            <ul>
+                                <li>Add source s with edges to all vertices in L (capacity 1)</li>
+                                <li>Add sink t with edges from all vertices in R (capacity 1)</li>
+                                <li>Direct all bipartite edges from L to R (capacity 1)</li>
+                            </ul>
+                        </li>
+                        <li>Maximum matching size = Maximum flow value</li>
+                    </ol>
+                </div>
+
+                <div class="formula-section">
+                    <h4>Why It Works:</h4>
+                    <p>Capacity 1 on all edges ensures each vertex matched at most once. Integer flows correspond to valid matchings.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Reference Summary -->
+        <div class="subtopic">
+            <h2>Quick Reference: All Time Complexities</h2>
+            <table class="complexity-table">
+                <thead>
+                    <tr>
+                        <th>Algorithm</th>
+                        <th>Time Complexity</th>
+                        <th>Space Complexity</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>BFS</td>
+                        <td>O(V + E)</td>
+                        <td>O(V)</td>
+                        <td>Queue, shortest path unweighted</td>
+                    </tr>
+                    <tr>
+                        <td>DFS</td>
+                        <td>O(V + E)</td>
+                        <td>O(V)</td>
+                        <td>Stack/recursion, topological sort</td>
+                    </tr>
+                    <tr>
+                        <td>Topological Sort</td>
+                        <td>O(V + E)</td>
+                        <td>O(V)</td>
+                        <td>DAGs only</td>
+                    </tr>
+                    <tr>
+                        <td>SCC (Kosaraju)</td>
+                        <td>O(V + E)</td>
+                        <td>O(V)</td>
+                        <td>Two DFS passes</td>
+                    </tr>
+                    <tr>
+                        <td>Dijkstra's</td>
+                        <td>O((V+E) log V)</td>
+                        <td>O(V)</td>
+                        <td>Non-negative weights only</td>
+                    </tr>
+                    <tr>
+                        <td>Strassen's</td>
+                        <td>O(n^2.81)</td>
+                        <td>O(n²)</td>
+                        <td>7 multiplications</td>
+                    </tr>
+                    <tr>
+                        <td>Activity Selection</td>
+                        <td>O(n log n)</td>
+                        <td>O(1)</td>
+                        <td>Sort by finish time</td>
+                    </tr>
+                    <tr>
+                        <td>Huffman Coding</td>
+                        <td>O(n log n)</td>
+                        <td>O(n)</td>
+                        <td>Min-heap based</td>
+                    </tr>
+                    <tr>
+                        <td>Kruskal's MST</td>
+                        <td>O(E log E)</td>
+                        <td>O(V)</td>
+                        <td>Sort edges, Union-Find</td>
+                    </tr>
+                    <tr>
+                        <td>Prim's MST</td>
+                        <td>O((V+E) log V)</td>
+                        <td>O(V)</td>
+                        <td>Grow from vertex, min-heap</td>
+                    </tr>
+                    <tr>
+                        <td>Rod Cutting</td>
+                        <td>O(n²)</td>
+                        <td>O(n)</td>
+                        <td>DP, try all cuts</td>
+                    </tr>
+                    <tr>
+                        <td>Matrix Chain Mult.</td>
+                        <td>O(n³)</td>
+                        <td>O(n²)</td>
+                        <td>DP, optimal parenthesization</td>
+                    </tr>
+                    <tr>
+                        <td>LCS</td>
+                        <td>O(mn)</td>
+                        <td>O(mn)</td>
+                        <td>DP, 2D table</td>
+                    </tr>
+                    <tr>
+                        <td>Ford-Fulkerson</td>
+                        <td>O(E·|f*|)</td>
+                        <td>O(V+E)</td>
+                        <td>Augmenting paths</td>
+                    </tr>
+                    <tr>
+                        <td>Edmonds-Karp</td>
+                        <td>O(VE²)</td>
+                        <td>O(V+E)</td>
+                        <td>BFS for paths</td>
+                    </tr>
+                    <tr>
+                        <td>Bipartite Matching</td>
+                        <td>O(VE²)</td>
+                        <td>O(V+E)</td>
+                        <td>Reduce to max flow</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>Good luck on your final exam! 🚀</p>
+        <p style="font-size: 0.9em; margin-top: 10px;">Platform generated with Claude Code</p>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
