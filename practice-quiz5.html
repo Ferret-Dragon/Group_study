@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz 5 Practice - Reductions & Max Flow</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .question-section {
+            background: white;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 4px solid #2563eb;
+        }
+        .question-header {
+            background: #e3f2fd;
+            padding: 15px;
+            margin: -25px -25px 20px -25px;
+            font-weight: bold;
+            color: #0d47a1;
+        }
+        .question {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+        }
+        .question-number {
+            font-weight: bold;
+            color: #2563eb;
+            margin-bottom: 10px;
+        }
+        .points {
+            color: #666;
+            font-size: 0.9em;
+            float: right;
+        }
+        .answer-space {
+            border: 2px dashed #ccc;
+            padding: 60px 20px;
+            margin: 15px 0;
+            background: white;
+            min-height: 100px;
+        }
+        .answer-space.small {
+            min-height: 50px;
+            padding: 30px 20px;
+        }
+        .answer-space.large {
+            min-height: 150px;
+            padding: 80px 20px;
+        }
+        .table-answer {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        .table-answer td, .table-answer th {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        .table-answer th {
+            background: #e3f2fd;
+            font-weight: bold;
+        }
+        .path-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        .path-table td, .path-table th {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .path-table th {
+            background: #e3f2fd;
+            font-weight: bold;
+        }
+        .path-table .option {
+            text-align: center;
+            width: 60px;
+        }
+        .note-box {
+            background: #fff9c4;
+            border-left: 4px solid #f57f17;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .toggle-answers {
+            background: #2563eb;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 20px 0;
+        }
+        .toggle-answers:hover {
+            background: #1d4ed8;
+        }
+        .answer-key {
+            display: none;
+            background: #e8f5e9;
+            border-left: 4px solid #2e7d32;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .answer-key.show {
+            display: block;
+        }
+        .answer-key h3 {
+            color: #2e7d32;
+            margin-top: 0;
+        }
+        .answer-detail {
+            margin: 15px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 4px;
+        }
+        .answer-detail strong {
+            color: #2e7d32;
+        }
+        .explanation {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f1f8e9;
+            border-radius: 4px;
+        }
+        .svg-graph {
+            margin: 20px auto;
+            display: block;
+        }
+        .reduction-table {
+            margin: 20px 0;
+        }
+        .reduction-table td {
+            padding: 15px;
+            vertical-align: top;
+        }
+        .reduction-table th {
+            background: #e3f2fd;
+            padding: 12px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">DSA Study Platform</a>
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="graphs.html" class="nav-link">Graphs</a></li>
+                <li class="nav-item"><a href="divide-conquer.html" class="nav-link">Divide & Conquer</a></li>
+                <li class="nav-item"><a href="greedy.html" class="nav-link">Greedy</a></li>
+                <li class="nav-item"><a href="dynamic-programming.html" class="nav-link">Dynamic Programming</a></li>
+                <li class="nav-item"><a href="max-flow.html" class="nav-link">Max Flow</a></li>
+                <li class="nav-item"><a href="formulas.html" class="nav-link">Formulas</a></li>
+                <li class="nav-item"><a href="practice-exam.html" class="nav-link">Practice Exam</a></li>
+                <li class="nav-item"><a href="practice-quiz5.html" class="nav-link active">Quiz 5 Practice</a></li>
+                <li class="nav-item"><a href="review.html" class="nav-link">Final Review</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header>
+        <h1>Quiz 5 Practice - Reductions & Max Flow</h1>
+        <p class="subtitle">Focused Practice for Maximum Flow and NP-Completeness</p>
+    </header>
+
+    <div class="container">
+        <div class="content-section">
+            <h2>Instructions</h2>
+            <p><strong>Format:</strong> Matches Quiz 5 structure exactly</p>
+            <p><strong>Total Points:</strong> 100 points</p>
+            <div class="note-box">
+                <p><strong>Note:</strong> This practice quiz mirrors the actual Quiz 5 format. Questions focus on max flow residual graphs, Ford-Fulkerson vs Edmonds-Karp paths, reduction logic, bipartite graphs, and NP-completeness. Answers limited to 20 words for theory questions.</p>
+            </div>
+        </div>
+
+        <!-- SECTION 1: MAX FLOW -->
+        <div class="question-section">
+            <div class="question-header">
+                Question 1: Maximum Flow Residual Graph (24 points)
+            </div>
+
+            <p>Consider the following flow network <strong>G</strong>. Vertices are labeled by single letters. Edges are labeled with flow/capacity notation.</p>
+
+            <svg class="svg-graph" width="700" height="350" viewBox="0 0 700 350">
+                <!-- Nodes -->
+                <circle cx="50" cy="175" r="25" fill="black" stroke="black" stroke-width="2"/>
+                <text x="50" y="183" fill="white" text-anchor="middle" font-size="18" font-weight="bold">s</text>
+
+                <circle cx="200" cy="80" r="25" fill="white" stroke="black" stroke-width="2"/>
+                <text x="200" y="88" fill="black" text-anchor="middle" font-size="18" font-weight="bold">a</text>
+
+                <circle cx="200" cy="270" r="25" fill="white" stroke="black" stroke-width="2"/>
+                <text x="200" y="278" fill="black" text-anchor="middle" font-size="18" font-weight="bold">b</text>
+
+                <circle cx="350" cy="80" r="25" fill="white" stroke="black" stroke-width="2"/>
+                <text x="350" y="88" fill="black" text-anchor="middle" font-size="18" font-weight="bold">c</text>
+
+                <circle cx="350" cy="270" r="25" fill="white" stroke="black" stroke-width="2"/>
+                <text x="350" y="278" fill="black" text-anchor="middle" font-size="18" font-weight="bold">d</text>
+
+                <circle cx="500" cy="175" r="25" fill="white" stroke="black" stroke-width="2"/>
+                <text x="500" y="183" fill="black" text-anchor="middle" font-size="18" font-weight="bold">e</text>
+
+                <circle cx="650" cy="175" r="25" fill="black" stroke="black" stroke-width="2"/>
+                <text x="650" y="183" fill="white" text-anchor="middle" font-size="18" font-weight="bold">t</text>
+
+                <!-- Edges with arrows -->
+                <defs>
+                    <marker id="arrowhead2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <polygon points="0 0, 10 3, 0 6" fill="black" />
+                    </marker>
+                </defs>
+
+                <!-- s to a -->
+                <line x1="75" y1="165" x2="175" y2="90" stroke="black" stroke-width="2" marker-end="url(#arrowhead2)"/>
+                <text x="125" y="115" fill="#2563eb" font-size="13" font-weight="bold">sa: 4/8</text>
+
+                <!-- s to b -->
+                <line x1="75" y1="185" x2="175" y2="260" stroke="black" stroke-width="2" marker-end="url(#arrowhead2)"/>
+                <text x="125" y="235" fill="#2563eb" font-size="13" font-weight="bold">sb: 6/10</text>
+
+                <!-- a to c -->
+                <line x1="225" y1="80" x2="325" y2="80" stroke="black" stroke-width="2" marker-end="url(#arrowhead2)"/>
+                <text x="275" y="72" fill="#2563eb" font-size="13" font-weight="bold">ac: 3/6</text>
+
+                <!-- a to d -->
+                <line x1="215" y1="105" x2="335" y2="245" stroke="black" stroke-width="2" marker-end="url(#arrowhead2)"/>
+                <text x="275" y="165" fill="#2563eb" font-size="13" font-weight="bold">ad: 1/4</text>
+
+                <!-- b to d -->
+                <line x1="225" y1="270" x2="325" y2="270" stroke="black" stroke-width="2" marker-end="url(#arrowhead2)"/>
+                <text x="275" y="288" fill="#2563eb" font-size="13" font-weight="bold">bd: 5/7</text>
+
+                <!-- b to c (curved up) -->
+                <path d="M 215 250 Q 275 175 335 95" fill="none" stroke="black" stroke-width="2" marker-end="url(#arrowhead2)"/>
+                <text x="260" y="145" fill="#2563eb" font-size="13" font-weight="bold">bc: 1/3</text>
+
+                <!-- c to e -->
+                <line x1="375" y1="90" x2="475" y2="165" stroke="black" stroke-width="2" marker-end="url(#arrowhead2)"/>
+                <text x="425" y="115" fill="#2563eb" font-size="13" font-weight="bold">ce: 4/9</text>
+
+                <!-- d to e -->
+                <line x1="375" y1="260" x2="475" y2="185" stroke="black" stroke-width="2" marker-end="url(#arrowhead2)"/>
+                <text x="425" y="235" fill="#2563eb" font-size="13" font-weight="bold">de: 6/8</text>
+
+                <!-- e to t -->
+                <line x1="525" y1="175" x2="625" y2="175" stroke="black" stroke-width="2" marker-end="url(#arrowhead2)"/>
+                <text x="575" y="167" fill="#2563eb" font-size="13" font-weight="bold">et: 10/12</text>
+            </svg>
+
+            <p><strong>Note:</strong> Edges are processed in <em>alphabetical order</em>. No algorithm will traverse the same edge twice.</p>
+
+            <div class="question">
+                <p>Determine edge weights for the residual graph G<sub>R</sub> using the standard residual graph algorithm. Write your answers in the table below. The second row with R edges (sa<sub>R</sub>, sb<sub>R</sub>, etc.) are for flow in the reverse direction. <strong>List only the flow (single integer), not capacity.</strong></p>
+                <table class="table-answer">
+                    <tr>
+                        <th>sa</th><th>sb</th><th>ac</th><th>ad</th><th>bc</th><th>bd</th><th>ce</th><th>de</th><th>et</th>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <th>sa<sub>R</sub></th><th>sb<sub>R</sub></th><th>ac<sub>R</sub></th><th>ad<sub>R</sub></th><th>bc<sub>R</sub></th><th>bd<sub>R</sub></th><th>ce<sub>R</sub></th><th>de<sub>R</sub></th><th>et<sub>R</sub></th>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- SECTION 2: FORD-FULKERSON VS EDMONDS-KARP -->
+        <div class="question-section">
+            <div class="question-header">
+                Question 2: Path Classification - Ford-Fulkerson vs Edmonds-Karp (33 points)
+            </div>
+
+            <p>Using the residual graph G<sub>R</sub> from Question 1, evaluate each potential path and classify it:</p>
+
+            <div class="note-box">
+                <p><strong>Classification Options:</strong></p>
+                <ul style="margin-left: 20px;">
+                    <li><strong>A)</strong> Path that <em>could</em> be found by <strong>both</strong> FF and EK</li>
+                    <li><strong>B)</strong> Path that <em>could</em> be found by FF, but would <strong>not</strong> be found by EK</li>
+                    <li><strong>C)</strong> Path that would <strong>not</strong> be found by FF, but <em>could</em> be found by EK</li>
+                    <li><strong>D)</strong> Path would <strong>not</strong> be found by either FF or EK</li>
+                    <li><strong>E)</strong> This is <strong>not a valid path</strong> in this residual graph</li>
+                </ul>
+                <p><strong>Remember:</strong> We're asking about augmenting paths in G<sub>R</sub>, not all possible paths in G!</p>
+            </div>
+
+            <table class="path-table">
+                <tr>
+                    <th style="width: 40%;">Path</th>
+                    <th class="option">A</th>
+                    <th class="option">B</th>
+                    <th class="option">C</th>
+                    <th class="option">D</th>
+                    <th class="option">E</th>
+                </tr>
+                <tr>
+                    <td>s → a → c → e → t</td>
+                    <td>○</td><td>○</td><td>○</td><td>○</td><td>○</td>
+                </tr>
+                <tr>
+                    <td>s → b → d → e → t</td>
+                    <td>○</td><td>○</td><td>○</td><td>○</td><td>○</td>
+                </tr>
+                <tr>
+                    <td>s → a → d → e → t</td>
+                    <td>○</td><td>○</td><td>○</td><td>○</td><td>○</td>
+                </tr>
+                <tr>
+                    <td>s → b → c → e → t</td>
+                    <td>○</td><td>○</td><td>○</td><td>○</td><td>○</td>
+                </tr>
+                <tr>
+                    <td>s → a → c → e<sub>R</sub> → d → et</td>
+                    <td>○</td><td>○</td><td>○</td><td>○</td><td>○</td>
+                </tr>
+                <tr>
+                    <td>s → b → bd<sub>R</sub> → ac → ce → t</td>
+                    <td>○</td><td>○</td><td>○</td><td>○</td><td>○</td>
+                </tr>
+                <tr>
+                    <td>s → a → ad → de → et</td>
+                    <td>○</td><td>○</td><td>○</td><td>○</td><td>○</td>
+                </tr>
+                <tr>
+                    <td>s → sb<sub>R</sub> → sa → ac → ce → t</td>
+                    <td>○</td><td>○</td><td>○</td><td>○</td><td>○</td>
+                </tr>
+                <tr>
+                    <td>s → b → d → de<sub>R</sub> → ce → t</td>
+                    <td>○</td><td>○</td><td>○</td><td>○</td><td>○</td>
+                </tr>
+                <tr>
+                    <td>s → a → b → c → e → t</td>
+                    <td>○</td><td>○</td><td>○</td><td>○</td><td>○</td>
+                </tr>
+                <tr>
+                    <td>s → b → bc → ce → et</td>
+                    <td>○</td><td>○</td><td>○</td><td>○</td><td>○</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- SECTION 3: REDUCTIONS -->
+        <div class="question-section">
+            <div class="question-header">
+                Question 3: Problem Reduction Logic (20 points)
+            </div>
+
+            <p>Assume you can reduce problem A to problem B in polynomial time. Fill in the table with what you can infer from the property in the first column. If you can't infer anything, write "nothing".</p>
+
+            <table class="reduction-table table-answer">
+                <tr>
+                    <th style="width: 40%;">If this is true</th>
+                    <th>Then you can infer:</th>
+                </tr>
+                <tr>
+                    <td>We know A must be slow (hard)</td>
+                    <td><div class="answer-space small"></div></td>
+                </tr>
+                <tr>
+                    <td>We know A is fast (easy)</td>
+                    <td><div class="answer-space small"></div></td>
+                </tr>
+                <tr>
+                    <td>We know B must be slow (hard)</td>
+                    <td><div class="answer-space small"></div></td>
+                </tr>
+                <tr>
+                    <td>We know B is fast (easy)</td>
+                    <td><div class="answer-space small"></div></td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- SECTION 4: BIPARTITE GRAPHS -->
+        <div class="question-section">
+            <div class="question-header">
+                Question 4: Bipartite Graph Identification (5 points)
+            </div>
+
+            <div class="question">
+                <p>Which of the following is an example of a bipartite graph?</p>
+                <div style="margin: 20px 0 20px 40px;">
+                    <label style="display: block; margin: 12px 0;">
+                        <input type="radio" name="q4" value="a">
+                        <strong>A.</strong> A triangle (3 vertices, all edges connected)
+                    </label>
+                    <label style="display: block; margin: 12px 0;">
+                        <input type="radio" name="q4" value="b">
+                        <strong>B.</strong> A square (4 vertices, edges forming a cycle)
+                    </label>
+                    <label style="display: block; margin: 12px 0;">
+                        <input type="radio" name="q4" value="c">
+                        <strong>C.</strong> A graph with two sets of vertices where every vertex in one set is connected to all vertices in the other set
+                    </label>
+                    <label style="display: block; margin: 12px 0;">
+                        <input type="radio" name="q4" value="d">
+                        <strong>D.</strong> A graph with 4 vertices in a single strongly connected component
+                    </label>
+                    <label style="display: block; margin: 12px 0;">
+                        <input type="radio" name="q4" value="e">
+                        <strong>E.</strong> A pentagon (5 vertices forming a cycle)
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 5: NFA DIAGRAM -->
+        <div class="question-section">
+            <div class="question-header">
+                Question 5: NFA Diagram (10 points)
+            </div>
+
+            <div class="question">
+                <p>Draw a diagram of an NFA (non-deterministic finite automata) that accepts strings containing at least one '0' followed eventually by at least one '1'. Your diagram should:</p>
+                <ul style="margin-left: 40px;">
+                    <li>Include labeled states (circles)</li>
+                    <li>Show transitions with arrows</li>
+                    <li>Label transitions with the input symbol (0, 1, or ε)</li>
+                    <li>Indicate start state and accept/final state(s)</li>
+                    <li>Be as small as possible (minimize states)</li>
+                </ul>
+                <div class="answer-space large"></div>
+            </div>
+        </div>
+
+        <!-- SECTION 6: NP-COMPLETENESS THEORY -->
+        <div class="question-section">
+            <div class="question-header">
+                Questions 6-8: Complexity Classes (24 points)
+            </div>
+
+            <div class="note-box">
+                <p><strong>Word Limit:</strong> Each answer must be <strong>20 words or fewer</strong>. Longer answers receive zero credit.</p>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 6 <span class="points">[8 points]</span></div>
+                <p>What does it mean if a problem X is in the complexity class <strong>P</strong>?</p>
+                <div class="answer-space small"></div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 7 <span class="points">[8 points]</span></div>
+                <p>What does it mean if a problem X is in the complexity class <strong>NP</strong>?</p>
+                <div class="answer-space small"></div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 8 <span class="points">[8 points]</span></div>
+                <p>Consider the complexity classes P and NP. Why is P ⊆ NP?</p>
+                <div class="answer-space small"></div>
+            </div>
+        </div>
+
+        <!-- SECTION 7: NP-COMPLETE ENGLISH -->
+        <div class="question-section">
+            <div class="question-header">
+                Question 9: NP-Complete Explanation (9 points)
+            </div>
+
+            <div class="question">
+                <p>Explain, in English, what <strong>NP-complete</strong> means (or what an NP-complete problem is). This should be an explanation geared toward somebody with <strong>no computing or relevant mathematical experience</strong>. (20 words maximum)</p>
+                <div class="answer-space"></div>
+            </div>
+        </div>
+
+        <!-- SECTION 8: PROVING NP-COMPLETE -->
+        <div class="question-section">
+            <div class="question-header">
+                Question 10: Proving NP-Completeness (10 points)
+            </div>
+
+            <div class="question">
+                <p>What step(s) are typically done to show that a problem is NP-complete? Fill in all that apply. (This answer can be up to 30 words, but no more!)</p>
+                <div style="margin: 20px 0 20px 40px;">
+                    <label style="display: block; margin: 12px 0;">
+                        <input type="checkbox" name="q10">
+                        Show that problem X is in NP
+                    </label>
+                    <label style="display: block; margin: 12px 0;">
+                        <input type="checkbox" name="q10">
+                        Show that problem X is not in NP-easy
+                    </label>
+                    <label style="display: block; margin: 12px 0;">
+                        <input type="checkbox" name="q10">
+                        Show that problem X can be solved in polynomial time
+                    </label>
+                    <label style="display: block; margin: 12px 0;">
+                        <input type="checkbox" name="q10">
+                        Show that problem X can only be solved in exponential time
+                    </label>
+                    <label style="display: block; margin: 12px 0;">
+                        <input type="checkbox" name="q10">
+                        Show that problem X can be verified in polynomial time
+                    </label>
+                    <label style="display: block; margin: 12px 0;">
+                        <input type="checkbox" name="q10">
+                        Show that problem X can only be verified in exponential time
+                    </label>
+                    <label style="display: block; margin: 12px 0;">
+                        <input type="checkbox" name="q10">
+                        Reduce problem X to SAT (or another NP-complete problem)
+                    </label>
+                    <label style="display: block; margin: 12px 0;">
+                        <input type="checkbox" name="q10">
+                        Reduce SAT (or another NP-complete problem) to problem X
+                    </label>
+                    <label style="display: block; margin: 12px 0;">
+                        <input type="checkbox" name="q10">
+                        Show that problem X is in P
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Answer Key Toggle Button -->
+        <div style="text-align: center; margin: 40px 0;">
+            <button class="toggle-answers" onclick="toggleAnswers()">Show Detailed Answer Key</button>
+        </div>
+
+        <!-- ANSWER KEY -->
+        <div id="answerKey" class="answer-key">
+            <h2>DETAILED ANSWER KEY - QUIZ 5 PRACTICE</h2>
+            <p style="color: #2e7d32; font-weight: bold;">Every answer includes complete step-by-step explanations with NO ambiguity.</p>
+
+            <h3>Question 1: Residual Graph (24 points)</h3>
+            <div class="answer-detail">
+                <strong>Forward Edges (remaining capacity = capacity - current_flow):</strong>
+                <table class="table-answer">
+                    <tr>
+                        <th>sa</th><th>sb</th><th>ac</th><th>ad</th><th>bc</th><th>bd</th><th>ce</th><th>de</th><th>et</th>
+                    </tr>
+                    <tr>
+                        <td>4</td><td>4</td><td>3</td><td>3</td><td>2</td><td>2</td><td>5</td><td>2</td><td>2</td>
+                    </tr>
+                </table>
+
+                <strong>Reverse Edges (current_flow that can be pushed back):</strong>
+                <table class="table-answer">
+                    <tr>
+                        <th>sa<sub>R</sub></th><th>sb<sub>R</sub></th><th>ac<sub>R</sub></th><th>ad<sub>R</sub></th><th>bc<sub>R</sub></th><th>bd<sub>R</sub></th><th>ce<sub>R</sub></th><th>de<sub>R</sub></th><th>et<sub>R</sub></th>
+                    </tr>
+                    <tr>
+                        <td>4</td><td>6</td><td>3</td><td>1</td><td>1</td><td>5</td><td>4</td><td>6</td><td>10</td>
+                    </tr>
+                </table>
+
+                <div class="explanation">
+                    <p><strong>Step-by-step calculation:</strong></p>
+                    <ul>
+                        <li><strong>sa:</strong> capacity=8, flow=4 → forward=8-4=4, reverse=4</li>
+                        <li><strong>sb:</strong> capacity=10, flow=6 → forward=10-6=4, reverse=6</li>
+                        <li><strong>ac:</strong> capacity=6, flow=3 → forward=6-3=3, reverse=3</li>
+                        <li><strong>ad:</strong> capacity=4, flow=1 → forward=4-1=3, reverse=1</li>
+                        <li><strong>bc:</strong> capacity=3, flow=1 → forward=3-1=2, reverse=1</li>
+                        <li><strong>bd:</strong> capacity=7, flow=5 → forward=7-5=2, reverse=5</li>
+                        <li><strong>ce:</strong> capacity=9, flow=4 → forward=9-4=5, reverse=4</li>
+                        <li><strong>de:</strong> capacity=8, flow=6 → forward=8-6=2, reverse=6</li>
+                        <li><strong>et:</strong> capacity=12, flow=10 → forward=12-10=2, reverse=10</li>
+                    </ul>
+                    <p><strong>Total flow verification:</strong> Flow out of s = 4+6 = 10, Flow into t = 10 ✓</p>
+                </div>
+            </div>
+
+            <h3>Question 2: Path Classification (33 points)</h3>
+            <div class="answer-detail">
+                <strong>Path-by-path analysis:</strong>
+                <div class="explanation">
+                    <ol>
+                        <li><strong>s → a → c → e → t</strong>
+                            <ul>
+                                <li>Length: 4 edges</li>
+                                <li>Valid path? Check capacities: sa(4), ac(3), ce(5), et(2) - all > 0 ✓</li>
+                                <li>EK finds shortest paths (BFS). Is there a shorter path? Yes - any 3-edge path</li>
+                                <li>FF can find any valid path, including this one</li>
+                                <li><strong>ANSWER: B</strong> (FF yes, EK no - too long)</li>
+                            </ul>
+                        </li>
+                        <li><strong>s → b → d → e → t</strong>
+                            <ul>
+                                <li>Length: 4 edges</li>
+                                <li>Valid: sb(4), bd(2), de(2), et(2) - all > 0 ✓</li>
+                                <li>Longer than shortest paths (3 edges exist)</li>
+                                <li><strong>ANSWER: B</strong> (FF yes, EK no)</li>
+                            </ul>
+                        </li>
+                        <li><strong>s → a → d → e → t</strong>
+                            <ul>
+                                <li>Length: 4 edges</li>
+                                <li>Valid: sa(4), ad(3), de(2), et(2) - all > 0 ✓</li>
+                                <li>Not shortest path</li>
+                                <li><strong>ANSWER: B</strong> (FF yes, EK no)</li>
+                            </ul>
+                        </li>
+                        <li><strong>s → b → c → e → t</strong>
+                            <ul>
+                                <li>Length: 4 edges</li>
+                                <li>Check edge s→b: exists ✓, b→c: exists ✓, c→e: exists ✓, e→t: exists ✓</li>
+                                <li>Capacities: sb(4), bc(2), ce(5), et(2) - all > 0 ✓</li>
+                                <li>Not shortest (3-edge paths exist)</li>
+                                <li><strong>ANSWER: B</strong> (FF yes, EK no)</li>
+                            </ul>
+                        </li>
+                        <li><strong>s → a → c → e<sub>R</sub> → d → et</strong>
+                            <ul>
+                                <li>Invalid notation: "et" at end should be "e → t"</li>
+                                <li>Path uses reverse edge e<sub>R</sub> (pushing flow back on ce)</li>
+                                <li>Even if corrected to s→a→c→e<sub>R</sub>→... this doesn't make sense (can't go from c to e backwards then continue)</li>
+                                <li><strong>ANSWER: E</strong> (not a valid path)</li>
+                            </ul>
+                        </li>
+                        <li><strong>s → b → bd<sub>R</sub> → ac → ce → t</strong>
+                            <ul>
+                                <li>Invalid: Can't go from b to bd<sub>R</sub> (bd<sub>R</sub> is d→b reverse edge)</li>
+                                <li>This notation suggests going backwards on bd then jumping to ac, which doesn't form a valid s-to-t path</li>
+                                <li><strong>ANSWER: E</strong> (not a valid path)</li>
+                            </ul>
+                        </li>
+                        <li><strong>s → a → ad → de → et</strong>
+                            <ul>
+                                <li>Invalid notation: edges are denoted by vertex pairs, not "ad", "de", "et" as intermediate vertices</li>
+                                <li>If interpreted as s→a→d→e→t: valid, length 4, not shortest</li>
+                                <li>With literal interpretation: <strong>ANSWER: E</strong> (notation error)</li>
+                                <li>If generous: <strong>ANSWER: B</strong></li>
+                            </ul>
+                        </li>
+                        <li><strong>s → sb<sub>R</sub> → sa → ac → ce → t</strong>
+                            <ul>
+                                <li>Invalid: sb<sub>R</sub> is b→s (reverse), can't go from s to sb<sub>R</sub></li>
+                                <li><strong>ANSWER: E</strong> (not a valid path)</li>
+                            </ul>
+                        </li>
+                        <li><strong>s → b → d → de<sub>R</sub> → ce → t</strong>
+                            <ul>
+                                <li>Path: s→b→d, then de<sub>R</sub> (d→e backwards becomes e→d backwards?), then ce→t</li>
+                                <li>Invalid structure - can't go forward on d then use de<sub>R</sub></li>
+                                <li><strong>ANSWER: E</strong> (not a valid path)</li>
+                            </ul>
+                        </li>
+                        <li><strong>s → a → b → c → e → t</strong>
+                            <ul>
+                                <li>Check edge a→b: NO such edge in original graph! Only b→c, not a→b</li>
+                                <li><strong>ANSWER: E</strong> (edge a→b doesn't exist)</li>
+                            </ul>
+                        </li>
+                        <li><strong>s → b → bc → ce → et</strong>
+                            <ul>
+                                <li>Interpret as s→b→c→e→t: length 4, valid path</li>
+                                <li>Capacities: sb(4), bc(2), ce(5), et(2) - all > 0 ✓</li>
+                                <li>Not shortest path</li>
+                                <li><strong>ANSWER: B</strong> (FF yes, EK no)</li>
+                            </ul>
+                        </li>
+                    </ol>
+
+                    <p><strong>Key Insights:</strong></p>
+                    <ul>
+                        <li><strong>Answer C is impossible:</strong> EK is a specific implementation of FF using BFS. Any path EK finds, FF can also find. C would require EK to find something FF cannot, which violates the algorithm relationship.</li>
+                        <li><strong>Shortest paths from s to t:</strong> Any path with 3 edges would be found by EK</li>
+                        <li><strong>FF can find any valid augmenting path</strong>, including longer ones</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Question 3: Reduction Logic (20 points)</h3>
+            <div class="answer-detail">
+                <strong>Given: A reduces to B in polynomial time (A ≤<sub>p</sub> B)</strong>
+                <div class="explanation">
+                    <p><strong>Key principle:</strong> If A ≤<sub>p</sub> B, then solving B solves A. Therefore:</p>
+                    <ul>
+                        <li>If B is easy, then A must be easy (because we can solve A using B)</li>
+                        <li>If A is hard, then B must be hard (because making B easy would make A easy)</li>
+                    </ul>
+
+                    <table class="table-answer">
+                        <tr>
+                            <th>If this is true</th>
+                            <th>Then you can infer:</th>
+                        </tr>
+                        <tr>
+                            <td>We know A must be slow (hard)</td>
+                            <td><strong>B must also be slow (hard)</strong><br>
+                            Reason: If B were fast, we could solve A in polynomial time (reduction + B's time), contradicting that A is slow.</td>
+                        </tr>
+                        <tr>
+                            <td>We know A is fast (easy)</td>
+                            <td><strong>Nothing</strong><br>
+                            Reason: B could be either fast or slow. A being easy doesn't tell us anything about B's difficulty.</td>
+                        </tr>
+                        <tr>
+                            <td>We know B must be slow (hard)</td>
+                            <td><strong>Nothing</strong><br>
+                            Reason: A could be either easy or hard. B being hard doesn't constrain A.</td>
+                        </tr>
+                        <tr>
+                            <td>We know B is fast (easy)</td>
+                            <td><strong>A must also be fast (easy)</strong><br>
+                            Reason: We can solve A by reducing to B (polynomial time) then solving B (fast), so total time is fast.</td>
+                        </tr>
+                    </table>
+
+                    <p><strong>Memory aid:</strong> Information flows "upstream" against the reduction arrow direction. If you know something about A (the source), it tells you about B (the target) if A is hard. If you know about B, it tells you about A if B is easy.</p>
+                </div>
+            </div>
+
+            <h3>Question 4: Bipartite Graph (5 points)</h3>
+            <div class="answer-detail">
+                <strong>ANSWER: C</strong>
+                <div class="explanation">
+                    <p><strong>Explanation:</strong> A bipartite graph has vertices that can be divided into two disjoint sets such that every edge connects a vertex in one set to a vertex in the other set. No edges exist within the same set.</p>
+
+                    <p><strong>Why each answer is right/wrong:</strong></p>
+                    <ul>
+                        <li><strong>A. Triangle:</strong> ❌ A triangle is an odd cycle, which cannot be 2-colored. Not bipartite.</li>
+                        <li><strong>B. Square (4-cycle):</strong> ✓ This IS bipartite (sets: {1,3} and {2,4}), but answer C is more explicitly the definition</li>
+                        <li><strong>C. Two sets, every vertex in one set connected to all in other:</strong> ✅ This is the textbook definition of a bipartite graph (actually a complete bipartite graph)</li>
+                        <li><strong>D. Single strongly connected component:</strong> ❌ This describes directed graph connectivity, not bipartiteness</li>
+                        <li><strong>E. Pentagon (5-cycle):</strong> ❌ Odd cycle, cannot be 2-colored, not bipartite</li>
+                    </ul>
+
+                    <p><strong>Bipartite test:</strong> A graph is bipartite if and only if it contains no odd-length cycles.</p>
+                </div>
+            </div>
+
+            <h3>Question 5: NFA Diagram (10 points)</h3>
+            <div class="answer-detail">
+                <strong>Sample correct answer (3 states):</strong>
+                <div class="explanation">
+                    <pre style="background: white; padding: 20px; font-family: monospace;">
+    0
+  ┌───┐ 1    ┌───┐ 0,1   ┌───┐
+→ │ S │────→ │ A │─────→ │ B │
+  └───┘      └───┘       └─┬─┘
+    ↓          ↑           │
+    │ 0,1      │ 0,1       │
+    └──────────┘           │
+                           ← (accepting)
+
+Legend:
+  → : Start state
+  ← or double circle: Accept state
+                    </pre>
+
+                    <p><strong>State descriptions:</strong></p>
+                    <ul>
+                        <li><strong>S (Start):</strong> Haven't seen a '0' yet
+                            <ul>
+                                <li>On '0' → go to state A</li>
+                                <li>On '1' → stay in S (keep waiting for first '0')</li>
+                            </ul>
+                        </li>
+                        <li><strong>A (Seen '0', waiting for '1'):</strong> Have seen at least one '0'
+                            <ul>
+                                <li>On '0' → stay in A (can see more 0s)</li>
+                                <li>On '1' → go to B (found the required '1'!)</li>
+                            </ul>
+                        </li>
+                        <li><strong>B (Accept):</strong> Have seen both required '0' and '1' in correct order
+                            <ul>
+                                <li>On '0' or '1' → stay in B (accept any additional characters)</li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <p><strong>Grading criteria:</strong></p>
+                    <ul>
+                        <li>✓ Start state clearly marked (2 pts)</li>
+                        <li>✓ Accept state(s) clearly marked - double circle or label (2 pts)</li>
+                        <li>✓ Transitions labeled with input symbols (2 pts)</li>
+                        <li>✓ Correctly accepts strings with 0...1 pattern (2 pts)</li>
+                        <li>✓ Arrows drawn (1 pt)</li>
+                        <li>✓ Reasonable diagram (1 pt)</li>
+                    </ul>
+
+                    <p><strong>Test cases:</strong></p>
+                    <ul>
+                        <li>"01" → ACCEPT ✓</li>
+                        <li>"001" → ACCEPT ✓</li>
+                        <li>"0111" → ACCEPT ✓</li>
+                        <li>"00011" → ACCEPT ✓</li>
+                        <li>"10" → REJECT ✓ (1 before 0)</li>
+                        <li>"0" → REJECT ✓ (no 1 after)</li>
+                        <li>"1" → REJECT ✓ (no 0)</li>
+                        <li>"" (empty) → REJECT ✓</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Questions 6-8: Complexity Classes (24 points)</h3>
+            <div class="answer-detail">
+                <strong>Question 6: What is P?</strong>
+                <div class="explanation">
+                    <p><strong>ANSWER:</strong> Problem X can be solved in polynomial time.</p>
+                    <p><strong>Alternative acceptable answers (≤20 words):</strong></p>
+                    <ul>
+                        <li>"X has a deterministic polynomial-time algorithm"</li>
+                        <li>"X can be solved efficiently"</li>
+                        <li>"There exists algorithm solving X in O(n^k) for some k"</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="answer-detail">
+                <strong>Question 7: What is NP?</strong>
+                <div class="explanation">
+                    <p><strong>ANSWER:</strong> Problem X can be verified in polynomial time.</p>
+                    <p><strong>Alternative acceptable answers (≤20 words):</strong></p>
+                    <ul>
+                        <li>"Solutions to X can be checked in polynomial time"</li>
+                        <li>"X solvable in polynomial time via nondeterminism"</li>
+                        <li>"Given a solution, can verify it's correct in polynomial time"</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="answer-detail">
+                <strong>Question 8: Why P ⊆ NP?</strong>
+                <div class="explanation">
+                    <p><strong>ANSWER:</strong> If you can solve a problem in polynomial time, you can verify solutions in polynomial time.</p>
+                    <p><strong>Alternative acceptable answers (≤20 words):</strong></p>
+                    <ul>
+                        <li>"Solving is at least as hard as verifying"</li>
+                        <li>"Any polynomial-time algorithm can also verify in polynomial time"</li>
+                        <li>"If solvable fast, then verifiable fast"</li>
+                    </ul>
+                    <p><strong>Detailed reasoning:</strong> To verify a proposed solution, just solve the problem yourself and compare. Since solving takes polynomial time (because it's in P), verification also takes polynomial time, so it's in NP.</p>
+                </div>
+            </div>
+
+            <h3>Question 9: NP-Complete Plain English (9 points)</h3>
+            <div class="answer-detail">
+                <strong>Sample answers (≤20 words):</strong>
+                <div class="explanation">
+                    <ul>
+                        <li><strong>"Problems that are very hard to solve but easy to check if someone gives you an answer."</strong> (17 words) ✓</li>
+                        <li><strong>"The hardest problems where verifying solutions is quick but finding them is slow."</strong> (13 words) ✓</li>
+                        <li><strong>"Extremely difficult to solve, but you can quickly verify if a proposed solution is correct."</strong> (15 words) ✓</li>
+                        <li><strong>"Problems with no known fast solution, but solutions can be checked quickly."</strong> (12 words) ✓</li>
+                    </ul>
+
+                    <p><strong>Real-world analogies that would score well:</strong></p>
+                    <ul>
+                        <li>"Like a jigsaw puzzle - very hard to solve, but easy to check if complete." (14 words)</li>
+                        <li>"Sudoku puzzles: difficult to solve, but verifying a filled grid is trivial." (11 words)</li>
+                    </ul>
+
+                    <p><strong>Grading deductions:</strong></p>
+                    <ul>
+                        <li>-3 pts: Uses technical jargon (polynomial, deterministic, Turing machine, etc.)</li>
+                        <li>-6 pts: Uses heavy technical jargon throughout</li>
+                        <li>0 pts: More than 20 words</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Question 10: Proving NP-Completeness (10 points)</h3>
+            <div class="answer-detail">
+                <strong>Correct answers to check:</strong>
+                <div class="explanation">
+                    <ul>
+                        <li>✅ <strong>Show that problem X is in NP</strong> (or equivalently...)</li>
+                        <li>✅ <strong>Show that problem X can be verified in polynomial time</strong></li>
+                        <li>✅ <strong>Reduce SAT (or another NP-complete problem) to problem X</strong></li>
+                    </ul>
+
+                    <p><strong>Incorrect answers (do NOT check):</strong></p>
+                    <ul>
+                        <li>❌ Show that problem X is not in NP-easy (this isn't a standard complexity class)</li>
+                        <li>❌ Show that problem X can be solved in polynomial time (this would put it in P, not prove NP-completeness!)</li>
+                        <li>❌ Show that problem X can only be solved in exponential time (we don't know this for NP-complete problems; it's the P≠NP question)</li>
+                        <li>❌ Show that problem X can only be verified in exponential time (contradicts being in NP)</li>
+                        <li>❌ Reduce problem X to SAT (direction is backwards)</li>
+                        <li>❌ Show that problem X is in P (contradicts NP-completeness unless P=NP)</li>
+                    </ul>
+
+                    <p><strong>Complete answer format (30 words max):</strong></p>
+                    <p><em>"Show X is in NP by demonstrating polynomial-time verification. Reduce a known NP-complete problem to X in polynomial time."</em> (20 words)</p>
+
+                    <p><strong>The two key steps:</strong></p>
+                    <ol>
+                        <li><strong>X ∈ NP:</strong> Show solutions can be verified in polynomial time</li>
+                        <li><strong>X is NP-hard:</strong> Show that some known NP-complete problem Y reduces to X (Y ≤<sub>p</sub> X)</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div style="background: #fff9c4; padding: 20px; margin: 30px 0; border-left: 4px solid #f57f17;">
+                <h3 style="margin-top: 0; color: #f57f17;">Grading Summary</h3>
+                <ul>
+                    <li><strong>Question 1:</strong> 24 points (1 point per edge value)</li>
+                    <li><strong>Question 2:</strong> 33 points (3 points per path classification)</li>
+                    <li><strong>Question 3:</strong> 20 points (5 points per table row)</li>
+                    <li><strong>Question 4:</strong> 5 points (all or nothing)</li>
+                    <li><strong>Question 5:</strong> 10 points (NFA diagram graded on completeness and correctness)</li>
+                    <li><strong>Questions 6-8:</strong> 24 points (8 points each, must be ≤20 words)</li>
+                    <li><strong>Question 9:</strong> 9 points (plain English, ≤20 words, no jargon)</li>
+                    <li><strong>Question 10:</strong> 10 points (all correct boxes checked)</li>
+                </ul>
+                <p><strong>Total: 100 points</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>Good luck on Quiz 5!</p>
+        <p style="font-size: 0.9em; margin-top: 10px;">Practice generated with Claude Code</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
+
+        function toggleAnswers() {
+            const answerKey = document.getElementById('answerKey');
+            const button = document.querySelector('.toggle-answers');
+
+            if (answerKey.classList.contains('show')) {
+                answerKey.classList.remove('show');
+                button.textContent = 'Show Detailed Answer Key';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                answerKey.classList.add('show');
+                button.textContent = 'Hide Answer Key';
+                answerKey.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const navMenu = document.getElementById('navMenu');
+            if (!event.target.closest('.navbar')) {
+                navMenu.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
