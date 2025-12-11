@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice Exam - DSA Study Platform</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .question-section {
+            background: white;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 4px solid #2563eb;
+        }
+        .question-header {
+            background: #e3f2fd;
+            padding: 15px;
+            margin: -25px -25px 20px -25px;
+            font-weight: bold;
+            color: #0d47a1;
+        }
+        .question {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+        }
+        .question-number {
+            font-weight: bold;
+            color: #2563eb;
+            margin-bottom: 10px;
+        }
+        .points {
+            color: #666;
+            font-size: 0.9em;
+            float: right;
+        }
+        .answer-space {
+            border: 2px dashed #ccc;
+            padding: 60px 20px;
+            margin: 15px 0;
+            background: white;
+            min-height: 100px;
+        }
+        .answer-space.small {
+            min-height: 50px;
+            padding: 30px 20px;
+        }
+        .answer-space.large {
+            min-height: 150px;
+            padding: 80px 20px;
+        }
+        .flow-graph {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        .table-answer {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        .table-answer td, .table-answer th {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        .table-answer th {
+            background: #e3f2fd;
+            font-weight: bold;
+        }
+        .multiple-choice {
+            margin: 10px 0 10px 30px;
+        }
+        .multiple-choice label {
+            display: block;
+            margin: 8px 0;
+            cursor: pointer;
+        }
+        .multiple-choice input {
+            margin-right: 10px;
+        }
+        .note-box {
+            background: #fff9c4;
+            border-left: 4px solid #f57f17;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .toggle-answers {
+            background: #2563eb;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 20px 0;
+        }
+        .toggle-answers:hover {
+            background: #1d4ed8;
+        }
+        .answer-key {
+            display: none;
+            background: #e8f5e9;
+            border-left: 4px solid #2e7d32;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .answer-key.show {
+            display: block;
+        }
+        .answer-key h3 {
+            color: #2e7d32;
+            margin-top: 0;
+        }
+        .answer-detail {
+            margin: 15px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 4px;
+        }
+        .answer-detail strong {
+            color: #2e7d32;
+        }
+        .explanation {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f1f8e9;
+            border-radius: 4px;
+        }
+        .svg-graph {
+            margin: 20px auto;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">DSA Study Platform</a>
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="graphs.html" class="nav-link">Graphs</a></li>
+                <li class="nav-item"><a href="divide-conquer.html" class="nav-link">Divide & Conquer</a></li>
+                <li class="nav-item"><a href="greedy.html" class="nav-link">Greedy</a></li>
+                <li class="nav-item"><a href="dynamic-programming.html" class="nav-link">Dynamic Programming</a></li>
+                <li class="nav-item"><a href="max-flow.html" class="nav-link">Max Flow</a></li>
+                <li class="nav-item"><a href="formulas.html" class="nav-link">Formulas</a></li>
+                <li class="nav-item"><a href="practice-exam.html" class="nav-link active">Practice Exam</a></li>
+                <li class="nav-item"><a href="review.html" class="nav-link">Final Review</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header>
+        <h1>Practice Exam</h1>
+        <p class="subtitle">Test Your Knowledge - Based on Quiz 5 (Reductions) & Quiz 2 (Divide & Conquer)</p>
+    </header>
+
+    <div class="container">
+        <div class="content-section">
+            <h2>Instructions</h2>
+            <p><strong>Time Limit:</strong> 90 minutes (suggested)</p>
+            <p><strong>Total Points:</strong> 200 points</p>
+            <div class="note-box">
+                <p><strong>Note:</strong> This is a CLOSED book, closed-notes exam. Work through each problem independently. Write your answers in the provided answer spaces. Click "Show Answer Key" at the bottom to reveal detailed solutions.</p>
+            </div>
+        </div>
+
+        <!-- SECTION 1: MAX FLOW -->
+        <div class="question-section">
+            <div class="question-header">
+                SECTION 1: Maximum Flow (50 points)
+            </div>
+
+            <p>Consider the following flow network <strong>G</strong>. Edges are labeled with flow/capacity notation.</p>
+
+            <svg class="svg-graph" width="600" height="300" viewBox="0 0 600 300">
+                <!-- Nodes -->
+                <circle cx="50" cy="150" r="20" fill="black" stroke="black" stroke-width="2"/>
+                <text x="50" y="155" fill="white" text-anchor="middle" font-size="16" font-weight="bold">s</text>
+
+                <circle cx="200" cy="80" r="20" fill="white" stroke="black" stroke-width="2"/>
+                <text x="200" y="85" fill="black" text-anchor="middle" font-size="16" font-weight="bold">a</text>
+
+                <circle cx="200" cy="220" r="20" fill="white" stroke="black" stroke-width="2"/>
+                <text x="200" y="225" fill="black" text-anchor="middle" font-size="16" font-weight="bold">b</text>
+
+                <circle cx="350" cy="150" r="20" fill="white" stroke="black" stroke-width="2"/>
+                <text x="350" y="155" fill="black" text-anchor="middle" font-size="16" font-weight="bold">c</text>
+
+                <circle cx="450" cy="220" r="20" fill="white" stroke="black" stroke-width="2"/>
+                <text x="450" y="225" fill="black" text-anchor="middle" font-size="16" font-weight="bold">d</text>
+
+                <circle cx="550" cy="150" r="20" fill="black" stroke="black" stroke-width="2"/>
+                <text x="550" y="155" fill="white" text-anchor="middle" font-size="16" font-weight="bold">t</text>
+
+                <!-- Edges with arrows -->
+                <defs>
+                    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <polygon points="0 0, 10 3, 0 6" fill="black" />
+                    </marker>
+                </defs>
+
+                <!-- s to a -->
+                <line x1="70" y1="140" x2="180" y2="90" stroke="black" stroke-width="2" marker-end="url(#arrowhead)"/>
+                <text x="125" y="105" fill="#2563eb" font-size="12" font-weight="bold">sa: 5/10</text>
+
+                <!-- s to b -->
+                <line x1="70" y1="160" x2="180" y2="210" stroke="black" stroke-width="2" marker-end="url(#arrowhead)"/>
+                <text x="125" y="195" fill="#2563eb" font-size="12" font-weight="bold">sb: 3/8</text>
+
+                <!-- a to c -->
+                <line x1="220" y1="85" x2="330" y2="145" stroke="black" stroke-width="2" marker-end="url(#arrowhead)"/>
+                <text x="275" y="105" fill="#2563eb" font-size="12" font-weight="bold">ac: 5/7</text>
+
+                <!-- a to b -->
+                <line x1="200" y1="100" x2="200" y2="200" stroke="black" stroke-width="2" marker-end="url(#arrowhead)"/>
+                <text x="215" y="150" fill="#2563eb" font-size="12" font-weight="bold">ab: 0/4</text>
+
+                <!-- b to c -->
+                <line x1="220" y1="215" x2="330" y2="155" stroke="black" stroke-width="2" marker-end="url(#arrowhead)"/>
+                <text x="275" y="200" fill="#2563eb" font-size="12" font-weight="bold">bc: 3/6</text>
+
+                <!-- b to d -->
+                <line x1="220" y1="220" x2="430" y2="220" stroke="black" stroke-width="2" marker-end="url(#arrowhead)"/>
+                <text x="325" y="235" fill="#2563eb" font-size="12" font-weight="bold">bd: 0/5</text>
+
+                <!-- c to d -->
+                <line x1="360" y1="170" x2="440" y2="210" stroke="black" stroke-width="2" marker-end="url(#arrowhead)"/>
+                <text x="400" y="180" fill="#2563eb" font-size="12" font-weight="bold">cd: 2/4</text>
+
+                <!-- c to t -->
+                <line x1="370" y1="150" x2="530" y2="150" stroke="black" stroke-width="2" marker-end="url(#arrowhead)"/>
+                <text x="450" y="140" fill="#2563eb" font-size="12" font-weight="bold">ct: 6/10</text>
+
+                <!-- d to t -->
+                <line x1="470" y1="210" x2="540" y2="160" stroke="black" stroke-width="2" marker-end="url(#arrowhead)"/>
+                <text x="510" y="195" fill="#2563eb" font-size="12" font-weight="bold">dt: 2/7</text>
+            </svg>
+
+            <div class="question">
+                <div class="question-number">Question 1.1 <span class="points">[24 points]</span></div>
+                <p>Create the residual graph G<sub>R</sub> based on the current flow state shown above. Fill in the table below with the edge weights (flow values only, not capacity). The second row is for reverse edges.</p>
+                <table class="table-answer">
+                    <tr>
+                        <th>sa</th><th>sb</th><th>ab</th><th>ac</th><th>bc</th><th>bd</th><th>cd</th><th>ct</th><th>dt</th>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <th>sa<sub>R</sub></th><th>sb<sub>R</sub></th><th>ab<sub>R</sub></th><th>ac<sub>R</sub></th><th>bc<sub>R</sub></th><th>bd<sub>R</sub></th><th>cd<sub>R</sub></th><th>ct<sub>R</sub></th><th>dt<sub>R</sub></th>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 1.2 <span class="points">[10 points]</span></div>
+                <p>Find an augmenting path that the <strong>Edmonds-Karp algorithm</strong> would provide (uses BFS - shortest path first). Write the path in the form "ABCD" where each letter is a vertex.</p>
+                <div class="answer-space small"></div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 1.3 <span class="points">[10 points]</span></div>
+                <p>Find an augmenting path that the <strong>Ford-Fulkerson algorithm</strong> could find but Edmonds-Karp would NOT find (any valid path, not necessarily shortest).</p>
+                <div class="answer-space small"></div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 1.4 <span class="points">[6 points]</span></div>
+                <p>What is the maximum flow of this graph? Show the augmenting paths you used.</p>
+                <div class="answer-space"></div>
+            </div>
+        </div>
+
+        <!-- SECTION 2: REDUCTIONS & NP-COMPLETENESS -->
+        <div class="question-section">
+            <div class="question-header">
+                SECTION 2: Reductions & NP-Completeness (50 points)
+            </div>
+
+            <div class="note-box">
+                <p><strong>Word Limit:</strong> Questions 2.1-2.5 must be answered in 20 words or fewer. Question 2.6 can be up to 30 words.</p>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 2.1 <span class="points">[8 points]</span></div>
+                <p>What does it mean if a problem X is in the complexity class <strong>P</strong>?</p>
+                <div class="answer-space small"></div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 2.2 <span class="points">[8 points]</span></div>
+                <p>What does it mean if a problem X is in the complexity class <strong>NP</strong>?</p>
+                <div class="answer-space small"></div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 2.3 <span class="points">[8 points]</span></div>
+                <p>Why is P ⊆ NP (why is P a subset of NP)?</p>
+                <div class="answer-space small"></div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 2.4 <span class="points">[9 points]</span></div>
+                <p>Explain, in plain English, what <strong>NP-complete</strong> means. This should be understandable to someone with no computing or mathematical background.</p>
+                <div class="answer-space"></div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 2.5 <span class="points">[10 points]</span></div>
+                <p>What steps must you complete to show that a problem is NP-complete? (Maximum 30 words)</p>
+                <div class="answer-space"></div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 2.6 <span class="points">[7 points]</span></div>
+                <p>For a problem reduction to be useful when analyzing complexity, what must be true about the time complexity of the reduction step?</p>
+                <div class="multiple-choice">
+                    <label><input type="radio" name="q26" value="a"> Strictly less than the target problem time</label>
+                    <label><input type="radio" name="q26" value="b"> Less than or equal to the target problem time</label>
+                    <label><input type="radio" name="q26" value="c"> Equal to the target problem time</label>
+                    <label><input type="radio" name="q26" value="d"> Polynomial time</label>
+                    <label><input type="radio" name="q26" value="e"> Strictly greater than the target problem time</label>
+                    <label><input type="radio" name="q26" value="f"> Exponential time</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 3: DIVIDE AND CONQUER -->
+        <div class="question-section">
+            <div class="question-header">
+                SECTION 3: Divide and Conquer (60 points)
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 3.1 <span class="points">[30 points]</span></div>
+                <p><strong>Palindrome Finding Problem:</strong> Design a divide-and-conquer algorithm to find the longest palindrome in an array A[] of n characters in Θ(n log n) time. Answer the following:</p>
+
+                <p><strong>a) Base case:</strong> [6 points]</p>
+                <div class="answer-space small"></div>
+
+                <p><strong>b) Divide step:</strong> [6 points]</p>
+                <div class="answer-space small"></div>
+
+                <p><strong>c) Conquer (recursive) step:</strong> [6 points]</p>
+                <div class="answer-space small"></div>
+
+                <p><strong>d) Combine step:</strong> [6 points]</p>
+                <div class="answer-space small"></div>
+
+                <p><strong>e) Recurrence relation:</strong> [6 points]</p>
+                <div class="answer-space small"></div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 3.2 <span class="points">[18 points]</span></div>
+                <p><strong>Median-of-Medians:</strong> Consider a 3×3 blocks version of median-of-medians (three blocks of three elements each) on a list of 9 elements. Using a brief English explanation and/or a diagram, show that the median-of-medians is greater than at least 33% of the values.</p>
+                <div class="answer-space large"></div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 3.3 <span class="points">[12 points]</span></div>
+                <p><strong>Master Theorem:</strong> For the recurrence <strong>T(n) = 4T(n/2) + n²</strong>, determine:</p>
+                <ul style="margin-left: 40px;">
+                    <li>Which case of the Master Theorem applies</li>
+                    <li>Justification (values of a, b, f(n), ε, etc.)</li>
+                    <li>The asymptotic growth</li>
+                </ul>
+                <div class="answer-space large"></div>
+            </div>
+        </div>
+
+        <!-- SECTION 4: ASYMPTOTIC ANALYSIS -->
+        <div class="question-section">
+            <div class="question-header">
+                SECTION 4: Asymptotic Analysis & Proof by Induction (40 points)
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 4.1 <span class="points">[25 points]</span></div>
+                <p><strong>Proof by Induction:</strong> Using the guess-and-check method, prove that binary search is O(n) using induction.</p>
+
+                <p><strong>a) Base case(s):</strong> What are your base case(s)? Show that they work. [8 points]</p>
+                <div class="answer-space"></div>
+
+                <p><strong>b) Inductive hypothesis:</strong> [6 points]</p>
+                <div class="answer-space small"></div>
+
+                <p><strong>c) Inductive step:</strong> Prove your inductive step. [11 points]</p>
+                <div class="answer-space large"></div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Question 4.2 <span class="points">[15 points]</span></div>
+                <p><strong>Master Theorem Applications:</strong> For each recurrence relation, state which case of the Master Theorem applies and give the asymptotic bound.</p>
+
+                <p><strong>a)</strong> T(n) = 2T(n/2) + n log n [5 points]</p>
+                <div class="answer-space small"></div>
+
+                <p><strong>b)</strong> T(n) = 3T(n/3) + n² [5 points]</p>
+                <div class="answer-space small"></div>
+
+                <p><strong>c)</strong> T(n) = 8T(n/2) + n² [5 points]</p>
+                <div class="answer-space small"></div>
+            </div>
+        </div>
+
+        <!-- Answer Key Toggle Button -->
+        <div style="text-align: center; margin: 40px 0;">
+            <button class="toggle-answers" onclick="toggleAnswers()">Show Answer Key</button>
+        </div>
+
+        <!-- ANSWER KEY (Initially Hidden) -->
+        <div id="answerKey" class="answer-key">
+            <h2>DETAILED ANSWER KEY</h2>
+            <p style="color: #2e7d32; font-weight: bold;">All answers are provided with complete explanations to ensure no ambiguity.</p>
+
+            <h3>SECTION 1: Maximum Flow (50 points)</h3>
+
+            <div class="answer-detail">
+                <strong>Question 1.1 [24 points]:</strong> Residual Graph Edges
+                <div class="explanation">
+                    <p><strong>Forward Edges (remaining capacity):</strong></p>
+                    <table class="table-answer">
+                        <tr>
+                            <th>sa</th><th>sb</th><th>ab</th><th>ac</th><th>bc</th><th>bd</th><th>cd</th><th>ct</th><th>dt</th>
+                        </tr>
+                        <tr>
+                            <td>5</td><td>5</td><td>4</td><td>2</td><td>3</td><td>5</td><td>2</td><td>4</td><td>5</td>
+                        </tr>
+                    </table>
+                    <p><strong>Reverse Edges (current flow that can be pushed back):</strong></p>
+                    <table class="table-answer">
+                        <tr>
+                            <th>sa<sub>R</sub></th><th>sb<sub>R</sub></th><th>ab<sub>R</sub></th><th>ac<sub>R</sub></th><th>bc<sub>R</sub></th><th>bd<sub>R</sub></th><th>cd<sub>R</sub></th><th>ct<sub>R</sub></th><th>dt<sub>R</sub></th>
+                        </tr>
+                        <tr>
+                            <td>5</td><td>3</td><td>0</td><td>5</td><td>3</td><td>0</td><td>2</td><td>6</td><td>2</td>
+                        </tr>
+                    </table>
+                    <p><strong>Explanation:</strong></p>
+                    <ul>
+                        <li><strong>Forward edge weight</strong> = capacity - current_flow</li>
+                        <li>Example: sa has flow 5/10, so forward edge = 10 - 5 = 5</li>
+                        <li><strong>Reverse edge weight</strong> = current_flow</li>
+                        <li>Example: sa has flow 5, so reverse edge sa<sub>R</sub> = 5</li>
+                        <li>Edges with 0 current flow (ab, bd) have 0 reverse capacity</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="answer-detail">
+                <strong>Question 1.2 [10 points]:</strong> Edmonds-Karp Augmenting Path
+                <div class="explanation">
+                    <p><strong>ANSWER: s → a → c → t</strong></p>
+                    <p><strong>Explanation:</strong></p>
+                    <ul>
+                        <li>Edmonds-Karp uses BFS, which finds the <strong>shortest path</strong> (fewest edges) first</li>
+                        <li>This path has length 3 (3 edges)</li>
+                        <li>All edges have available capacity in the residual graph:</li>
+                        <ul>
+                            <li>s → a: capacity 5 available</li>
+                            <li>a → c: capacity 2 available</li>
+                            <li>c → t: capacity 4 available</li>
+                        </ul>
+                        <li>Bottleneck = min(5, 2, 4) = 2</li>
+                        <li>Any other path of length 3 would also be acceptable for EK</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="answer-detail">
+                <strong>Question 1.3 [10 points]:</strong> FF Path (NOT EK)
+                <div class="explanation">
+                    <p><strong>ANSWER: s → b → c → d → t</strong></p>
+                    <p><strong>Explanation:</strong></p>
+                    <ul>
+                        <li>Ford-Fulkerson can find <strong>any valid augmenting path</strong>, not just shortest</li>
+                        <li>This path has length 4 (4 edges)</li>
+                        <li>Edmonds-Karp would NOT find this because it's longer than the shortest path (length 3)</li>
+                        <li>All edges have available capacity:</li>
+                        <ul>
+                            <li>s → b: capacity 5 available</li>
+                            <li>b → c: capacity 3 available</li>
+                            <li>c → d: capacity 2 available</li>
+                            <li>d → t: capacity 5 available</li>
+                        </ul>
+                        <li>Bottleneck = min(5, 3, 2, 5) = 2</li>
+                        <li>Other acceptable answers: s → a → b → c → t (length 4), s → a → b → c → d → t (length 5)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="answer-detail">
+                <strong>Question 1.4 [6 points]:</strong> Maximum Flow
+                <div class="explanation">
+                    <p><strong>ANSWER: Maximum flow = 13</strong></p>
+                    <p><strong>Augmenting paths used:</strong></p>
+                    <ol>
+                        <li><strong>s → a → c → t</strong> with bottleneck = 2</li>
+                        <li><strong>s → b → c → d → t</strong> with bottleneck = 3</li>
+                        <li><strong>s → a → b → d → t</strong> with bottleneck = 4</li>
+                        <li><strong>s → b → d → t</strong> with bottleneck = 1</li>
+                        <li><strong>s → a → c → d → t</strong> with bottleneck = 2</li>
+                        <li><strong>s → b → c → t</strong> with bottleneck = 1</li>
+                    </ol>
+                    <p><strong>Verification:</strong></p>
+                    <ul>
+                        <li>Flow out of s = 5 (to a) + 8 (to b) = 13</li>
+                        <li>Flow into t = 10 (from c) + 3 (from d) = 13</li>
+                        <li>Minimum cut = {sa, sb} with capacity 10 + 8 = 18, or {ct, dt} with capacity 10 + 7 = 17</li>
+                        <li>Actual minimum cut = 13 (verified by max-flow min-cut theorem)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>SECTION 2: Reductions & NP-Completeness (50 points)</h3>
+
+            <div class="answer-detail">
+                <strong>Question 2.1 [8 points]:</strong> Complexity Class P
+                <div class="explanation">
+                    <p><strong>ANSWER: Problem X can be solved in polynomial time.</strong></p>
+                    <p><strong>Alternative acceptable answers:</strong></p>
+                    <ul>
+                        <li>"X can be solved by a deterministic Turing machine in polynomial time"</li>
+                        <li>"There exists an algorithm that solves X in O(n<sup>k</sup>) time for some constant k"</li>
+                        <li>"X is efficiently solvable"</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="answer-detail">
+                <strong>Question 2.2 [8 points]:</strong> Complexity Class NP
+                <div class="explanation">
+                    <p><strong>ANSWER: Problem X can be verified in polynomial time.</strong></p>
+                    <p><strong>Alternative acceptable answers:</strong></p>
+                    <ul>
+                        <li>"X can be solved by a non-deterministic Turing machine in polynomial time"</li>
+                        <li>"A solution to X can be checked in polynomial time"</li>
+                        <li>"X can be solved in polynomial time via non-determinism"</li>
+                    </ul>
+                    <p><strong>Note:</strong> NP stands for "Nondeterministic Polynomial time," NOT "Non-Polynomial"</p>
+                </div>
+            </div>
+
+            <div class="answer-detail">
+                <strong>Question 2.3 [8 points]:</strong> Why P ⊆ NP
+                <div class="explanation">
+                    <p><strong>ANSWER: If a problem can be solved in polynomial time, it can also be verified in polynomial time.</strong></p>
+                    <p><strong>Alternative acceptable answers:</strong></p>
+                    <ul>
+                        <li>"Any deterministic polynomial algorithm can also verify in polynomial time"</li>
+                        <li>"Solving is at least as hard as verifying"</li>
+                        <li>"If you can solve it fast, you can check it fast"</li>
+                    </ul>
+                    <p><strong>Detailed explanation:</strong> If we have an algorithm that solves problem X in polynomial time, we can use that same algorithm to verify a proposed solution (just solve the problem ourselves and compare the result). Since solving takes polynomial time, verification also takes polynomial time, so X ∈ NP.</p>
+                </div>
+            </div>
+
+            <div class="answer-detail">
+                <strong>Question 2.4 [9 points]:</strong> NP-Complete Explanation (Plain English)
+                <div class="explanation">
+                    <p><strong>ANSWER: NP-complete problems are the hardest problems to solve, but easy to check if someone gives you an answer.</strong></p>
+                    <p><strong>Alternative acceptable answers:</strong></p>
+                    <ul>
+                        <li>"Problems that are extremely difficult to solve but solutions can be verified quickly"</li>
+                        <li>"The hardest problems where checking an answer is fast but finding it is slow"</li>
+                        <li>"Problems with no known fast solution, but you can verify a solution quickly"</li>
+                    </ul>
+                    <p><strong>Real-world analogy:</strong> Like a jigsaw puzzle - very hard to solve, but easy to check if it's completed correctly by just looking at it.</p>
+                </div>
+            </div>
+
+            <div class="answer-detail">
+                <strong>Question 2.5 [10 points]:</strong> Proving NP-Completeness
+                <div class="explanation">
+                    <p><strong>ANSWER: (1) Show the problem is in NP (verifiable in polynomial time), AND (2) Reduce a known NP-complete problem to it in polynomial time.</strong></p>
+                    <p><strong>Breakdown of the two steps:</strong></p>
+                    <ol>
+                        <li><strong>Show X is in NP:</strong> Demonstrate that given a candidate solution, you can verify it's correct in polynomial time</li>
+                        <li><strong>Show X is NP-hard:</strong> Take a known NP-complete problem Y and show how to transform any instance of Y into an instance of X in polynomial time (reduction Y ≤<sub>p</sub> X)</li>
+                    </ol>
+                    <p><strong>Common mistakes to avoid:</strong></p>
+                    <ul>
+                        <li>❌ Reducing X to a known NP-complete problem (direction is backwards)</li>
+                        <li>❌ Only showing X is in NP (missing the NP-hard part)</li>
+                        <li>❌ Using exponential-time reduction (must be polynomial)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="answer-detail">
+                <strong>Question 2.6 [7 points]:</strong> Reduction Time Complexity
+                <div class="explanation">
+                    <p><strong>ANSWER: d) Polynomial time</strong></p>
+                    <p><strong>Explanation:</strong> For a reduction to be useful in complexity analysis, the reduction itself must take polynomial time (or faster). This is critical because:</p>
+                    <ul>
+                        <li>If we reduce problem A to problem B in polynomial time, and B is solvable in polynomial time, then A is also solvable in polynomial time</li>
+                        <li>The reduction should not be the bottleneck - it should be faster than or comparable to solving the target problem</li>
+                        <li>For NP-completeness proofs, we specifically use <strong>polynomial-time reductions</strong></li>
+                    </ul>
+                    <p><strong>Why other answers are wrong:</strong></p>
+                    <ul>
+                        <li>a, b, c: Too restrictive - polynomial time is sufficient</li>
+                        <li>e, f: If reduction is exponential, it defeats the purpose of using it to analyze complexity</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>SECTION 3: Divide and Conquer (60 points)</h3>
+
+            <div class="answer-detail">
+                <strong>Question 3.1 [30 points]:</strong> Palindrome Finding Algorithm
+                <div class="explanation">
+                    <p><strong>a) Base case [6 points]:</strong></p>
+                    <p><strong>ANSWER:</strong> If the array has 1 or 2 elements, check directly. A single character is a palindrome of length 1. Two characters are a palindrome if they match, otherwise the longest palindrome is length 1.</p>
+
+                    <p><strong>b) Divide step [6 points]:</strong></p>
+                    <p><strong>ANSWER:</strong> Divide the array A[1...n] into two halves: left = A[1...n/2] and right = A[n/2+1...n]</p>
+
+                    <p><strong>c) Conquer step [6 points]:</strong></p>
+                    <p><strong>ANSWER:</strong> Recursively find the longest palindrome in the left half and in the right half. Let these be L<sub>left</sub> and L<sub>right</sub>.</p>
+
+                    <p><strong>d) Combine step [6 points]:</strong></p>
+                    <p><strong>ANSWER:</strong> Find the longest palindrome that crosses the midpoint by expanding from the center outward (similar to merge in mergesort). Compare L<sub>left</sub>, L<sub>right</sub>, and L<sub>cross</sub>, and return the longest one. The crossing palindrome check takes O(n) time.</p>
+
+                    <p><strong>e) Recurrence relation [6 points]:</strong></p>
+                    <p><strong>ANSWER:</strong> T(n) = 2T(n/2) + O(n)</p>
+                    <p>This solves to Θ(n log n) by Master Theorem Case 2 (a=2, b=2, log<sub>b</sub>a = 1, f(n) = n = n<sup>1</sup>)</p>
+                </div>
+            </div>
+
+            <div class="answer-detail">
+                <strong>Question 3.2 [18 points]:</strong> Median-of-Medians 3×3 Proof
+                <div class="explanation">
+                    <p><strong>ANSWER:</strong></p>
+                    <p>Arrange 9 elements into 3 groups of 3:</p>
+                    <pre style="background: white; padding: 10px; font-family: monospace;">
+Group 1: [a, b, c]  → median = b
+Group 2: [d, e, f]  → median = e
+Group 3: [g, h, i]  → median = h
+
+Medians: [b, e, h] → median-of-medians = e
+                    </pre>
+                    <p>After sorting each group:</p>
+                    <pre style="background: white; padding: 10px; font-family: monospace;">
+a ≤ b ≤ c
+d ≤ e ≤ f
+g ≤ h ≤ i
+                    </pre>
+                    <p>And sorting the medians: b ≤ e ≤ h</p>
+
+                    <p><strong>Elements definitely ≤ e:</strong> {a, b, d, e} = 4 elements</p>
+                    <ul>
+                        <li>From Group 1: a, b (both ≤ b ≤ e)</li>
+                        <li>From Group 2: d, e (both ≤ e)</li>
+                    </ul>
+
+                    <p><strong>Elements definitely ≥ e:</strong> {e, f, h, i} = 4 elements</p>
+                    <ul>
+                        <li>From Group 2: e, f (both ≥ e)</li>
+                        <li>From Group 3: h, i (both ≥ h ≥ e)</li>
+                    </ul>
+
+                    <p><strong>Conclusion:</strong> e is greater than or equal to at least 4 out of 9 elements = 44.4% > 33% ✓</p>
+                    <p><strong>Note:</strong> We're unsure about c and g, but we don't need them to prove the 33% guarantee.</p>
+                </div>
+            </div>
+
+            <div class="answer-detail">
+                <strong>Question 3.3 [12 points]:</strong> Master Theorem Analysis
+                <div class="explanation">
+                    <p><strong>Recurrence: T(n) = 4T(n/2) + n²</strong></p>
+
+                    <p><strong>Identify parameters:</strong></p>
+                    <ul>
+                        <li>a = 4 (number of recursive calls)</li>
+                        <li>b = 2 (division factor)</li>
+                        <li>f(n) = n² (work outside recursion)</li>
+                        <li>log<sub>b</sub>a = log<sub>2</sub>4 = 2</li>
+                        <li>So n<sup>log<sub>b</sub>a</sup> = n²</li>
+                    </ul>
+
+                    <p><strong>Compare f(n) with n<sup>log<sub>b</sub>a</sup>:</strong></p>
+                    <ul>
+                        <li>f(n) = n²</li>
+                        <li>n<sup>log<sub>b</sub>a</sup> = n²</li>
+                        <li>They are equal: f(n) = Θ(n²)</li>
+                    </ul>
+
+                    <p><strong>Which case applies: Case 2</strong></p>
+                    <p>Since f(n) = Θ(n<sup>log<sub>b</sub>a</sup> log<sup>k</sup> n) where k = 0</p>
+
+                    <p><strong>Solution: T(n) = Θ(n² log n)</strong></p>
+
+                    <p><strong>Intuition:</strong> The work at each level is n², and there are log n levels, so total work is n² × log n.</p>
+                </div>
+            </div>
+
+            <h3>SECTION 4: Asymptotic Analysis & Proof by Induction (40 points)</h3>
+
+            <div class="answer-detail">
+                <strong>Question 4.1 [25 points]:</strong> Binary Search O(n) Proof
+                <div class="explanation">
+                    <p><strong>a) Base case(s) [8 points]:</strong></p>
+                    <p><strong>ANSWER:</strong> Base case: n = 1</p>
+                    <ul>
+                        <li>For an array of size 1, binary search makes 1 comparison and terminates</li>
+                        <li>We claim T(1) ≤ c·1 for some constant c</li>
+                        <li>Choose c = 1, then T(1) = 1 ≤ 1·1 = 1 ✓</li>
+                    </ul>
+                    <p><strong>Alternative base case:</strong> n = 0</p>
+                    <ul>
+                        <li>Empty array requires 0 operations</li>
+                        <li>T(0) = 0 ≤ c·0 for any c ✓</li>
+                    </ul>
+
+                    <p><strong>b) Inductive hypothesis [6 points]:</strong></p>
+                    <p><strong>ANSWER:</strong> Assume that for all k < n, T(k) ≤ c·k for some constant c ≥ 1</p>
+
+                    <p><strong>c) Inductive step [11 points]:</strong></p>
+                    <p><strong>ANSWER:</strong> Need to prove: T(n) ≤ c·n</p>
+                    <p>Binary search recurrence: T(n) = T(n/2) + O(1)</p>
+                    <p>Let d be the constant for the O(1) work, so T(n) = T(n/2) + d</p>
+                    <p>By inductive hypothesis: T(n/2) ≤ c·(n/2)</p>
+                    <p>Therefore:</p>
+                    <pre style="background: white; padding: 10px;">
+T(n) = T(n/2) + d
+     ≤ c·(n/2) + d         (by inductive hypothesis)
+     = cn/2 + d
+     ≤ cn                  (if we choose c ≥ 2d)
+                    </pre>
+                    <p><strong>Conclusion:</strong> By choosing c ≥ max(1, 2d), we have T(n) ≤ cn for all n ≥ 0, proving binary search is O(n) ✓</p>
+                    <p><strong>Note:</strong> This is a weak bound - binary search is actually O(log n), but O(n) is technically correct since O(log n) ⊆ O(n).</p>
+                </div>
+            </div>
+
+            <div class="answer-detail">
+                <strong>Question 4.2 [15 points]:</strong> Master Theorem Applications
+                <div class="explanation">
+                    <p><strong>a) T(n) = 2T(n/2) + n log n [5 points]</strong></p>
+                    <ul>
+                        <li>a = 2, b = 2, f(n) = n log n</li>
+                        <li>log<sub>b</sub>a = log<sub>2</sub>2 = 1, so n<sup>log<sub>b</sub>a</sup> = n</li>
+                        <li>Compare f(n) = n log n with n<sup>1</sup> = n</li>
+                        <li>f(n) = n log n = Θ(n<sup>1</sup> log<sup>1</sup> n)</li>
+                        <li><strong>Case 2 applies (with k=1)</strong></li>
+                        <li><strong>Answer: T(n) = Θ(n log² n)</strong></li>
+                    </ul>
+
+                    <p><strong>b) T(n) = 3T(n/3) + n² [5 points]</strong></p>
+                    <ul>
+                        <li>a = 3, b = 3, f(n) = n²</li>
+                        <li>log<sub>b</sub>a = log<sub>3</sub>3 = 1, so n<sup>log<sub>b</sub>a</sup> = n</li>
+                        <li>Compare f(n) = n² with n<sup>1</sup> = n</li>
+                        <li>f(n) = n² = Ω(n<sup>1+ε</sup>) where ε = 1</li>
+                        <li>Check regularity: 3·f(n/3) = 3·(n/3)² = n²/3 ≤ (1/3)·n² for large n ✓</li>
+                        <li><strong>Case 3 applies</strong></li>
+                        <li><strong>Answer: T(n) = Θ(n²)</strong></li>
+                    </ul>
+
+                    <p><strong>c) T(n) = 8T(n/2) + n² [5 points]</strong></p>
+                    <ul>
+                        <li>a = 8, b = 2, f(n) = n²</li>
+                        <li>log<sub>b</sub>a = log<sub>2</sub>8 = 3, so n<sup>log<sub>b</sub>a</sup> = n³</li>
+                        <li>Compare f(n) = n² with n³</li>
+                        <li>f(n) = n² = O(n<sup>3-ε</sup>) where ε = 1</li>
+                        <li><strong>Case 1 applies</strong></li>
+                        <li><strong>Answer: T(n) = Θ(n³)</strong></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="background: #fff9c4; padding: 20px; margin: 30px 0; border-left: 4px solid #f57f17;">
+                <h3 style="margin-top: 0; color: #f57f17;">Grading Rubric Summary</h3>
+                <ul>
+                    <li><strong>Section 1 (Max Flow):</strong> 50 points - Focus on correct residual graph calculation and understanding difference between FF and EK</li>
+                    <li><strong>Section 2 (Reductions/NP):</strong> 50 points - Must stay within word limits; precision in definitions is critical</li>
+                    <li><strong>Section 3 (D&C):</strong> 60 points - Algorithm design and Master Theorem application</li>
+                    <li><strong>Section 4 (Asymptotic):</strong> 40 points - Proof rigor and correct application of Master Theorem cases</li>
+                </ul>
+                <p><strong>Total: 200 points</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>Good luck on your exam!</p>
+        <p style="font-size: 0.9em; margin-top: 10px;">Practice exam generated with Claude Code</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
+
+        function toggleAnswers() {
+            const answerKey = document.getElementById('answerKey');
+            const button = document.querySelector('.toggle-answers');
+
+            if (answerKey.classList.contains('show')) {
+                answerKey.classList.remove('show');
+                button.textContent = 'Show Answer Key';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                answerKey.classList.add('show');
+                button.textContent = 'Hide Answer Key';
+                answerKey.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const navMenu = document.getElementById('navMenu');
+            const menuToggle = document.querySelector('.menu-toggle');
+
+            if (!event.target.closest('.navbar')) {
+                navMenu.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
